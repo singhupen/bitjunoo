@@ -37,8 +37,8 @@ export default function Navbar() {
           <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white">
             <span className="text-lg font-bold">B</span>
           </span>
-          <span className={scrolled ? "text-brand-900" : "text-brand-900"}>
-            Bit<span className="text-accent-500">Junoo</span>
+          <span className={scrolled ? "text-brand-900" : "text-white"}>
+            Bit<span className={scrolled ? "text-accent-500" : "text-blue-400"}>Junoo</span>
           </span>
         </a>
 
@@ -47,7 +47,7 @@ export default function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group"
+                className={`text-sm font-medium transition-colors relative group ${scrolled ? "text-slate-600 hover:text-brand-600" : "text-slate-200 hover:text-white"}`}
               >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-500 transition-all group-hover:w-full" />
@@ -66,7 +66,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-brand-900"
+          className={`md:hidden p-2 ${scrolled ? "text-brand-900" : "text-white"}`}
           aria-label="Toggle menu"
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
