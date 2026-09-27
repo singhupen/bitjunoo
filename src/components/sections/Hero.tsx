@@ -85,8 +85,7 @@ const Particles = ({ count = 200 }) => {
         <bufferAttribute
           attach="attributes-position"
           count={particlesPosition.length / 3}
-          array={particlesPosition}
-          itemSize={3}
+          args={[particlesPosition, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.04} color="#38bdf8" transparent opacity={0.4} sizeAttenuation />
