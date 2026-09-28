@@ -3,7 +3,7 @@ import React from 'react';
 export default function VideoSection() {
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
         <div className="text-center mb-12">
           <span className="inline-block py-1 px-3 rounded-full bg-accent-50 text-accent-600 text-sm font-semibold mb-4">
             Innovation
