@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowRight, Play, Zap } from 'lucide-react';
+import { ArrowRight, Play, Zap, Atom, Server, Hexagon, Database, Boxes, Globe, Terminal, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, MeshTransmissionMaterial, Environment } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, Float, MeshTransmissionMaterial, Environment, Html } from '@react-three/drei';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
@@ -55,6 +55,55 @@ const TechCore = () => {
       </Float>
       
       <Environment preset="city" />
+    </group>
+  );
+};
+
+const stack = [
+  { name: "React", icon: Atom },
+  { name: ".NET", icon: Server },
+  { name: "Node.js", icon: Hexagon },
+  { name: "TypeScript", icon: Terminal },
+  { name: "PostgreSQL", icon: Database },
+  { name: "Docker", icon: Boxes },
+  { name: "Next.js", icon: Layers },
+  { name: "Tailwind", icon: Globe },
+];
+
+const OrbitingTech = () => {
+  const groupRef = useRef<THREE.Group>(null);
+  const { viewport } = useThree();
+  
+  // Scale down orbit radius on small screens (e.g. mobile) to ensure responsiveness
+  const scale = Math.min(1, viewport.width / 7); 
+  
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y -= delta * 0.15;
+    }
+  });
+
+  return (
+    <group ref={groupRef} scale={scale}>
+      {stack.map((t, i) => {
+        const angle = (i / stack.length) * Math.PI * 2;
+        const radius = 3.2; // Adjusted radius for the pills
+        return (
+          <group 
+            key={t.name}
+            position={[Math.cos(angle) * radius, Math.sin(angle) * radius * 0.2, Math.sin(angle) * radius]}
+          >
+            <Html center zIndexRange={[100, 0]}>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-sky-500/30 backdrop-blur-md text-sky-400 shadow-lg shadow-sky-500/20 opacity-80 hover:opacity-100 transition-opacity select-none cursor-default">
+                <t.icon className="w-4 h-4" />
+                <span className="text-xs font-semibold whitespace-nowrap">
+                  {t.name}
+                </span>
+              </div>
+            </Html>
+          </group>
+        );
+      })}
     </group>
   );
 };
@@ -197,13 +246,14 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="relative h-[350px] sm:h-[450px] lg:h-[500px] w-full mt-8 lg:mt-0 order-first lg:order-last"
+          className="relative h-[350px] sm:h-[450px] lg:h-[500px] w-full mt-8 lg:mt-0"
         >
           {/* Three.js Canvas */}
           <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
             <ambientLight intensity={0.5} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
             <TechCore />
+            <OrbitingTech />
             <Particles count={250} />
             <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
           </Canvas>
