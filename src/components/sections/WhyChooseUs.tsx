@@ -25,7 +25,7 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why" className="py-24 bg-white">
+    <section id="why" className="py-24">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-accent-600 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2">

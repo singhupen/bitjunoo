@@ -2,7 +2,7 @@ import { ArrowRight, Mail } from "lucide-react";
 
 export default function CTABanner() {
   return (
-    <section id="contact" className="py-24 bg-white">
+    <section id="contact" className="py-24">
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-700 to-accent-600 px-8 py-16 sm:px-16 sm:py-20">
           <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-1/3 translate-x-1/3 blur-2xl" />

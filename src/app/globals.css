@@ -34,6 +34,11 @@
   }
   body {
     font-family: "Inter", system-ui, sans-serif;
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, rgb(168, 205, 243) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(201, 69%, 76%, 0.8) 0px, transparent 50%);
+    background-attachment: fixed;
   }
   h1,
   h2,

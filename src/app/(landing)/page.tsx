@@ -1,6 +1,5 @@
 import Navbar from '@/components/layouts/Navbar';
 import Hero from '@/components/sections/Hero';
-import VideoSection from '@/components/sections/VideoSection';
 import Services from '@/components/sections/Services';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import TechStack from '@/components/sections/TechStack';
@@ -11,11 +10,10 @@ import Footer from '@/components/layouts/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Navbar />
       <main>
         <Hero />
-        <VideoSection />
         <Services />
         <WhyChooseUs />
         <TechStack />
