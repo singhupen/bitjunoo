@@ -2,24 +2,33 @@ import { Quote, Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote:
-      "BitJunoo transformed our legacy system into a modern web platform. Their team was responsive, professional, and delivered ahead of schedule. Our user engagement doubled within three months.",
+    quote: (
+      <>
+        <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-4 w-auto mx-1 -mt-1" /> transformed our legacy system into a modern web platform. Their team was responsive, professional, and delivered ahead of schedule. Our user engagement doubled within three months.
+      </>
+    ),
     name: "Sarah Mitchell",
     role: "CEO, FinSight Technologies",
     initials: "SM",
     color: "from-brand-600 to-brand-500",
   },
   {
-    quote:
-      "The mobile app BitJunoo built for us exceeded every expectation. Clean code, beautiful UI, and seamless App Store approval. They genuinely care about the product.",
+    quote: (
+      <>
+        The mobile app <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-4 w-auto mx-1 -mt-1" /> built for us exceeded every expectation. Clean code, beautiful UI, and seamless App Store approval. They genuinely care about the product.
+      </>
+    ),
     name: "James Okoro",
     role: "Founder, ShopGo",
     initials: "JO",
     color: "from-accent-500 to-accent-400",
   },
   {
-    quote:
-      "We hired BitJunoo to rebuild our .NET backend and the results were outstanding. Performance improved 40%, and their ongoing support has been invaluable.",
+    quote: (
+      <>
+        We hired <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-4 w-auto mx-1 -mt-1" /> to rebuild our .NET backend and the results were outstanding. Performance improved 40%, and their ongoing support has been invaluable.
+      </>
+    ),
     name: "Emily Chen",
     role: "CTO, TeamFlow Inc.",
     initials: "EC",
@@ -38,9 +47,9 @@ export default function Testimonials() {
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-900 mt-3 mb-4">
             Trusted by Teams Worldwide
           </h2>
-          <p className="text-slate-600">
+          <p className="text-slate-600 flex items-center justify-center flex-wrap gap-1">
             Don&apos;t just take our word for it — here&apos;s what our clients have to
-            say about working with BitJunoo.
+            say about working with <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto" />.
           </p>
         </div>
 

@@ -28,8 +28,8 @@ export default function WhyChooseUs() {
     <section id="why" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent-600 font-semibold text-sm uppercase tracking-wider">
-            Why BitJunoo
+          <span className="text-accent-600 font-semibold text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+            Why <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto" />
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-brand-900 mt-3 mb-4">
             A Partner You Can Rely On

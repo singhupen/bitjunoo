@@ -107,7 +107,7 @@ export default function Hero() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 mix-blend-screen"
       >
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-226-large.mp4" type="video/mp4" />
+        <source src="/assets/ai-tech.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay gradient to ensure text readability */}
@@ -147,7 +147,7 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-lg text-slate-300 leading-relaxed mb-8 max-w-xl"
           >
-            BitJunoo delivers cutting-edge web, mobile, and enterprise software
+            <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-6 w-auto mx-1 -mt-1" /> delivers cutting-edge web, mobile, and enterprise software
             solutions. We help startups and enterprises build, scale, and innovate
             with confidence.
           </motion.p>
@@ -197,7 +197,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="relative hidden lg:block h-[500px]"
+          className="relative h-[350px] sm:h-[450px] lg:h-[500px] w-full mt-8 lg:mt-0 order-first lg:order-last"
         >
           {/* Three.js Canvas */}
           <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>

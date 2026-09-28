@@ -27,13 +27,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <a href="#home" className="flex items-center gap-2 text-xl font-bold font-heading mb-4">
-              <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white">
-                B
-              </span>
-              <span className="text-white">
-                Bit<span className="text-accent-400">Junoo</span>
-              </span>
+            <a href="#home" className="flex items-center mb-4">
+              <img src="/icon.png" alt="BitJunoo Logo" className="h-10 md:h-12 w-auto object-contain" />
             </a>
             <p className="text-sm text-slate-400 leading-relaxed mb-5 max-w-xs">
               IT solutions and consultancy helping businesses build powerful
@@ -100,8 +95,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-500">
-            &copy; {new Date().getFullYear()} BitJunoo. All rights reserved.
+          <p className="text-sm text-slate-500 flex items-center justify-center sm:justify-start gap-1">
+            &copy; {new Date().getFullYear()} <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto object-contain mx-1" />. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-slate-500 hover:text-accent-400 transition-colors">Privacy Policy</a>

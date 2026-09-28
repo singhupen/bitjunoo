@@ -32,14 +32,9 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
         <a
           href="#home"
-          className="flex items-center gap-2 text-xl font-bold font-heading"
+          className="flex items-center"
         >
-          <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 text-white">
-            <span className="text-lg font-bold">B</span>
-          </span>
-          <span className={scrolled ? "text-brand-900" : "text-white"}>
-            Bit<span className={scrolled ? "text-accent-500" : "text-blue-400"}>Junoo</span>
-          </span>
+          <img src="/icon.png" alt="BitJunoo Logo" className="h-10 md:h-12 w-auto object-contain" />
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
