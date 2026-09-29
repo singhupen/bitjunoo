@@ -30,7 +30,7 @@ const stats = [
 export default function ImpactMetrics() {
   return (
     <section className="py-8 sm:py-10 bg-slate-50 border-y border-slate-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {stats.map((s) => (
             <div

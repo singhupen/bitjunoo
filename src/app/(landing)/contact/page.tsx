@@ -20,7 +20,7 @@ export default function ContactPage() {
       />
 
       <section className="py-10 sm:py-14 bg-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             <div className="lg:col-span-7">
               <ContactForm />

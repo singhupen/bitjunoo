@@ -3,7 +3,7 @@ import { Compass, Award, Cpu, ShieldCheck, Zap } from "lucide-react";
 export default function AboutMission() {
   return (
     <section className="py-10 sm:py-14 relative overflow-hidden bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         {/* Story Section */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           <div className="lg:col-span-7">

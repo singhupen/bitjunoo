@@ -42,7 +42,7 @@ export default function Navbar() {
           : "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/70 py-2.5 sm:py-3"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <nav className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <img
             src="/icon.png"

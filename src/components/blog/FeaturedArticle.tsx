@@ -4,7 +4,7 @@ import { Clock, Calendar, ArrowRight, Sparkles } from "lucide-react";
 export default function FeaturedArticle() {
   return (
     <section className="py-6 sm:py-8 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-royal-blue/30 border border-royal-blue/30 text-white p-6 sm:p-8 lg:p-9 shadow-xl">
           {/* Ambient Lighting */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-blue/15 rounded-full blur-3xl pointer-events-none" />

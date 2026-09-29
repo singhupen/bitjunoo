@@ -66,7 +66,7 @@ export default function TechStack() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-blue-100/50 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Reduced padding, wide container */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-700 text-xs sm:text-sm font-semibold tracking-wide mb-3">

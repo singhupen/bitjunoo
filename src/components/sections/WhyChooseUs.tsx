@@ -43,7 +43,7 @@ export default function WhyChooseUs() {
       <div className="absolute bottom-10 left-10 w-96 h-96 bg-cyan-300/20 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Reduced padding, wide container */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-700 text-xs sm:text-sm font-semibold tracking-wide mb-3">

@@ -5,7 +5,7 @@ import { Sparkles, ArrowRight } from 'lucide-react';
 export default function VideoSection() {
   return (
     <section className="py-10 sm:py-14 bg-white relative overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="text-center mb-6 sm:mb-8">
           <span className="inline-flex items-center gap-1.5 py-0.5 px-3 rounded-full bg-cyan-blue/10 border border-cyan-blue/25 text-cyan-blue text-[11px] font-semibold mb-3">
             <Sparkles className="w-3 h-3" />
@@ -22,7 +22,7 @@ export default function VideoSection() {
           </p>
         </div>
         
-        <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-royal-blue/10 border border-slate-200 group max-w-5xl mx-auto">
+        <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-royal-blue/10 border border-slate-200 group max-w-6xl mx-auto">
           <video
             autoPlay
             loop

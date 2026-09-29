@@ -94,7 +94,7 @@ export default function PortfolioShowcase() {
 
   return (
     <section className="py-10 sm:py-14 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         {/* Category Filters */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
           {categories.map((cat) => (

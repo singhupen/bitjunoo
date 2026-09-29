@@ -31,7 +31,7 @@ export default function ContactFAQ() {
 
   return (
     <section className="py-10 sm:py-14 bg-slate-50 border-t border-slate-200/80">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue text-xs font-semibold mb-3">
             <HelpCircle className="w-3.5 h-3.5" />

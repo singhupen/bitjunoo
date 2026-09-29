@@ -83,7 +83,7 @@ export default function Portfolio() {
       <div className="absolute top-1/4 right-1/4 w-[600px] h-[400px] bg-sky-200/25 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Reduced padding, wide container */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
           <div className="max-w-2xl">

@@ -5,7 +5,7 @@ export default function CTABanner() {
   return (
     <section id="contact" className="relative py-10 sm:py-14 overflow-hidden">
       {/* Reduced padding, wide container */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 border border-sky-500/25 p-6 sm:p-9 lg:p-10 shadow-[0_25px_60px_-15px_rgba(2,132,199,0.3)]">
           {/* Ambient Lighting Orbs */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/15 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" />

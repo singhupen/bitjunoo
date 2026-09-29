@@ -216,7 +216,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/65 to-slate-950/95 z-0 pointer-events-none" />
 
       {/* High-efficiency container: expanded max-w and tighter horizontal padding */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 w-full">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 w-full">
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
           {/* Left Column: Content */}
           <motion.div 

@@ -16,7 +16,7 @@ export default function CTASection({
 }: CTASectionProps) {
   return (
     <section className="relative py-10 sm:py-14 overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-deep-blue/40 border border-royal-blue/30 p-6 sm:p-9 lg:p-10 shadow-[0_20px_50px_-15px_rgba(9,67,244,0.3)]">
           {/* Ambient Lighting Orbs */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-royal-blue/20 rounded-full blur-3xl pointer-events-none" />
