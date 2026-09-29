@@ -26,7 +26,7 @@ export default function LoginForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -37,14 +37,33 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    // Simulated enterprise authentication
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message ?? "Login failed. Please try again.");
+      }
+
+      // Persist JWT token
+      if (typeof window !== "undefined") {
+        localStorage.setItem("bj_token", data.data.token);
+      }
+
       setSuccess(true);
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
-    }, 1200);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
