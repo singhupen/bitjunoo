@@ -12,7 +12,11 @@ export default function BlogDashboardShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-slate-50/70 text-slate-800 flex relative overflow-hidden">
+      {/* Subtle brand ambient glows */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[300px] bg-royal-blue/[0.04] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/3 w-[500px] h-[350px] bg-purple/[0.03] rounded-full blur-[140px] pointer-events-none" />
+
       {/* Sidebar */}
       <DashboardSidebar
         mobileOpen={mobileOpen}
@@ -20,7 +24,7 @@ export default function BlogDashboardShell({
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         <DashboardHeader
           onMenuClick={() => setMobileOpen(true)}
           onNewArticleClick={() => {
