@@ -85,8 +85,18 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center gap-2.5">
+          <Link
+            href="/login"
+            className={`text-xs sm:text-sm font-semibold transition-colors px-3 py-1.5 rounded-lg ${
+              isDarkTop
+                ? "text-slate-300 hover:text-white hover:bg-white/10"
+                : "text-slate-600 hover:text-royal-blue hover:bg-slate-100"
+            }`}
+          >
+            Console
+          </Link>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-indigo text-white text-sm font-semibold shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
@@ -132,7 +142,14 @@ export default function Navbar() {
                 </li>
               );
             })}
-            <li className="pt-3 border-t border-slate-100">
+            <li className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 w-full px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-50"
+              >
+                Sign In to Console
+              </Link>
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
