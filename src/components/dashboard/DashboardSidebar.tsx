@@ -188,8 +188,8 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
 
   return (
     <>
-      {/* Desktop Persistent Sidebar */}
-      <aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0 h-screen sticky top-0 z-30">
+      {/* Desktop Persistent Fixed Sidebar */}
+      <aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0 h-full overflow-hidden z-30">
         {sidebarContent}
       </aside>
 
