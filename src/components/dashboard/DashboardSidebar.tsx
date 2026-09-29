@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
-  Edit3,
+  PlusCircle,
   BarChart3,
   Tags,
   Settings,
@@ -24,12 +24,12 @@ interface DashboardSidebarProps {
 }
 
 const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, badge: "Live" },
-  { label: "All Articles", href: "/dashboard#articles", icon: FileText, count: 48 },
-  { label: "Drafts & Review", href: "/dashboard#drafts", icon: Edit3, count: 5 },
-  { label: "Audience Analytics", href: "/dashboard#analytics", icon: BarChart3 },
-  { label: "Categories & Tags", href: "/dashboard#categories", icon: Tags },
-  { label: "Platform Settings", href: "/dashboard#settings", icon: Settings },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Articles", href: "/articles", icon: FileText, count: 48 },
+  { label: "Add Article", href: "/add-articles", icon: PlusCircle, badge: "Create" },
+  { label: "Analytics", href: "/analytics", icon: BarChart3 },
+  { label: "Categories", href: "/categories", icon: Tags, count: 6 },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSidebarProps) {
@@ -50,7 +50,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
               BitJunoo
             </span>
             <span className="text-[10px] font-semibold text-cyan-blue uppercase tracking-wider">
-              Publication Console
+              Editorial Console
             </span>
           </div>
         </Link>
@@ -58,7 +58,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
         {/* Close button for mobile */}
         <button
           onClick={onClose}
-          className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
           aria-label="Close navigation"
         >
           <X className="w-5 h-5" />
@@ -70,11 +70,11 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
         {/* Main Section */}
         <div>
           <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-            Workspace
+            Editorial Workspace
           </div>
           <ul className="space-y-1">
             {navItems.map((item) => {
-              const active = pathname === item.href || (item.href === "/dashboard" && pathname === "/dashboard");
+              const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
               return (
                 <li key={item.label}>
                   <Link
@@ -92,13 +92,17 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
                     </div>
 
                     {item.badge && (
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-blue/20 text-cyan-blue border border-cyan-blue/30">
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                        active 
+                          ? "bg-white/20 text-white" 
+                          : "bg-cyan-blue/20 text-cyan-blue border border-cyan-blue/30"
+                      }`}>
                         {item.badge}
                       </span>
                     )}
 
                     {item.count !== undefined && (
-                      <span className="text-[11px] font-mono text-slate-400">
+                      <span className={`text-[11px] font-mono ${active ? "text-white/80" : "text-slate-400"}`}>
                         {item.count}
                       </span>
                     )}
@@ -109,7 +113,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
           </ul>
         </div>
 
-        {/* External Portals Section */}
+        {/* Public Portals Section */}
         <div>
           <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
             Public Channels
@@ -123,7 +127,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
               >
                 <div className="flex items-center gap-2.5">
                   <Bookmark className="w-4 h-4 text-purple group-hover:scale-110 transition-transform" />
-                  <span>View Public Blog</span>
+                  <span>Live Blog Hub</span>
                 </div>
                 <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
               </Link>
@@ -136,7 +140,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
               >
                 <div className="flex items-center gap-2.5">
                   <Globe className="w-4 h-4 text-royal-blue group-hover:scale-110 transition-transform" />
-                  <span>Corporate Website</span>
+                  <span>Main Website</span>
                 </div>
                 <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
               </Link>
@@ -148,7 +152,7 @@ export default function DashboardSidebar({ mobileOpen, onClose }: DashboardSideb
         <div className="p-3.5 rounded-xl bg-gradient-to-br from-royal-blue/15 to-purple/15 border border-royal-blue/30 text-white">
           <div className="flex items-center gap-2 text-xs font-bold text-cyan-blue mb-1">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Editor Active</span>
+            <span>AI Editor Ready</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-normal">
             Automated SEO auditing, readability checks, and semantic keyword indexing enabled for all drafts.
