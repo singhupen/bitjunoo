@@ -4,31 +4,31 @@ import { Sparkles, ArrowRight } from 'lucide-react';
 
 export default function VideoSection() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 py-1 px-3.5 rounded-full bg-cyan-blue/10 border border-cyan-blue/25 text-cyan-blue text-xs font-semibold mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
+    <section className="py-10 sm:py-14 bg-white relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-6 sm:mb-8">
+          <span className="inline-flex items-center gap-1.5 py-0.5 px-3 rounded-full bg-cyan-blue/10 border border-cyan-blue/25 text-cyan-blue text-[11px] font-semibold mb-3">
+            <Sparkles className="w-3 h-3" />
             INNOVATION & AI INTEGRATION
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold font-heading text-slate-900 mb-4 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-slate-900 mb-2.5 tracking-tight">
             Shaping the Future with{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-deep-blue to-purple">
               Autonomous Intelligence
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Experience our vision for seamless technological integration. We harness the power of artificial intelligence, vector data pipelines, and distributed cloud computing to build smarter, faster digital solutions.
           </p>
         </div>
         
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-royal-blue/10 border border-slate-200 group max-w-5xl mx-auto">
+        <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-royal-blue/10 border border-slate-200 group max-w-5xl mx-auto">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-auto object-cover max-h-[580px] transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-auto object-cover max-h-[460px] transition-transform duration-700 group-hover:scale-105"
           >
             <source src="/assets/ai-tech.mp4" type="video/mp4" />
             Your browser does not support the video tag.

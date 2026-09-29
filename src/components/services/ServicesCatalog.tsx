@@ -103,51 +103,51 @@ const services = [
 
 export default function ServicesCatalog() {
   return (
-    <section className="py-20 sm:py-24 bg-white relative">
+    <section className="py-10 sm:py-14 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue text-xs sm:text-sm font-semibold mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue text-xs font-semibold mb-3">
             <Layers className="w-3.5 h-3.5" />
             <span>FULL-SPECTRUM CAPABILITIES</span>
           </div>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight mb-5">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-3">
             Engineered for High-Scale Enterprise Demands
           </h2>
-          <p className="text-base sm:text-lg text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             From frontend velocity to mission-critical backend throughput, our specialized engineering squads build software that performs flawlessly.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-5 sm:gap-6">
           {services.map((s) => (
             <div
               key={s.title}
-              className="group relative bg-slate-50/70 hover:bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm hover:shadow-2xl hover:border-royal-blue/30 transition-all duration-300 flex flex-col justify-between"
+              className="group relative bg-slate-50/70 hover:bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-royal-blue/30 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Header row */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.accentGradient} text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform`}>
-                    <s.icon className="w-7 h-7" />
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.accentGradient} text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform`}>
+                    <s.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm">
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm">
                     {s.badge}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-2xl font-bold text-slate-900 mb-3 group-hover:text-royal-blue transition-colors">
+                <h3 className="font-heading text-xl font-bold text-slate-900 mb-2 group-hover:text-royal-blue transition-colors">
                   {s.title}
                 </h3>
 
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
                   {s.desc}
                 </p>
 
                 {/* Features list */}
-                <div className="space-y-2.5 mb-8">
+                <div className="space-y-2 mb-6">
                   {s.features.map((f) => (
-                    <div key={f} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-blue flex-shrink-0 mt-0.5" />
+                    <div key={f} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </div>
                   ))}
@@ -155,12 +155,12 @@ export default function ServicesCatalog() {
               </div>
 
               {/* Bottom footer: Tech Tags & CTA */}
-              <div className="pt-6 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-4 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap gap-1.5">
                   {s.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-medium px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600"
+                      className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600"
                     >
                       {t}
                     </span>
@@ -172,7 +172,7 @@ export default function ServicesCatalog() {
                   className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-royal-blue hover:text-purple transition-colors"
                 >
                   Consult Squad
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

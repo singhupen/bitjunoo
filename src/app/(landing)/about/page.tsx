@@ -18,10 +18,6 @@ export default function AboutPage() {
         title="Pioneering the Next Era of"
         titleHighlight="Digital Engineering"
         description="We are a senior-led technical consultancy that builds resilient, high-speed software architectures for forward-thinking enterprises and venture-backed startups."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About" },
-        ]}
       />
 
       <AboutMission />

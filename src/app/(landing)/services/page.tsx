@@ -18,10 +18,6 @@ export default function ServicesPage() {
         title="Engineering Resilient"
         titleHighlight="Digital Systems"
         description="From sub-second frontend web applications to high-throughput .NET 9 backends and autonomous cloud pipelines, we engineer software built for massive scale."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services" },
-        ]}
       />
 
       <ServicesCatalog />

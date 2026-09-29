@@ -17,10 +17,6 @@ export default function PortfolioPage() {
         title="Production Systems Built for"
         titleHighlight="Non-Linear Scale"
         description="Explore how our senior engineering pods architect and deliver high-concurrency systems across Fintech, Logistics, Healthcare, and Enterprise AI."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Portfolio" },
-        ]}
       />
 
       <ImpactMetrics />

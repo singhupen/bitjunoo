@@ -196,7 +196,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[92vh] flex flex-col justify-center pt-28 pb-16 overflow-hidden bg-slate-950"
+      className="relative flex flex-col justify-center pt-24 pb-10 sm:pt-28 sm:pb-12 overflow-hidden bg-slate-950"
     >
       {/* Background Video */}
       <video
@@ -217,7 +217,7 @@ export default function Hero() {
 
       {/* High-efficiency container: expanded max-w and tighter horizontal padding */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 w-full">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center w-full">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
           {/* Left Column: Content */}
           <motion.div 
             initial={{ opacity: 0, y: 25 }}
@@ -230,7 +230,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-blue/10 border border-cyan-blue/30 text-cyan-blue text-xs sm:text-sm font-medium mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(5,176,252,0.15)]"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-blue/10 border border-cyan-blue/30 text-cyan-blue text-xs font-medium mb-3.5 backdrop-blur-md shadow-[0_0_20px_rgba(5,176,252,0.15)]"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-blue opacity-75"></span>
@@ -244,7 +244,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.8 }}
-              className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[4rem] font-bold leading-[1.12] tracking-tight text-white mb-6"
+              className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight text-white mb-3.5"
             >
               Engineering Powerful{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
@@ -258,9 +258,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.8 }}
-              className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl"
+              className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6 max-w-2xl"
             >
-              <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-6 w-auto mx-1 -mt-1" /> crafts high-performance web applications, enterprise-grade backends, and cloud architectures. We bridge strategy with engineering precision to scale your business with speed and security.
+              <img src="/icon.png" alt="BitJunoo Logo" className="inline-block h-5 w-auto mx-1 -mt-1" /> crafts high-performance web applications, enterprise-grade backends, and cloud architectures. We bridge strategy with engineering precision to scale your business with speed and security.
             </motion.p>
 
             {/* Action CTAs */}
@@ -268,20 +268,20 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.8 }}
-              className="flex flex-wrap gap-4 items-center"
+              className="flex flex-wrap gap-3 items-center"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-semibold text-sm sm:text-base shadow-[0_0_25px_rgba(6,117,250,0.35)] hover:shadow-[0_0_35px_rgba(6,117,250,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-semibold text-xs sm:text-sm shadow-[0_0_20px_rgba(6,117,250,0.35)] hover:shadow-[0_0_30px_rgba(6,117,250,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
               >
                 Start Your Project
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/portfolio"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 hover:text-white font-medium text-sm sm:text-base border border-white/15 backdrop-blur-md transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 hover:text-white font-medium text-xs sm:text-sm border border-white/15 backdrop-blur-md transition-all duration-200"
               >
-                <Play className="w-4 h-4 text-cyan-blue fill-cyan-blue" />
+                <Play className="w-3.5 h-3.5 text-cyan-blue fill-cyan-blue" />
                 Explore Case Studies
               </Link>
             </motion.div>
@@ -291,7 +291,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.9 }}
-              className="grid grid-cols-3 gap-3 sm:gap-4 pt-8 border-t border-white/10 mt-10 max-w-2xl"
+              className="grid grid-cols-3 gap-2.5 sm:gap-3 pt-5 border-t border-white/10 mt-6 max-w-xl"
             >
               {[
                 { value: '150+', label: 'Delivered Projects', sub: 'On-time delivery' },
@@ -300,13 +300,13 @@ export default function Hero() {
               ].map((s) => (
                 <div 
                   key={s.label}
-                  className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:border-sky-500/30 transition-colors"
+                  className="p-2.5 sm:p-3 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:border-sky-500/30 transition-colors"
                 >
-                  <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white to-sky-200">
+                  <div className="text-xl sm:text-2xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white to-sky-200">
                     {s.value}
                   </div>
-                  <div className="text-xs sm:text-sm font-medium text-slate-200 mt-1">{s.label}</div>
-                  <div className="text-[11px] text-sky-400/80 hidden sm:block mt-0.5">{s.sub}</div>
+                  <div className="text-xs font-medium text-slate-200 mt-0.5">{s.label}</div>
+                  <div className="text-[10px] text-sky-400/80 hidden sm:block mt-0.5">{s.sub}</div>
                 </div>
               ))}
             </motion.div>
@@ -317,7 +317,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-5 relative h-[420px] sm:h-[480px] lg:h-[560px] w-full mt-6 lg:mt-0"
+            className="lg:col-span-5 relative h-[340px] sm:h-[400px] lg:h-[460px] w-full mt-4 lg:mt-0"
           >
             {/* Ambient Glow behind 3D core */}
             <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/20 via-blue-600/10 to-cyan-400/10 rounded-3xl blur-2xl pointer-events-none" />
@@ -368,17 +368,17 @@ export default function Hero() {
         </div>
 
         {/* Dedicated 8-Technology Architecture Bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 w-full">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-8 pt-4 border-t border-white/10 w-full">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
             <span className="text-xs uppercase tracking-wider font-semibold text-slate-400 flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               Core Architecture & Tooling Stack:
             </span>
-            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 sm:gap-2.5">
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2">
               {stack.map((t) => (
                 <div
                   key={t.name}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/10 hover:border-sky-400/50 hover:bg-sky-500/10 text-slate-300 hover:text-white text-xs font-medium transition-all select-none"
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 hover:border-sky-400/50 hover:bg-sky-500/10 text-slate-300 hover:text-white text-xs font-medium transition-all select-none"
                 >
                   <t.icon className="w-3.5 h-3.5 text-cyan-400" />
                   <span>{t.name}</span>

@@ -38,8 +38,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isDarkTop
-          ? "bg-transparent py-5"
-          : "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/70 py-3.5"
+          ? "bg-transparent py-3.5 sm:py-4"
+          : "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/70 py-2.5 sm:py-3"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -47,7 +47,7 @@ export default function Navbar() {
           <img
             src="/icon.png"
             alt="BitJunoo Logo"
-            className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105"
           />
         </Link>
 

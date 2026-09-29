@@ -17,10 +17,6 @@ export default function BlogPage() {
         title="Field Notes on"
         titleHighlight="High-Scale Software"
         description="In-depth technical guides, microservices case studies, and performance optimizations directly from our engineering frontlines."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Blog" },
-        ]}
       />
 
       <FeaturedArticle />

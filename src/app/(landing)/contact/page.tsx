@@ -17,15 +17,11 @@ export default function ContactPage() {
         title="Let's Engineer Your Next"
         titleHighlight="Digital Breakthrough"
         description="Schedule a technical consultation with our principal software architects. We provide immediate feasibility insights, architectural guidance, and scoping estimates."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Contact" },
-        ]}
       />
 
-      <section className="py-20 sm:py-24 bg-white relative">
+      <section className="py-10 sm:py-14 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             <div className="lg:col-span-7">
               <ContactForm />
             </div>
