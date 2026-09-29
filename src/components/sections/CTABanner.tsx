@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Mail, Phone, Calendar, ShieldCheck, Clock, Sparkles } from "lucide-react";
 
 export default function CTABanner() {
@@ -49,14 +50,14 @@ export default function CTABanner() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="mailto:hello@bitjunoo.com"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white font-bold text-base shadow-[0_0_30px_rgba(14,165,233,0.4)] hover:shadow-[0_0_45px_rgba(14,165,233,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+              <Link
+                href="/contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-bold text-base shadow-[0_0_30px_rgba(6,117,250,0.4)] hover:shadow-[0_0_45px_rgba(6,117,250,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
               >
                 <Calendar className="w-5 h-5" />
                 Schedule Free Technical Call
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
 
               <a
                 href="mailto:hello@bitjunoo.com"

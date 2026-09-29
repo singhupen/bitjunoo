@@ -87,7 +87,7 @@ const WebNetwork = ({ count = 80 }) => {
             args={[positions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#93c5fd" size={0.04} transparent opacity={0.6} sizeAttenuation />
+        <pointsMaterial color="#05B0FC" size={0.04} transparent opacity={0.6} sizeAttenuation />
       </points>
       <lineSegments ref={linesRef}>
         <bufferGeometry>
@@ -97,7 +97,7 @@ const WebNetwork = ({ count = 80 }) => {
             args={[linePositions, 3]}
           />
         </bufferGeometry>
-        <lineBasicMaterial color="#60a5fa" transparent opacity={0.15} />
+        <lineBasicMaterial color="#0675FA" transparent opacity={0.15} />
       </lineSegments>
     </group>
   );

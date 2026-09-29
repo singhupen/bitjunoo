@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Sparkles, TrendingUp, ShieldCheck, Zap, Laptop, Smartphone, Database, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, ArrowRight, Sparkles, TrendingUp, ShieldCheck, Zap, Laptop, Smartphone, Database, ExternalLink } from "lucide-react";
 
 interface Project {
   id: string;
@@ -192,17 +193,28 @@ export default function Portfolio() {
                   </div>
 
                   {/* Read case study trigger */}
-                  <a
-                    href="#contact"
-                    className="mt-5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 group-hover:text-blue-700 transition-colors"
+                  <Link
+                    href="/portfolio"
+                    className="mt-5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-royal-blue group-hover:text-purple transition-colors"
                   >
                     <span>Request Full Architecture Case Study</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </article>
           ))}
+        </div>
+
+        {/* View All Case Studies Button */}
+        <div className="mt-14 text-center">
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-sm shadow-xl shadow-slate-950/15 hover:-translate-y-0.5 transition-all"
+          >
+            <span>Explore All Portfolio Case Studies & Metrics</span>
+            <ArrowRight className="w-4 h-4 text-cyan-blue" />
+          </Link>
         </div>
       </div>
     </section>

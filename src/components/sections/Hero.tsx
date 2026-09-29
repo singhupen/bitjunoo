@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { ArrowRight, Play, Zap, Atom, Server, Hexagon, Database, Boxes, Globe, Terminal, Layers, Sparkles, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -208,10 +209,11 @@ export default function Hero() {
         <source src="/assets/ai-tech.mp4" type="video/mp4" />
       </video>
 
-      {/* Modern cybernetic radial lighting */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/95 z-0 pointer-events-none" />
+      {/* Modern cybernetic radial lighting with brand colors */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-royal-blue/20 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-cyan-blue/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 right-10 w-80 h-80 bg-purple/15 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/65 to-slate-950/95 z-0 pointer-events-none" />
 
       {/* High-efficiency container: expanded max-w and tighter horizontal padding */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 w-full">
@@ -228,11 +230,11 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-300 text-xs sm:text-sm font-medium mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(56,189,248,0.15)]"
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-blue/10 border border-cyan-blue/30 text-cyan-blue text-xs sm:text-sm font-medium mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(5,176,252,0.15)]"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-blue opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-blue"></span>
               </span>
               <span className="font-semibold tracking-wide">Enterprise IT Consultancy & Digital Engineering</span>
             </motion.div>
@@ -245,7 +247,7 @@ export default function Hero() {
               className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[4rem] font-bold leading-[1.12] tracking-tight text-white mb-6"
             >
               Engineering Powerful{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
                 Digital Solutions
               </span>{" "}
               for High-Growth Brands
@@ -268,20 +270,20 @@ export default function Hero() {
               transition={{ delay: 0.45, duration: 0.8 }}
               className="flex flex-wrap gap-4 items-center"
             >
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 text-white font-semibold text-sm sm:text-base shadow-[0_0_25px_rgba(14,165,233,0.35)] hover:shadow-[0_0_35px_rgba(14,165,233,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-semibold text-sm sm:text-base shadow-[0_0_25px_rgba(6,117,250,0.35)] hover:shadow-[0_0_35px_rgba(6,117,250,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
               >
                 Start Your Project
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a
-                href="#portfolio"
+              </Link>
+              <Link
+                href="/portfolio"
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 hover:text-white font-medium text-sm sm:text-base border border-white/15 backdrop-blur-md transition-all duration-200"
               >
-                <Play className="w-4 h-4 text-cyan-400 fill-cyan-400" />
+                <Play className="w-4 h-4 text-cyan-blue fill-cyan-blue" />
                 Explore Case Studies
-              </a>
+              </Link>
             </motion.div>
 
             {/* Refined Stats Cards */}

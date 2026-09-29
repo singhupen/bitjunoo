@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { 
   Code2, 
   Smartphone, 
@@ -141,18 +142,21 @@ export default function Services() {
               </div>
 
               {/* Bottom Interactive Link */}
-              <div className="relative z-10 pt-4 border-t border-slate-100/80 flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">
-                <span>Explore Architecture</span>
+              <Link
+                href="/services"
+                className="relative z-10 pt-4 border-t border-slate-100/80 flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-royal-blue transition-colors"
+              >
+                <span>Explore Architecture Specs</span>
                 <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
-              </div>
+              </Link>
             </div>
           ))}
         </div>
 
         {/* Bottom architecture consultation bar */}
-        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-blue-900 via-slate-900 to-sky-950 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-royal-blue/30 text-white border border-royal-blue/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-cyan-300">
+            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-cyan-blue">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
@@ -160,13 +164,13 @@ export default function Services() {
               <p className="text-slate-300 text-xs sm:text-sm">We provide tailored architectural blueprints and feasibility roadmaps within 48 hours.</p>
             </div>
           </div>
-          <a
-            href="#contact"
-            className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-sm hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] hover:-translate-y-0.5 transition-all"
+          <Link
+            href="/contact"
+            className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-bold text-sm shadow-lg shadow-royal-blue/30 hover:shadow-royal-blue/50 hover:-translate-y-0.5 transition-all"
           >
             Request Technical Discovery
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

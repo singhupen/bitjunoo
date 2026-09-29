@@ -1,0 +1,184 @@
+import Link from "next/link";
+import { 
+  Code2, 
+  Smartphone, 
+  Server, 
+  Cloud, 
+  Cpu, 
+  ShieldCheck, 
+  CheckCircle2, 
+  ArrowRight,
+  Layers,
+  Terminal,
+  Database,
+  Globe
+} from "lucide-react";
+
+const services = [
+  {
+    icon: Code2,
+    badge: "01 / Web Architecture",
+    title: "Web Application Engineering",
+    desc: "Bespoke, lightning-fast web applications built on Next.js 16, React 19, and TypeScript. We engineer responsive, accessible, and SEO-optimized web products with sub-second page loads.",
+    features: [
+      "Next.js App Router & Server Components",
+      "Tailwind CSS & Design System Architecture",
+      "PWA & Offline Capability",
+      "Core Web Vitals Optimization (100 Lighthouse score target)",
+    ],
+    tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS"],
+    accentGradient: "from-royal-blue to-cyan-blue",
+  },
+  {
+    icon: Smartphone,
+    badge: "02 / Mobile Engineering",
+    title: "Cross-Platform Mobile Apps",
+    desc: "High-performance iOS and Android applications developed with React Native and native bridges. Smooth 60fps animations, intuitive gesture navigation, and robust offline sync.",
+    features: [
+      "Single codebase for iOS & Android",
+      "Native device hardware integration (Biometrics, Camera, Bluetooth)",
+      "Push notification & deep linking workflows",
+      "App Store & Google Play automated deployment",
+    ],
+    tech: ["React Native", "Expo", "iOS & Android", "WebSockets"],
+    accentGradient: "from-cyan-blue to-teal-400",
+  },
+  {
+    icon: Server,
+    badge: "03 / Enterprise Core",
+    title: "Enterprise .NET 9 Systems",
+    desc: "Mission-critical backend architectures, clean microservices, and high-throughput REST and gRPC APIs powered by C# and .NET 9. Designed for extreme concurrency and low latency.",
+    features: [
+      "Clean architecture & Domain-Driven Design (DDD)",
+      "Entity Framework Core & Dapper optimizations",
+      "Event-driven messaging (Kafka, RabbitMQ, Azure Service Bus)",
+      "Horizontal auto-scaling & memory management",
+    ],
+    tech: [".NET 9", "C#", "PostgreSQL", "Docker", "Redis"],
+    accentGradient: "from-indigo to-violet",
+  },
+  {
+    icon: Cloud,
+    badge: "04 / Infrastructure",
+    title: "Cloud & DevOps Architecture",
+    desc: "Production-grade cloud environments on AWS and Azure with zero-downtime CI/CD deployment pipelines, container orchestration, and Infrastructure as Code.",
+    features: [
+      "Terraform & Pulumi Infrastructure-as-Code",
+      "Kubernetes (EKS/AKS) & Docker containerization",
+      "Automated GitHub Actions CI/CD pipelines",
+      "99.99% uptime SLAs with multi-region redundancy",
+    ],
+    tech: ["AWS", "Azure", "Kubernetes", "Docker", "Terraform"],
+    accentGradient: "from-deep-blue to-royal-blue",
+  },
+  {
+    icon: Cpu,
+    badge: "05 / Intelligence",
+    title: "AI & Workflow Automation",
+    desc: "Transform operational workflows with custom LLM pipelines, Retrieval-Augmented Generation (RAG), vector embeddings, and intelligent agent automation.",
+    features: [
+      "Custom enterprise LLM integrations (OpenAI, Claude, Llama)",
+      "RAG pipelines with Pinecone, pgvector & Qdrant",
+      "Autonomous AI task agents for operations",
+      "Data ingestion, cleansing & ETL pipelines",
+    ],
+    tech: ["Python", "LangChain", "Vector DBs", "OpenAI", "Anthropic"],
+    accentGradient: "from-violet to-purple",
+  },
+  {
+    icon: ShieldCheck,
+    badge: "06 / Security & Audit",
+    title: "Security, Auditing & Refactoring",
+    desc: "Comprehensive code reviews, security vulnerability scanning, and architectural modernizations. We rescue legacy codebases and bring them to modern standards.",
+    features: [
+      "OWASP Top 10 security audits & remediation",
+      "SOC2 & HIPAA technical compliance alignment",
+      "Legacy .NET Framework to modern .NET 9 migration",
+      "Database schema query optimization & indexing",
+    ],
+    tech: ["SonarQube", "Snyk", "OWASP", "OAuth2", "Vault"],
+    accentGradient: "from-purple to-royal-blue",
+  },
+];
+
+export default function ServicesCatalog() {
+  return (
+    <section className="py-20 sm:py-24 bg-white relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue text-xs sm:text-sm font-semibold mb-4">
+            <Layers className="w-3.5 h-3.5" />
+            <span>FULL-SPECTRUM CAPABILITIES</span>
+          </div>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight mb-5">
+            Engineered for High-Scale Enterprise Demands
+          </h2>
+          <p className="text-base sm:text-lg text-slate-600">
+            From frontend velocity to mission-critical backend throughput, our specialized engineering squads build software that performs flawlessly.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {services.map((s) => (
+            <div
+              key={s.title}
+              className="group relative bg-slate-50/70 hover:bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm hover:shadow-2xl hover:border-royal-blue/30 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                {/* Header row */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.accentGradient} text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform`}>
+                    <s.icon className="w-7 h-7" />
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm">
+                    {s.badge}
+                  </span>
+                </div>
+
+                <h3 className="font-heading text-2xl font-bold text-slate-900 mb-3 group-hover:text-royal-blue transition-colors">
+                  {s.title}
+                </h3>
+
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+                  {s.desc}
+                </p>
+
+                {/* Features list */}
+                <div className="space-y-2.5 mb-8">
+                  {s.features.map((f) => (
+                    <div key={f} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-blue flex-shrink-0 mt-0.5" />
+                      <span>{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom footer: Tech Tags & CTA */}
+              <div className="pt-6 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {s.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="text-xs font-medium px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-royal-blue hover:text-purple transition-colors"
+                >
+                  Consult Squad
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
