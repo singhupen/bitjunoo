@@ -1,12 +1,15 @@
 /**
  * services/auth.service.ts
- * Business logic for authentication — register, login, token refresh.
- * Controllers call these methods and do NOT contain business logic.
+ * Business logic for authentication — register, login, profile lookup.
+ *
+ * NOTE: No connectDB() call here.
+ * The database connection is opened once in lib/db/index.ts (imported by the
+ * root layout).  Mongoose buffers all model operations until the socket is
+ * ready, so services can query models directly without waiting.
  */
 
 import User, { IUser } from "@/models/User";
 import { signToken, TokenPayload } from "@/lib/auth/jwt";
-import { connectDB } from "@/lib/db/mongoose";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -34,8 +37,6 @@ export interface AuthResult {
  * Throws if the email is already in use.
  */
 export async function registerUser(payload: RegisterPayload): Promise<AuthResult> {
-  await connectDB();
-
   const existing = await User.findOne({ email: payload.email.toLowerCase() });
   if (existing) {
     throw new Error("An account with this email already exists.");
@@ -61,12 +62,10 @@ export async function registerUser(payload: RegisterPayload): Promise<AuthResult
 
 /**
  * Authenticate an existing user.
- * Throws with generic message on bad credentials (no info leaking).
+ * Throws with a generic message on bad credentials (avoids info leaking).
  */
 export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
-  await connectDB();
-
-  // Explicitly select password for comparison
+  // Explicitly select password field for comparison (it is hidden by default)
   const user = await User.findOne({ email: payload.email.toLowerCase() }).select(
     "+password"
   );
@@ -88,14 +87,13 @@ export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
 
   const token = signToken(tokenPayload);
 
-  // Return sanitised user (password excluded by toJSON transform)
+  // Password is excluded by the toJSON transform defined on the schema
   return { user: user.toJSON() as Omit<IUser, "password">, token };
 }
 
 /**
- * Get a user profile by ID (no password).
+ * Get a user profile by ID (password never returned).
  */
 export async function getUserById(userId: string): Promise<IUser | null> {
-  await connectDB();
   return User.findById(userId);
 }

@@ -1,11 +1,15 @@
 /**
  * services/article.service.ts
  * Business logic for articles — CRUD, pagination, slug lookup.
+ *
+ * NOTE: No connectDB() call here.
+ * The database connection is opened once in lib/db/index.ts (imported by the
+ * root layout).  Mongoose buffers all model operations until the socket is
+ * ready, so services can query models directly without waiting.
  */
 
 import Article, { IArticle } from "@/models/Article";
 import Category from "@/models/Category";
-import { connectDB } from "@/lib/db/mongoose";
 
 export interface CreateArticlePayload {
   title: string;
@@ -35,8 +39,6 @@ export interface ArticleListOptions {
 export async function createArticle(
   payload: CreateArticlePayload
 ): Promise<IArticle> {
-  await connectDB();
-
   const article = await Article.create({
     title: payload.title,
     excerpt: payload.excerpt,
@@ -61,8 +63,6 @@ export async function createArticle(
 
 // ── Read ─────────────────────────────────────────────────────────────────────
 export async function getArticles(options: ArticleListOptions = {}) {
-  await connectDB();
-
   const { page = 1, limit = 10, status, category, search } = options;
   const skip = (page - 1) * limit;
 
@@ -95,12 +95,10 @@ export async function getArticles(options: ArticleListOptions = {}) {
 }
 
 export async function getArticleBySlug(slug: string): Promise<IArticle | null> {
-  await connectDB();
   return Article.findOne({ slug }).populate("author", "name email avatar bio");
 }
 
 export async function getArticleById(id: string): Promise<IArticle | null> {
-  await connectDB();
   return Article.findById(id).populate("author", "name email avatar");
 }
 
@@ -109,8 +107,6 @@ export async function updateArticle(
   id: string,
   payload: UpdateArticlePayload
 ): Promise<IArticle | null> {
-  await connectDB();
-
   const update: Record<string, unknown> = { ...payload };
   if (payload.status === "published") {
     update.publishedAt = new Date();
@@ -128,12 +124,10 @@ export async function updateArticle(
 
 // ── Delete ───────────────────────────────────────────────────────────────────
 export async function deleteArticle(id: string): Promise<IArticle | null> {
-  await connectDB();
   return Article.findByIdAndDelete(id);
 }
 
 // ── Increment views ──────────────────────────────────────────────────────────
 export async function incrementArticleViews(id: string): Promise<void> {
-  await connectDB();
   await Article.findByIdAndUpdate(id, { $inc: { views: 1 } });
 }

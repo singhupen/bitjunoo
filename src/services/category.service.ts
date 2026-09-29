@@ -1,10 +1,14 @@
 /**
  * services/category.service.ts
  * Business logic for category management.
+ *
+ * NOTE: No connectDB() call here.
+ * The database connection is opened once in lib/db/index.ts (imported by the
+ * root layout).  Mongoose buffers all model operations until the socket is
+ * ready, so services can query models directly without waiting.
  */
 
 import Category, { ICategory } from "@/models/Category";
-import { connectDB } from "@/lib/db/mongoose";
 
 // ── Create ───────────────────────────────────────────────────────────────────
 export async function createCategory(data: {
@@ -12,7 +16,6 @@ export async function createCategory(data: {
   description?: string;
   color?: string;
 }): Promise<ICategory> {
-  await connectDB();
   const existing = await Category.findOne({ name: data.name });
   if (existing) throw new Error(`Category "${data.name}" already exists.`);
   return Category.create(data);
@@ -20,12 +23,10 @@ export async function createCategory(data: {
 
 // ── Read ─────────────────────────────────────────────────────────────────────
 export async function getAllCategories(): Promise<ICategory[]> {
-  await connectDB();
   return Category.find().sort({ name: 1 });
 }
 
 export async function getCategoryBySlug(slug: string): Promise<ICategory | null> {
-  await connectDB();
   return Category.findOne({ slug });
 }
 
@@ -34,7 +35,6 @@ export async function updateCategory(
   id: string,
   data: Partial<{ name: string; description: string; color: string }>
 ): Promise<ICategory | null> {
-  await connectDB();
   return Category.findByIdAndUpdate(id, data, {
     new: true,
     runValidators: true,
@@ -43,6 +43,5 @@ export async function updateCategory(
 
 // ── Delete ───────────────────────────────────────────────────────────────────
 export async function deleteCategory(id: string): Promise<ICategory | null> {
-  await connectDB();
   return Category.findByIdAndDelete(id);
 }
