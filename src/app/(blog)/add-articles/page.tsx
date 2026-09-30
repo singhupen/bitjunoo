@@ -14,7 +14,15 @@ export const metadata: Metadata = {
     "Compose, format, and publish enterprise software engineering deep dives, system benchmarks, and production architecture guides.",
 };
 
-export default function AddArticlesPage() {
+interface Props {
+  searchParams: Promise<{ edit?: string }>;
+}
+
+export default async function AddArticlesPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const editId = params.edit ?? undefined;
+  const isEditMode = Boolean(editId);
+
   return (
     <div className="space-y-2.5 pb-4 w-full animate-in fade-in duration-300">
       {/* Top Header & Breadcrumbs Section */}
@@ -36,13 +44,15 @@ export default function AddArticlesPage() {
               <span>Editorial</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-slate-400" />
-            <span className="text-royal-blue font-semibold">New Publication</span>
+            <span className="text-royal-blue font-semibold">
+              {isEditMode ? "Edit Publication" : "New Publication"}
+            </span>
           </nav>
 
           {/* Title & Studio Pro Badge */}
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="font-heading text-lg sm:text-xl font-extrabold text-slate-950 tracking-tight">
-              Create New Publication
+              {isEditMode ? "Edit Publication" : "Create New Publication"}
             </h1>
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-royal-blue/10 via-purple/10 to-royal-blue/10 border border-royal-blue/20 text-royal-blue text-[10px] font-bold tracking-wider uppercase shadow-2xs">
               <Sparkles className="w-2.5 h-2.5 text-royal-blue animate-pulse" />
@@ -52,7 +62,9 @@ export default function AddArticlesPage() {
 
           {/* Description */}
           <p className="text-xs text-slate-500 max-w-3xl leading-snug">
-            Compose architecture teardowns, high-throughput benchmarks, and cloud deployment guides with real-time markdown &amp; HTML visual preview.
+            {isEditMode
+              ? "Update and republish your article — changes are automatically saved as drafts."
+              : "Compose architecture teardowns, high-throughput benchmarks, and cloud deployment guides with real-time markdown & HTML visual preview."}
           </p>
         </div>
 
@@ -77,7 +89,7 @@ export default function AddArticlesPage() {
       </header>
 
       {/* Main Orchestrated Editor Component */}
-      <ArticleEditor />
+      <ArticleEditor articleId={editId} />
     </div>
   );
 }

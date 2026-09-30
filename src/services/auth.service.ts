@@ -1,14 +1,9 @@
 /**
  * services/auth.service.ts
- * Business logic for authentication — register, login, profile lookup.
- *
- * NOTE: No connectDB() call here.
- * The database connection is opened once in lib/db/index.ts (imported by the
- * root layout).  Mongoose buffers all model operations until the socket is
- * ready, so services can query models directly without waiting.
+ * Business logic for authentication — register, login, profile lookup & update.
  */
 
-import User, { IUser } from "@/models/User";
+import User, { IUser, ISocialLinks } from "@/models/User";
 import { signToken, TokenPayload } from "@/lib/auth/jwt";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -28,6 +23,19 @@ export interface LoginPayload {
 export interface AuthResult {
   user: Omit<IUser, "password">;
   token: string;
+}
+
+export interface UpdateProfilePayload {
+  name?: string;
+  bio?: string;
+  avatar?: string;
+  headline?: string;
+  location?: string;
+  socialLinks?: Partial<ISocialLinks>;
+  defaultCategory?: string;
+  defaultLevel?: string;
+  emailDigest?: boolean;
+  articleFeedback?: boolean;
 }
 
 // ── Service Methods ──────────────────────────────────────────────────────────
@@ -99,15 +107,52 @@ export async function getUserById(userId: string): Promise<IUser | null> {
 }
 
 /**
- * Update user profile by ID.
+ * Update user profile by ID — supports all profile fields including social links.
  */
 export async function updateUserProfile(
   userId: string,
-  updates: Partial<Pick<IUser, "name" | "bio" | "avatar">>
+  updates: UpdateProfilePayload
 ): Promise<IUser | null> {
+  const updateDoc: Record<string, unknown> = {};
+
+  if (updates.name !== undefined) updateDoc.name = updates.name;
+  if (updates.bio !== undefined) updateDoc.bio = updates.bio;
+  if (updates.avatar !== undefined) updateDoc.avatar = updates.avatar;
+  if (updates.headline !== undefined) updateDoc.headline = updates.headline;
+  if (updates.location !== undefined) updateDoc.location = updates.location;
+  if (updates.defaultCategory !== undefined) updateDoc.defaultCategory = updates.defaultCategory;
+  if (updates.defaultLevel !== undefined) updateDoc.defaultLevel = updates.defaultLevel;
+  if (updates.emailDigest !== undefined) updateDoc.emailDigest = updates.emailDigest;
+  if (updates.articleFeedback !== undefined) updateDoc.articleFeedback = updates.articleFeedback;
+
+  // Merge social links individually to allow partial updates
+  if (updates.socialLinks) {
+    for (const [key, val] of Object.entries(updates.socialLinks)) {
+      updateDoc[`socialLinks.${key}`] = val;
+    }
+  }
+
   return User.findByIdAndUpdate(
     userId,
-    { $set: updates },
+    { $set: updateDoc },
     { new: true, runValidators: true }
   );
+}
+
+/**
+ * Change user password — verifies current password before updating.
+ */
+export async function changeUserPassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<void> {
+  const user = await User.findById(userId).select("+password");
+  if (!user) throw new Error("User not found.");
+
+  const isMatch = await user.comparePassword(currentPassword);
+  if (!isMatch) throw new Error("Current password is incorrect.");
+
+  user.password = newPassword;
+  await user.save();
 }

@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { authFetch } from "@/lib/api/apiClient";
 import {
-  Sparkles,
   CheckCircle2,
   AlertCircle,
   Copy,
@@ -13,11 +12,8 @@ import {
   Upload,
   Image as ImageIcon,
   Trash2,
-  Maximize2,
-  Minimize2,
-  Eye,
-  Columns,
-  RefreshCw,
+  Cloud,
+  CloudOff,
 } from "lucide-react";
 import EditorToolbar, { ViewMode } from "./article-editor/EditorToolbar";
 import PreviewRenderer from "./article-editor/PreviewRenderer";
@@ -27,10 +23,14 @@ import LinkModal from "./article-editor/LinkModal";
 import TableModal from "./article-editor/TableModal";
 import CodeSnippetsModal from "./article-editor/CodeSnippetsModal";
 
-const INITIAL_CONTENT = "";
+interface ArticleEditorProps {
+  /** If provided, the editor will load and edit this article */
+  articleId?: string;
+}
 
-export default function ArticleEditor() {
+export default function ArticleEditor({ articleId }: ArticleEditorProps) {
   const router = useRouter();
+  const isEditMode = Boolean(articleId);
 
   // Document state
   const [title, setTitle] = useState("");
@@ -38,6 +38,7 @@ export default function ArticleEditor() {
   const [isSlugCustom, setIsSlugCustom] = useState(false);
   const [excerpt, setExcerpt] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
+  const [coverPublicId, setCoverPublicId] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [readTime, setReadTime] = useState("5 min read");
   const [level, setLevel] = useState("Beginner");
@@ -45,16 +46,22 @@ export default function ArticleEditor() {
   const [tags, setTags] = useState<string[]>([]);
 
   // Editor Content & Undo/Redo stack
-  const [content, setContent] = useState(INITIAL_CONTENT);
-  const [history, setHistory] = useState<string[]>([INITIAL_CONTENT]);
+  const [content, setContent] = useState("");
+  const [history, setHistory] = useState<string[]>([""]);
   const [historyIndex, setHistoryIndex] = useState(0);
 
   // UI state
   const [viewMode, setViewMode] = useState<ViewMode>("split");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+  const [autoSaveStatus, setAutoSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [copiedSlug, setCopiedSlug] = useState(false);
+  const [isLoadingArticle, setIsLoadingArticle] = useState(isEditMode);
+
+  // Current saved article ID (used when editing after first save)
+  const [savedArticleId, setSavedArticleId] = useState<string | null>(articleId ?? null);
 
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -64,6 +71,41 @@ export default function ArticleEditor() {
   const [selectedTextForLink, setSelectedTextForLink] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const autoSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // ── Load article if in edit mode ───────────────────────────────────────────
+  useEffect(() => {
+    if (!articleId) return;
+    async function loadArticle() {
+      setIsLoadingArticle(true);
+      try {
+        const res = await authFetch(`/api/articles/${articleId}`);
+        if (res.ok) {
+          const json = await res.json();
+          const a = json.data;
+          setTitle(a.title ?? "");
+          setSlug(a.slug ?? "");
+          setExcerpt(a.excerpt ?? "");
+          setContent(a.content ?? "");
+          setCategory(a.category ?? "Uncategorized");
+          setTags(a.tags ?? []);
+          setReadTime(a.readTime ? `${a.readTime} min read` : "5 min read");
+          if (a.coverImage?.url) setCoverUrl(a.coverImage.url);
+          if (a.coverImage?.publicId) setCoverPublicId(a.coverImage.publicId);
+          setIsSlugCustom(true); // lock slug for existing articles
+          setHistory([a.content ?? ""]);
+          setHistoryIndex(0);
+        } else {
+          setStatusMessage({ type: "error", text: "Failed to load article. It may not exist or you don't have access." });
+        }
+      } catch {
+        setStatusMessage({ type: "error", text: "Network error while loading article." });
+      } finally {
+        setIsLoadingArticle(false);
+      }
+    }
+    loadArticle();
+  }, [articleId]);
 
   // Auto-generate slug when title changes unless manually customized
   const handleTitleChange = (val: string) => {
@@ -203,7 +245,7 @@ export default function ArticleEditor() {
           handleRedo();
         } else if (e.key.toLowerCase() === "s") {
           e.preventDefault();
-          handlePublish("Draft");
+          handleSave("draft");
         }
       }
     };
@@ -212,35 +254,29 @@ export default function ArticleEditor() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
-  // Local storage auto-save draft restoration
+  // Auto-save to backend as draft when content changes (debounced 3s)
   useEffect(() => {
-    const saved = localStorage.getItem("bitjunoo_draft_auto");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.title) setTitle(parsed.title);
-        if (parsed.slug) setSlug(parsed.slug);
-        if (parsed.excerpt) setExcerpt(parsed.excerpt);
-        if (parsed.content) setContent(parsed.content);
-        if (parsed.category) setCategory(parsed.category);
-        if (parsed.coverUrl) setCoverUrl(parsed.coverUrl);
-        if (parsed.tags) setTags(parsed.tags);
-      } catch (e) {
-        console.error("Could not load auto-saved draft", e);
-      }
-    }
-  }, []);
+    if (!title.trim() || isLoadingArticle) return;
 
-  // Save to local storage on content update
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      localStorage.setItem(
-        "bitjunoo_draft_auto",
-        JSON.stringify({ title, slug, excerpt, content, category, coverUrl, tags })
-      );
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [title, slug, excerpt, content, category, coverUrl, tags]);
+    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+
+    autoSaveTimerRef.current = setTimeout(async () => {
+      if (!title.trim()) return;
+      try {
+        setAutoSaveStatus("saving");
+        await performSave("draft", false); // silent auto-save
+        setAutoSaveStatus("saved");
+        setLastSavedAt(new Date());
+      } catch {
+        setAutoSaveStatus("error");
+      }
+    }, 3000);
+
+    return () => {
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, content, excerpt, category, tags]);
 
   // Copy article link
   const handleCopyLink = () => {
@@ -250,7 +286,7 @@ export default function ArticleEditor() {
     setTimeout(() => setCopiedSlug(false), 2000);
   };
 
-  // Cover image local file handler
+  // Cover image local file handler — converts to base64 for preview
   const handleCoverUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -261,12 +297,65 @@ export default function ArticleEditor() {
     const reader = new FileReader();
     reader.onload = (event) => {
       setCoverUrl(event.target?.result as string);
+      setCoverPublicId(""); // local preview, no publicId yet
     };
     reader.readAsDataURL(file);
   };
 
-  // Publish / Save draft logic
-  const handlePublish = async (status: "Published" | "Draft" | "Scheduled") => {
+  // Core save/publish API call
+  const performSave = async (
+    status: "draft" | "published" | "scheduled",
+    scheduledAt?: string | false
+  ): Promise<void> => {
+    const payload: Record<string, unknown> = {
+      title,
+      slug,
+      excerpt,
+      content,
+      category,
+      tags,
+      readTime: parseInt(readTime) || 5,
+      status,
+      coverImage: coverUrl
+        ? { url: coverUrl, publicId: coverPublicId || "", alt: title }
+        : undefined,
+    };
+
+    if (status === "scheduled" && scheduledAt) {
+      payload.scheduledAt = scheduledAt;
+    }
+
+    if (savedArticleId) {
+      // UPDATE existing article
+      const res = await authFetch(`/api/articles/${savedArticleId}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        throw new Error(json.message ?? "Failed to update article.");
+      }
+    } else {
+      // CREATE new article
+      const res = await authFetch("/api/articles", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        throw new Error(json.message ?? "Failed to create article.");
+      }
+      const json = await res.json();
+      // Store the ID so subsequent saves use PATCH
+      if (json.data?._id) setSavedArticleId(json.data._id);
+    }
+  };
+
+  // Main user-triggered save/publish handler
+  const handleSave = async (
+    status: "draft" | "published" | "scheduled",
+    scheduledAt?: string
+  ) => {
     if (!title.trim()) {
       setStatusMessage({ type: "error", text: "Please provide an article headline before saving." });
       return;
@@ -276,55 +365,57 @@ export default function ArticleEditor() {
     setStatusMessage(null);
 
     try {
-      // Post to /api/articles
-      const res = await authFetch("/api/articles", {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          slug,
-          excerpt,
-          content,
-          category,
-          tags,
-          readTime: parseInt(readTime) || 8,
-          status: status === "Published" ? "published" : "draft",
-          coverImage: coverUrl ? { url: coverUrl, alt: title } : undefined,
-        }),
-      });
+      await performSave(status, scheduledAt);
 
-      if (res.ok) {
-        setStatusMessage({
-          type: "success",
-          text:
-            status === "Published"
-              ? "Article published live to BitJunoo blog!"
-              : "Article successfully saved as draft!",
-        });
-        setTimeout(() => {
-          router.push("/articles");
-        }, 1200);
-      } else {
-        // If not authenticated or API route returned draft fallback, notify cleanly
-        setStatusMessage({
-          type: "success",
-          text: `Article state successfully updated to ${status} in local workspace!`,
-        });
-        setTimeout(() => {
-          router.push("/articles");
-        }, 1200);
+      setLastSavedAt(new Date());
+      setAutoSaveStatus("saved");
+
+      const successMsg =
+        status === "published"
+          ? "Article published live to BitJunoo blog!"
+          : status === "scheduled"
+          ? "Article scheduled successfully!"
+          : "Article saved as draft!";
+
+      setStatusMessage({ type: "success", text: successMsg });
+
+      // Navigate to articles list after publish / schedule
+      if (status === "published" || status === "scheduled") {
+        setTimeout(() => router.push("/articles"), 1400);
       }
-    } catch {
+    } catch (err) {
       setStatusMessage({
-        type: "success",
-        text: `Article state successfully updated to ${status} in local workspace!`,
+        type: "error",
+        text: err instanceof Error ? err.message : "An error occurred while saving.",
       });
-      setTimeout(() => {
-        router.push("/articles");
-      }, 1200);
     } finally {
       setIsSaving(false);
     }
   };
+
+  // Adapter for ArticleEditorSidebar's onPublish callback signature
+  const handlePublish = (
+    status: "Published" | "Draft" | "Scheduled",
+    scheduledAt?: string
+  ) => {
+    const map: Record<string, "draft" | "published" | "scheduled"> = {
+      Published: "published",
+      Draft: "draft",
+      Scheduled: "scheduled",
+    };
+    handleSave(map[status], scheduledAt);
+  };
+
+  if (isLoadingArticle) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center space-y-3">
+          <div className="w-8 h-8 border-2 border-royal-blue border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-slate-500">Loading article...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`space-y-4 ${isFullscreen ? "fixed inset-0 z-50 bg-slate-100 p-3 sm:p-4 overflow-y-auto" : ""}`}>
@@ -348,7 +439,7 @@ export default function ArticleEditor() {
 
       {/* Main Grid: Left Editor + Right Meta Sidebar */}
       <div className="grid lg:grid-cols-12 gap-3 items-start">
-        {/* Left Column: Title, Cover & Editor (Full width in fullscreen or when preview/write mode is wide) */}
+        {/* Left Column: Title, Cover & Editor */}
         <div className={`${isFullscreen ? "lg:col-span-12" : "lg:col-span-8"} space-y-2.5`}>
           {/* Unified Article Metadata Card */}
           <div className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-2xs space-y-2.5">
@@ -445,7 +536,7 @@ export default function ArticleEditor() {
                   {coverUrl && (
                     <button
                       type="button"
-                      onClick={() => setCoverUrl("")}
+                      onClick={() => { setCoverUrl(""); setCoverPublicId(""); }}
                       className="inline-flex items-center gap-1 text-[10px] text-rose-600 hover:text-rose-700 font-semibold cursor-pointer"
                     >
                       <Trash2 className="w-3 h-3" />
@@ -528,10 +619,9 @@ export default function ArticleEditor() {
               onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
             />
 
-            {/* Split View: Dual Pane (Left Write, Right Live Preview) */}
+            {/* Split View: Dual Pane */}
             {viewMode === "split" && (
               <div className="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 min-h-[500px]">
-                {/* Editor Textarea Pane */}
                 <div className="p-3.5 sm:p-4 flex flex-col bg-white">
                   <textarea
                     ref={textareaRef}
@@ -541,8 +631,6 @@ export default function ArticleEditor() {
                     className="w-full h-full min-h-[460px] font-mono text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none resize-none bg-transparent"
                   />
                 </div>
-
-                {/* Live Synchronized Preview Pane */}
                 <div className="p-3.5 sm:p-5 bg-slate-50/50 overflow-y-auto max-h-[700px]">
                   <PreviewRenderer
                     content={content}
@@ -555,7 +643,7 @@ export default function ArticleEditor() {
               </div>
             )}
 
-            {/* Write Focus View: Full-width Distraction-free Editor */}
+            {/* Write Focus View */}
             {viewMode === "write" && (
               <div className="p-4 sm:p-6 min-h-[500px] bg-white">
                 <textarea
@@ -568,7 +656,7 @@ export default function ArticleEditor() {
               </div>
             )}
 
-            {/* Preview Only View: High-fidelity Publication Page */}
+            {/* Preview Only View */}
             {viewMode === "preview" && (
               <div className="p-4 sm:p-6 bg-slate-50/70 min-h-[500px]">
                 <PreviewRenderer
@@ -585,10 +673,30 @@ export default function ArticleEditor() {
             {/* Bottom Status Ribbon */}
             <div className="px-4 py-2 bg-slate-50/90 border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5 font-medium text-emerald-600">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Auto-saved locally
-                </span>
+                {autoSaveStatus === "saving" && (
+                  <span className="flex items-center gap-1.5 font-medium text-amber-600">
+                    <Cloud className="w-3.5 h-3.5 animate-pulse" />
+                    Saving...
+                  </span>
+                )}
+                {autoSaveStatus === "saved" && lastSavedAt && (
+                  <span className="flex items-center gap-1.5 font-medium text-emerald-600">
+                    <Cloud className="w-3.5 h-3.5" />
+                    Saved {lastSavedAt.toLocaleTimeString()}
+                  </span>
+                )}
+                {autoSaveStatus === "error" && (
+                  <span className="flex items-center gap-1.5 font-medium text-rose-600">
+                    <CloudOff className="w-3.5 h-3.5" />
+                    Auto-save failed
+                  </span>
+                )}
+                {autoSaveStatus === "idle" && (
+                  <span className="flex items-center gap-1.5 text-slate-400">
+                    <Cloud className="w-3.5 h-3.5" />
+                    Cloud draft
+                  </span>
+                )}
                 <span className="text-slate-300">•</span>
                 <span className="font-mono text-[11px]">
                   {content.split(/\s+/).filter(Boolean).length} words
@@ -604,7 +712,7 @@ export default function ArticleEditor() {
           </div>
         </div>
 
-        {/* Right Column: Editorial & Publishing Sidebar (Hidden in fullscreen unless toggled) */}
+        {/* Right Column: Editorial & Publishing Sidebar */}
         {!isFullscreen && (
           <ArticleEditorSidebar
             className="lg:col-span-4"

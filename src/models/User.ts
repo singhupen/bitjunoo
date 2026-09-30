@@ -1,10 +1,21 @@
 /**
  * models/User.ts
  * Mongoose User model — handles admin / author accounts.
+ * Extended with social profile fields and developer links.
  */
 
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
+
+export interface ISocialLinks {
+  website?: string;
+  github?: string;
+  twitter?: string;
+  linkedin?: string;
+  youtube?: string;
+  devto?: string;
+  hashnode?: string;
+}
 
 export interface IUser extends Document {
   name: string;
@@ -13,10 +24,30 @@ export interface IUser extends Document {
   role: "admin" | "author" | "viewer";
   avatar?: string;
   bio?: string;
+  headline?: string;       // Professional headline/title
+  location?: string;       // City, Country
+  socialLinks?: ISocialLinks;
+  defaultCategory?: string;
+  defaultLevel?: string;
+  emailDigest?: boolean;
+  articleFeedback?: boolean;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
+
+const SocialLinksSchema = new Schema<ISocialLinks>(
+  {
+    website: { type: String, trim: true },
+    github: { type: String, trim: true },
+    twitter: { type: String, trim: true },
+    linkedin: { type: String, trim: true },
+    youtube: { type: String, trim: true },
+    devto: { type: String, trim: true },
+    hashnode: { type: String, trim: true },
+  },
+  { _id: false }
+);
 
 const UserSchema = new Schema<IUser>(
   {
@@ -47,6 +78,13 @@ const UserSchema = new Schema<IUser>(
     },
     avatar: { type: String },
     bio: { type: String, maxlength: [500, "Bio cannot exceed 500 characters"] },
+    headline: { type: String, maxlength: [200, "Headline cannot exceed 200 characters"], trim: true },
+    location: { type: String, maxlength: [100, "Location cannot exceed 100 characters"], trim: true },
+    socialLinks: { type: SocialLinksSchema, default: {} },
+    defaultCategory: { type: String, default: "Backend & Systems" },
+    defaultLevel: { type: String, default: "Senior / Architect" },
+    emailDigest: { type: Boolean, default: true },
+    articleFeedback: { type: Boolean, default: true },
   },
   {
     timestamps: true,

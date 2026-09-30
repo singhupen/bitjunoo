@@ -34,7 +34,7 @@ interface ArticleEditorSidebarProps {
   setAuthor: (author: string) => void;
   tags: string[];
   setTags: (tags: string[]) => void;
-  onPublish: (status: "Published" | "Draft" | "Scheduled") => void;
+  onPublish: (status: "Published" | "Draft" | "Scheduled", scheduledAt?: string) => void;
   isSaving: boolean;
   className?: string;
 }
@@ -201,7 +201,7 @@ export default function ArticleEditorSidebar({
           <button
             type="button"
             disabled={isSaving}
-            onClick={() => onPublish(publishStatus)}
+            onClick={() => onPublish(publishStatus, publishStatus === "Scheduled" ? scheduleDate : undefined)}
             className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-indigo to-purple hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
           >
             <Send className="w-3.5 h-3.5" />
@@ -219,7 +219,7 @@ export default function ArticleEditorSidebar({
           <button
             type="button"
             disabled={isSaving}
-            onClick={() => onPublish("Draft")}
+            onClick={() => onPublish("Draft", undefined)}
             className="w-full py-1.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Save className="w-3 h-3 text-slate-400" />

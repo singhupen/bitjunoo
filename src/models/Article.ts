@@ -1,6 +1,7 @@
 /**
  * models/Article.ts
  * Mongoose Article model — represents blog/editorial publications.
+ * Supports draft, published, archived, and scheduled statuses.
  */
 
 import mongoose, { Document, Model, Schema, Types } from "mongoose";
@@ -18,10 +19,11 @@ export interface IArticle extends Document {
   author: Types.ObjectId;
   category: string;
   tags: string[];
-  status: "draft" | "published" | "archived";
+  status: "draft" | "published" | "archived" | "scheduled";
   readTime?: number; // estimated minutes
   views: number;
   publishedAt?: Date;
+  scheduledAt?: Date;  // when status is "scheduled"
   createdAt: Date;
   updatedAt: Date;
 }
@@ -68,12 +70,13 @@ const ArticleSchema = new Schema<IArticle>(
     tags: [{ type: String, trim: true }],
     status: {
       type: String,
-      enum: ["draft", "published", "archived"],
+      enum: ["draft", "published", "archived", "scheduled"],
       default: "draft",
     },
     readTime: { type: Number },
     views: { type: Number, default: 0 },
     publishedAt: { type: Date },
+    scheduledAt: { type: Date },
   },
   { timestamps: true }
 );
@@ -91,6 +94,10 @@ ArticleSchema.pre<IArticle>("save", function () {
     this.publishedAt = new Date();
   }
 });
+
+// ── Indexes ──────────────────────────────────────────────────────────────────
+ArticleSchema.index({ author: 1, status: 1 });
+ArticleSchema.index({ status: 1, createdAt: -1 });
 
 const Article: Model<IArticle> =
   mongoose.models.Article ?? mongoose.model<IArticle>("Article", ArticleSchema);

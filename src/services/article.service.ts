@@ -1,11 +1,7 @@
 /**
  * services/article.service.ts
  * Business logic for articles — CRUD, pagination, slug lookup.
- *
- * NOTE: No connectDB() call here.
- * The database connection is opened once in lib/db/index.ts (imported by the
- * root layout).  Mongoose buffers all model operations until the socket is
- * ready, so services can query models directly without waiting.
+ * Supports user-specific drafts, published, scheduled, and archived states.
  */
 
 import Article, { IArticle } from "@/models/Article";
@@ -19,10 +15,11 @@ export interface CreateArticlePayload {
   content: string;
   category: string;
   tags?: string[];
-  status?: "draft" | "published" | "archived";
+  status?: "draft" | "published" | "archived" | "scheduled";
   coverImage?: { url: string; publicId: string; alt?: string };
   authorId: string;
   readTime?: number;
+  scheduledAt?: string; // ISO date string for scheduled articles
 }
 
 export interface UpdateArticlePayload extends Partial<CreateArticlePayload> {
@@ -35,13 +32,14 @@ export interface ArticleListOptions {
   status?: string;
   category?: string;
   search?: string;
+  authorId?: string; // filter by user (for user-specific drafts etc.)
 }
 
 // ── Create ───────────────────────────────────────────────────────────────────
 export async function createArticle(
   payload: CreateArticlePayload
 ): Promise<IArticle> {
-  const article = await Article.create({
+  const articleData: Record<string, unknown> = {
     title: payload.title,
     slug: payload.slug,
     excerpt: payload.excerpt,
@@ -52,26 +50,38 @@ export async function createArticle(
     coverImage: payload.coverImage,
     author: payload.authorId,
     readTime: payload.readTime,
-  });
+  };
+
+  if (payload.status === "scheduled" && payload.scheduledAt) {
+    articleData.scheduledAt = new Date(payload.scheduledAt);
+  }
+  if (payload.status === "published") {
+    articleData.publishedAt = new Date();
+  }
+
+  const article = await Article.create(articleData);
 
   // Increment category article count
-  await Category.findOneAndUpdate(
-    { name: payload.category },
-    { $inc: { articleCount: 1 } },
-    { upsert: false }
-  );
+  if (payload.status === "published") {
+    await Category.findOneAndUpdate(
+      { name: payload.category },
+      { $inc: { articleCount: 1 } },
+      { upsert: false }
+    );
+  }
 
   return article;
 }
 
-// ── Read ─────────────────────────────────────────────────────────────────────
+// ── Read (with optional user filter) ─────────────────────────────────────────
 export async function getArticles(options: ArticleListOptions = {}) {
-  const { page = 1, limit = 10, status, category, search } = options;
+  const { page = 1, limit = 10, status, category, search, authorId } = options;
   const skip = (page - 1) * limit;
 
   const filter: Record<string, unknown> = {};
   if (status) filter.status = status;
   if (category) filter.category = category;
+  if (authorId) filter.author = authorId;
   if (search) {
     filter.$or = [
       { title: { $regex: search, $options: "i" } },
@@ -97,6 +107,17 @@ export async function getArticles(options: ArticleListOptions = {}) {
   };
 }
 
+// ── Get user-specific article counts by status ────────────────────────────────
+export async function getUserArticleStats(authorId: string) {
+  const [drafts, published, scheduled, total] = await Promise.all([
+    Article.countDocuments({ author: authorId, status: "draft" }),
+    Article.countDocuments({ author: authorId, status: "published" }),
+    Article.countDocuments({ author: authorId, status: "scheduled" }),
+    Article.countDocuments({ author: authorId }),
+  ]);
+  return { drafts, published, scheduled, total };
+}
+
 export async function getArticleBySlug(slug: string): Promise<IArticle | null> {
   return Article.findOne({ slug }).populate("author", "name email avatar bio");
 }
@@ -108,26 +129,45 @@ export async function getArticleById(id: string): Promise<IArticle | null> {
 // ── Update ───────────────────────────────────────────────────────────────────
 export async function updateArticle(
   id: string,
-  payload: UpdateArticlePayload
+  payload: UpdateArticlePayload,
+  requestingUserId?: string
 ): Promise<IArticle | null> {
   const update: Record<string, unknown> = { ...payload };
+
+  // When moving to published, record publishedAt and clear scheduledAt
   if (payload.status === "published") {
     update.publishedAt = new Date();
+    update.scheduledAt = undefined;
   }
+
+  // When scheduling, record scheduledAt
+  if (payload.status === "scheduled" && payload.scheduledAt) {
+    update.scheduledAt = new Date(payload.scheduledAt);
+  }
+
   if (payload.authorId) {
     update.author = payload.authorId;
     delete update.authorId;
   }
 
-  return Article.findByIdAndUpdate(id, update, {
+  // Build query — enforce author ownership if requestingUserId provided
+  const query: Record<string, unknown> = { _id: id };
+  if (requestingUserId) query.author = requestingUserId;
+
+  return Article.findOneAndUpdate(query, update, {
     new: true,
     runValidators: true,
   }).populate("author", "name email avatar");
 }
 
 // ── Delete ───────────────────────────────────────────────────────────────────
-export async function deleteArticle(id: string): Promise<IArticle | null> {
-  return Article.findByIdAndDelete(id);
+export async function deleteArticle(
+  id: string,
+  requestingUserId?: string
+): Promise<IArticle | null> {
+  const query: Record<string, unknown> = { _id: id };
+  if (requestingUserId) query.author = requestingUserId;
+  return Article.findOneAndDelete(query);
 }
 
 // ── Increment views ──────────────────────────────────────────────────────────
