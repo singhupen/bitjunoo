@@ -97,3 +97,17 @@ export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
 export async function getUserById(userId: string): Promise<IUser | null> {
   return User.findById(userId);
 }
+
+/**
+ * Update user profile by ID.
+ */
+export async function updateUserProfile(
+  userId: string,
+  updates: Partial<Pick<IUser, "name" | "bio" | "avatar">>
+): Promise<IUser | null> {
+  return User.findByIdAndUpdate(
+    userId,
+    { $set: updates },
+    { new: true, runValidators: true }
+  );
+}

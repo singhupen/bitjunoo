@@ -10,6 +10,7 @@ export default function BlogDashboardShell({
   children: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div className="h-screen h-[100dvh] w-screen max-w-full bg-slate-50/70 text-slate-800 flex relative overflow-hidden">
@@ -21,12 +22,16 @@ export default function BlogDashboardShell({
       <DashboardSidebar
         mobileOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed(!collapsed)}
       />
 
       {/* Main Column: Header fixed at top, View Area scrolls underneath */}
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative z-10">
         <DashboardHeader
           onMenuClick={() => setMobileOpen(true)}
+          collapsed={collapsed}
+          onToggleCollapse={() => setCollapsed(!collapsed)}
         />
 
         <main className="flex-1 min-h-0 overflow-y-auto px-2.5 sm:px-4 lg:px-6 py-2 sm:py-3 w-full">
