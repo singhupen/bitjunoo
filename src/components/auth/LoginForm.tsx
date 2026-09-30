@@ -18,8 +18,8 @@ import {
 
 export default function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@bitjunoo.com");
-  const [password, setPassword] = useState("••••••••••••");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -68,23 +68,7 @@ export default function LoginForm() {
 
   return (
     <div className="w-full">
-      {/* Demo Credentials Pill */}
-      <div className="mb-5 p-3 rounded-xl bg-blue-50/80 border border-blue-200/80 text-xs text-slate-700 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <KeyRound className="w-4 h-4 text-royal-blue flex-shrink-0" />
-          <span>Demo Account: <strong className="text-slate-900 font-semibold">admin@bitjunoo.com</strong></span>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            setEmail("admin@bitjunoo.com");
-            setPassword("BitJunoo@2026");
-          }}
-          className="text-royal-blue font-bold hover:underline cursor-pointer"
-        >
-          Auto-fill
-        </button>
-      </div>
+
 
       {success && (
         <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in duration-300">
@@ -149,7 +133,7 @@ export default function LoginForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••••"
+              placeholder="••••••••"
               className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-royal-blue/30 focus:border-royal-blue text-slate-900 transition-all placeholder:text-slate-400"
             />
             <button
@@ -212,12 +196,7 @@ export default function LoginForm() {
           <button
             type="button"
             onClick={() => {
-              setLoading(true);
-              setTimeout(() => {
-                setLoading(false);
-                setSuccess(true);
-                setTimeout(() => router.push("/dashboard"), 800);
-              }, 900);
+              alert("Google SSO is not configured.");
             }}
             className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer"
           >
@@ -245,12 +224,7 @@ export default function LoginForm() {
           <button
             type="button"
             onClick={() => {
-              setLoading(true);
-              setTimeout(() => {
-                setLoading(false);
-                setSuccess(true);
-                setTimeout(() => router.push("/dashboard"), 800);
-              }, 900);
+              alert("Enterprise SSO is not configured.");
             }}
             className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer"
           >

@@ -7,7 +7,22 @@ export const metadata: Metadata = {
   description: "Browse, filter, and manage technical articles, deep dives, and system architecture guides.",
 };
 
-export default function ArticlesPage() {
+import { getArticles } from "@/services/article.service";
+
+export default async function ArticlesPage() {
+  const result = await getArticles({ limit: 100 }); // Getting a larger batch for the manager
+  
+  const formattedArticles = result.articles.map((article: any) => ({
+    id: article._id.toString(),
+    title: article.title,
+    category: article.category || "Uncategorized",
+    status: article.status ? article.status.charAt(0).toUpperCase() + article.status.slice(1) : "Draft",
+    views: article.views?.toLocaleString() || "0",
+    readTime: `${article.readTime || 5} min`,
+    updatedAt: new Date(article.updatedAt || article.createdAt).toLocaleDateString(),
+    author: article.author?.name || "Unknown Author",
+  }));
+
   return (
     <div className="space-y-6">
       {/* Top Section Header */}
@@ -24,7 +39,7 @@ export default function ArticlesPage() {
         </p>
       </div>
 
-      <ArticlesManager />
+      <ArticlesManager initialArticles={formattedArticles} />
     </div>
   );
 }

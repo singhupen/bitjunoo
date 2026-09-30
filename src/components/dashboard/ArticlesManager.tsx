@@ -28,97 +28,14 @@ interface ArticleItem {
   author: string;
 }
 
-const allArticlesData: ArticleItem[] = [
-  {
-    id: "art-1",
-    title: "Zero-Downtime Database Migrations in High-Concurrency .NET 9 Microservices",
-    category: "Backend & Systems",
-    status: "Published",
-    views: "18,420",
-    readTime: "9 min",
-    updatedAt: "2 days ago",
-    author: "Alex Vance",
-  },
-  {
-    id: "art-2",
-    title: "Autonomous AI Agents in Production: Guardrails, Latency, and Failover Design",
-    category: "AI & Agents",
-    status: "Published",
-    views: "24,890",
-    readTime: "11 min",
-    updatedAt: "5 days ago",
-    author: "Elena Rostova",
-  },
-  {
-    id: "art-3",
-    title: "Optimizing Next.js 16 Edge Rendering: 60fps WebGL with React 19 Compiler",
-    category: "Frontend Architecture",
-    status: "Published",
-    views: "14,110",
-    readTime: "7 min",
-    updatedAt: "1 week ago",
-    author: "Sarah Mitchell",
-  },
-  {
-    id: "art-4",
-    title: "Multi-Region Kubernetes Observability with Prometheus & OpenTelemetry",
-    category: "Cloud & DevOps",
-    status: "In Review",
-    views: "—",
-    readTime: "8 min",
-    updatedAt: "Yesterday",
-    author: "James Okoro",
-  },
-  {
-    id: "art-5",
-    title: "Cross-Platform React Native 0.76 New Architecture Performance Audit",
-    category: "Mobile Systems",
-    status: "Draft",
-    views: "—",
-    readTime: "6 min",
-    updatedAt: "3 hours ago",
-    author: "Alex Vance",
-  },
-  {
-    id: "art-6",
-    title: "Benchmarking Vector Search Latencies: pgvector vs Qdrant vs Pinecone",
-    category: "Data & AI",
-    status: "Scheduled",
-    views: "—",
-    readTime: "10 min",
-    updatedAt: "Tomorrow",
-    author: "Elena Rostova",
-  },
-  {
-    id: "art-7",
-    title: "Building Resilient gRPC Microservices with Envoy Service Mesh & TLS",
-    category: "Backend & Systems",
-    status: "Published",
-    views: "9,640",
-    readTime: "7 min",
-    updatedAt: "2 weeks ago",
-    author: "Alex Vance",
-  },
-  {
-    id: "art-8",
-    title: "Implementing Zero-Trust Architecture in Hybrid Cloud Kubernetes Clusters",
-    category: "Cloud & DevOps",
-    status: "Published",
-    views: "12,300",
-    readTime: "12 min",
-    updatedAt: "3 weeks ago",
-    author: "James Okoro",
-  },
-];
-
 const categories = ["All Categories", "Backend & Systems", "Frontend Architecture", "AI & Agents", "Cloud & DevOps", "Mobile Systems", "Data & AI"];
 const statuses = ["All Statuses", "Published", "In Review", "Draft", "Scheduled"];
 
-export default function ArticlesManager() {
+export default function ArticlesManager({ initialArticles }: { initialArticles: ArticleItem[] }) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [selectedStatus, setSelectedStatus] = useState("All Statuses");
-  const [articles, setArticles] = useState<ArticleItem[]>(allArticlesData);
+  const [articles, setArticles] = useState<ArticleItem[]>(initialArticles);
 
   const filtered = articles.filter((item) => {
     const matchesSearch = item.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -161,9 +78,18 @@ export default function ArticlesManager() {
     }
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (confirm(`Archive article "${title}"?`)) {
-      setArticles((prev) => prev.filter((a) => a.id !== id));
+      try {
+        const res = await fetch(`/api/articles/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          setArticles((prev) => prev.filter((a) => a.id !== id));
+        } else {
+          alert("Failed to delete article. Ensure you have proper permissions.");
+        }
+      } catch(e) {
+        alert("An error occurred while deleting the article.");
+      }
     }
   };
 

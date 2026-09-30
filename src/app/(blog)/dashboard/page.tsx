@@ -20,34 +20,61 @@ export const metadata: Metadata = {
   description: "High-level overview of readership metrics, active drafts, and publishing pipelines.",
 };
 
-const recentArticlesPreview = [
-  {
-    id: "art-1",
-    title: "Zero-Downtime Database Migrations in High-Concurrency .NET 9 Microservices",
-    category: "Backend & Systems",
-    status: "Published",
-    views: "18,420",
-    readTime: "9 min",
-  },
-  {
-    id: "art-2",
-    title: "Autonomous AI Agents in Production: Guardrails, Latency, and Failover Design",
-    category: "AI & Agents",
-    status: "Published",
-    views: "24,890",
-    readTime: "11 min",
-  },
-  {
-    id: "art-3",
-    title: "Optimizing Next.js 16 Edge Rendering: 60fps WebGL with React 19 Compiler",
-    category: "Frontend Architecture",
-    status: "Published",
-    views: "14,110",
-    readTime: "7 min",
-  },
-];
+import { getArticles } from "@/services/article.service";
+import { Users, TrendingUp } from "lucide-react";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const result = await getArticles({ limit: 5 });
+  const recentArticles = result.articles.map((article: any) => ({
+    id: article._id.toString(),
+    title: article.title,
+    category: article.category,
+    status: article.status ? article.status.charAt(0).toUpperCase() + article.status.slice(1) : "Draft",
+    views: article.views?.toLocaleString() || "0",
+    readTime: `${article.readTime || 5} min`,
+  }));
+
+  const totalViews = result.articles.reduce((acc: number, curr: any) => acc + (curr.views || 0), 0);
+
+  const dynamicStats = [
+    {
+      title: "Published Articles",
+      value: result.total.toString(),
+      change: "Lifetime total",
+      trend: "up",
+      icon: FileText,
+      accent: "text-royal-blue bg-blue-50 border-blue-100",
+      glow: "group-hover:border-royal-blue/30",
+    },
+    {
+      title: "Total Readers",
+      value: totalViews.toLocaleString(),
+      change: "Lifetime views",
+      trend: "up",
+      icon: Users,
+      accent: "text-purple bg-purple/10 border-purple/20",
+      glow: "group-hover:border-purple/30",
+    },
+    {
+      title: "Average Read Duration",
+      value: "4m 32s",
+      change: "Estimated",
+      trend: "up",
+      icon: Clock,
+      accent: "text-cyan-blue bg-cyan-50 border-cyan-100",
+      glow: "group-hover:border-cyan-blue/30",
+    },
+    {
+      title: "System Status",
+      value: "Online",
+      change: "All services running",
+      trend: "up",
+      icon: TrendingUp,
+      accent: "text-emerald-600 bg-emerald-50 border-emerald-100",
+      glow: "group-hover:border-emerald-300",
+    },
+  ];
+
   return (
     <div className="space-y-6">
       {/* Top Welcome Header */}
@@ -95,7 +122,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 4 Stat Overview Cards */}
-      <DashboardStats />
+      <DashboardStats stats={dynamicStats} />
 
       {/* Middle Row: Recent Publications Snapshot & Audience Snapshot */}
       <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
@@ -121,7 +148,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="divide-y divide-slate-100">
-              {recentArticlesPreview.map((item) => (
+              {recentArticles.length > 0 ? recentArticles.map((item) => (
                 <div key={item.id} className="py-3 flex items-center justify-between gap-3">
                   <div className="space-y-1">
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
@@ -137,7 +164,11 @@ export default function DashboardPage() {
                     <div className="text-[10px] text-slate-400">{item.readTime}</div>
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div className="py-8 text-center text-sm text-slate-500">
+                  No articles published yet.
+                </div>
+              )}
             </div>
           </div>
 

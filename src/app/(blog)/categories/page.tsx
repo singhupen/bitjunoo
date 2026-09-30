@@ -7,7 +7,40 @@ export const metadata: Metadata = {
   description: "Organize publication domains, topic taxonomies, and technical keywords.",
 };
 
-export default function CategoriesPage() {
+import { getAllCategories } from "@/services/category.service";
+import { getArticles } from "@/services/article.service";
+
+export default async function CategoriesPage() {
+  const [categories, articlesResult] = await Promise.all([
+    getAllCategories(),
+    getArticles({ limit: 1000 })
+  ]);
+
+  const categoryItems = categories.map((cat: any) => ({
+    id: cat._id.toString(),
+    name: cat.name,
+    slug: cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-'),
+    description: cat.description || "",
+    count: cat.articleCount || 0,
+    views: "0", // DB doesn't store views per category yet
+    color: "text-royal-blue border-royal-blue/30",
+    badgeBg: "bg-blue-50 text-royal-blue",
+  }));
+
+  const tagCounts: Record<string, number> = {};
+  articlesResult.articles.forEach((a: any) => {
+    if (a.tags) {
+      a.tags.forEach((t: string) => {
+        tagCounts[t] = (tagCounts[t] || 0) + 1;
+      });
+    }
+  });
+
+  const popularTags = Object.entries(tagCounts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 15);
+
   return (
     <div className="space-y-6">
       {/* Top Section Header */}
@@ -24,7 +57,7 @@ export default function CategoriesPage() {
         </p>
       </div>
 
-      <CategoriesManager />
+      <CategoriesManager initialCategories={categoryItems} popularTags={popularTags} totalArticles={articlesResult.total} />
     </div>
   );
 }

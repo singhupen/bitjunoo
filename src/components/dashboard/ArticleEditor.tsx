@@ -26,62 +26,22 @@ import LinkModal from "./article-editor/LinkModal";
 import TableModal from "./article-editor/TableModal";
 import CodeSnippetsModal from "./article-editor/CodeSnippetsModal";
 
-const INITIAL_CONTENT = `## Architectural Overview
-
-Modern high-concurrency systems demand deterministic latencies, automated failover guarantees, and zero-allocation network channels. In this deep dive, we explore how to achieve sub-second consensus across globally distributed clusters.
-
-<figure class="article-image align-center my-6 clear-both" style="max-width: 75%; margin: 1.5rem auto; text-align: center;">
-  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Server Cluster Architecture" class="rounded-2xl shadow-md border border-slate-200/90 w-full h-auto object-cover" />
-  <figcaption class="text-xs text-slate-500 mt-2 italic text-center font-medium">Figure 1: Low-latency distributed cluster topology with edge relay nodes</figcaption>
-</figure>
-
-### Sample High-Throughput Service Configuration
-
-The gRPC telemetry stream dynamically multiplexes streaming RPCs over HTTP/2 sockets with custom keepalive timeouts:
-
-\`\`\`csharp
-// High-Throughput gRPC Channel Configuration
-var channel = GrpcChannel.ForAddress("https://cluster-01.bitjunoo.internal", new GrpcChannelOptions {
-    HttpHandler = new SocketsHttpHandler {
-        EnableMultipleHttp2Connections = true,
-        KeepAlivePingDelay = TimeSpan.FromSeconds(60),
-        PooledConnectionIdleTimeout = TimeSpan.FromMinutes(5)
-    }
-});
-\`\`\`
-
-> [!TIP]
-> Keep connection pools warmed during scaling events using pre-warmed container pools to avoid cold-start latency spikes.
-
-### Key Performance Benchmarks
-
-| Metric Benchmark | Legacy Architecture | BitJunoo Next.js & .NET 9 | Improvement |
-| --- | --- | --- | --- |
-| P99 Edge Latency | 84ms | 11ms | 7.6x faster |
-| Throughput (Req/sec) | 12,500 | 92,000 | 7.36x scale |
-| CPU Allocation | 68% | 22% | 3.1x efficiency |
-
-- [x] Verified TCP keep-alive multiplexing
-- [x] Zero-downtime rolling container rebuild
-- [ ] Multi-region fallback verification
-`;
+const INITIAL_CONTENT = "";
 
 export default function ArticleEditor() {
   const router = useRouter();
 
   // Document state
-  const [title, setTitle] = useState("Architecting Sub-Second Distributed Consensus in Next.js 16 & .NET 9");
-  const [slug, setSlug] = useState("architecting-sub-second-distributed-consensus");
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
   const [isSlugCustom, setIsSlugCustom] = useState(false);
-  const [excerpt, setExcerpt] = useState(
-    "Deep architectural dive into orchestrating high-throughput distributed microservices with deterministic failover and low P99 latencies."
-  );
-  const [coverUrl, setCoverUrl] = useState("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80");
-  const [category, setCategory] = useState("Backend & Systems");
-  const [readTime, setReadTime] = useState("8 min read");
-  const [level, setLevel] = useState("Senior / Architect");
-  const [author, setAuthor] = useState("Alex Vance");
-  const [tags, setTags] = useState<string[]>(["Next.js 16", ".NET 9", "Distributed Systems", "gRPC"]);
+  const [excerpt, setExcerpt] = useState("");
+  const [coverUrl, setCoverUrl] = useState("");
+  const [category, setCategory] = useState("Uncategorized");
+  const [readTime, setReadTime] = useState("5 min read");
+  const [level, setLevel] = useState("Beginner");
+  const [author, setAuthor] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
 
   // Editor Content & Undo/Redo stack
   const [content, setContent] = useState(INITIAL_CONTENT);
