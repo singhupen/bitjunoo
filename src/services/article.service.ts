@@ -10,6 +10,7 @@
 
 import Article, { IArticle } from "@/models/Article";
 import Category from "@/models/Category";
+import "@/models/User"; // ensure User schema is registered for .populate("author")
 
 export interface CreateArticlePayload {
   title: string;
