@@ -29,8 +29,8 @@ export default function BlogDashboardShell({
           onMenuClick={() => setMobileOpen(true)}
         />
 
-        <main className="flex-1 min-h-0 overflow-y-auto px-3.5 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
-          <div className="max-w-[1560px] mx-auto w-full">
+        <main className="flex-1 min-h-0 overflow-y-auto px-2.5 sm:px-4 lg:px-6 py-2 sm:py-3 w-full">
+          <div className="max-w-[1780px] mx-auto w-full">
             {children}
           </div>
         </main>

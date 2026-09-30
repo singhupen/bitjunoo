@@ -73,7 +73,7 @@ export default function EditorToolbar({
   onToggleFullscreen,
 }: EditorToolbarProps) {
   return (
-    <div className="p-2 sm:p-2.5 bg-slate-50/90 border-b border-slate-200/90 flex flex-wrap items-center justify-between gap-1.5 backdrop-blur-md sticky top-0 z-30 select-none">
+    <div className="px-2 py-1.5 sm:px-3 sm:py-1.5 bg-slate-50/90 border-b border-slate-200/90 flex flex-wrap items-center justify-between gap-1 backdrop-blur-md sticky top-0 z-30 select-none">
       {/* Left Formatting Tools */}
       <div className="flex flex-wrap items-center gap-1">
         {/* History Group */}

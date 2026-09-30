@@ -327,37 +327,38 @@ export default function ArticleEditor() {
   };
 
   return (
-    <div className={`space-y-6 ${isFullscreen ? "fixed inset-0 z-50 bg-slate-100 p-4 overflow-y-auto" : ""}`}>
+    <div className={`space-y-4 ${isFullscreen ? "fixed inset-0 z-50 bg-slate-100 p-3 sm:p-4 overflow-y-auto" : ""}`}>
       {/* Toast Feedback */}
       {statusMessage && (
         <div
-          className={`p-4 rounded-2xl border text-sm flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300 shadow-lg ${
+          className={`p-3.5 rounded-xl border text-xs sm:text-sm flex items-center gap-2.5 animate-in fade-in slide-in-from-top-2 duration-300 shadow-md ${
             statusMessage.type === "success"
               ? "bg-emerald-50 border-emerald-300 text-emerald-900"
               : "bg-rose-50 border-rose-300 text-rose-900"
           }`}
         >
           {statusMessage.type === "success" ? (
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
           )}
           <span className="font-semibold">{statusMessage.text}</span>
         </div>
       )}
 
       {/* Main Grid: Left Editor + Right Meta Sidebar */}
-      <div className="grid lg:grid-cols-12 gap-6 items-start">
+      <div className="grid lg:grid-cols-12 gap-3 items-start">
         {/* Left Column: Title, Cover & Editor (Full width in fullscreen or when preview/write mode is wide) */}
-        <div className={`${isFullscreen ? "lg:col-span-12" : "lg:col-span-8"} space-y-6`}>
-          {/* Article Title & Slug Card */}
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+        <div className={`${isFullscreen ? "lg:col-span-12" : "lg:col-span-8"} space-y-2.5`}>
+          {/* Unified Article Metadata Card */}
+          <div className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-2xs space-y-2.5">
+            {/* Headline */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                   Article Headline
                 </label>
-                <span className="text-[11px] font-mono text-slate-400">
+                <span className="text-[10px] font-mono text-slate-400">
                   {title.length} / 120 chars
                 </span>
               </div>
@@ -367,13 +368,13 @@ export default function ArticleEditor() {
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g. Architecting Sub-Second Distributed Consensus in Next.js 16 & .NET 9"
-                className="w-full px-4 py-3 text-lg sm:text-2xl font-black font-heading rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 focus:border-royal-blue text-slate-900 placeholder:text-slate-300 placeholder:font-normal transition-all"
+                className="w-full px-3 py-2 sm:py-2.5 text-base sm:text-lg font-extrabold font-heading rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 focus:border-royal-blue text-slate-900 placeholder:text-slate-300 placeholder:font-normal transition-all"
               />
             </div>
 
             {/* Permalink / Slug bar */}
-            <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
-              <span className="font-mono text-slate-400 font-medium">
+            <div className="flex flex-wrap items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80 text-xs">
+              <span className="font-mono text-slate-400 font-medium text-[11px]">
                 bitjunoo.com/blog/
               </span>
               <input
@@ -384,7 +385,7 @@ export default function ArticleEditor() {
                   setSlug(e.target.value);
                   setIsSlugCustom(true);
                 }}
-                className={`flex-1 font-mono text-xs font-semibold px-2 py-1 rounded-lg border transition-all ${
+                className={`flex-1 font-mono text-xs font-semibold px-2 py-0.5 rounded border transition-all ${
                   isSlugCustom
                     ? "bg-white text-royal-blue border-royal-blue/30 focus:outline-none focus:ring-1 focus:ring-royal-blue"
                     : "bg-slate-100 text-slate-700 border-transparent cursor-default"
@@ -393,7 +394,7 @@ export default function ArticleEditor() {
               <button
                 type="button"
                 onClick={() => setIsSlugCustom(!isSlugCustom)}
-                className="p-1.5 rounded-lg text-slate-500 hover:text-royal-blue hover:bg-slate-200/70 transition-colors cursor-pointer"
+                className="p-1 rounded text-slate-500 hover:text-royal-blue hover:bg-slate-200/70 transition-colors cursor-pointer"
                 title={isSlugCustom ? "Lock Slug" : "Edit Custom Slug"}
               >
                 <Edit2 className="w-3.5 h-3.5" />
@@ -401,7 +402,7 @@ export default function ArticleEditor() {
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 text-[11px] font-semibold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 text-[10px] font-semibold transition-colors cursor-pointer"
                 title="Copy Article URL"
               >
                 {copiedSlug ? (
@@ -418,91 +419,94 @@ export default function ArticleEditor() {
               </button>
             </div>
 
-            {/* Subtitle / Excerpt Input */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Summary & SEO Excerpt
-              </label>
-              <textarea
-                rows={2}
-                value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
-                placeholder="Write a concise, engaging summary for article cards and Google search results..."
-                className="w-full p-3 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-800 placeholder:text-slate-400 resize-none"
-              />
-            </div>
-          </div>
-
-          {/* Featured Cover Image Banner Card */}
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-royal-blue" />
-                <h3 className="font-heading font-bold text-sm text-slate-900">
-                  Featured Cover Banner
-                </h3>
-              </div>
-              {coverUrl && (
-                <button
-                  type="button"
-                  onClick={() => setCoverUrl("")}
-                  className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-700 font-semibold cursor-pointer"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Remove Cover</span>
-                </button>
-              )}
-            </div>
-
-            {coverUrl ? (
-              <div className="relative group rounded-2xl overflow-hidden border border-slate-200 max-h-64 shadow-inner">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={coverUrl}
-                  alt="Cover preview"
-                  className="w-full h-56 sm:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                  <label className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white text-slate-900 text-xs font-bold shadow-lg hover:bg-slate-100 cursor-pointer">
-                    <Upload className="w-3.5 h-3.5 text-royal-blue" />
-                    <span>Replace Image</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleCoverUpload}
-                    />
-                  </label>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col sm:flex-row items-center gap-4 p-5 rounded-2xl border-2 border-dashed border-slate-300 hover:border-royal-blue/50 bg-slate-50/50 transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-royal-blue/10 text-royal-blue flex items-center justify-center flex-shrink-0">
-                  <Upload className="w-6 h-6" />
-                </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <p className="text-xs sm:text-sm font-bold text-slate-800">
-                    Upload an eye-catching cover banner
-                  </p>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Recommended dimensions: 1920x1080 (16:9 ratio) PNG, JPG, or WebP.
-                  </p>
-                </div>
-                <label className="px-4 py-2 rounded-xl bg-royal-blue hover:bg-royal-blue/90 text-white font-bold text-xs shadow cursor-pointer transition-all">
-                  <span>Browse File</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleCoverUpload}
-                  />
+            {/* Excerpt + Cover Banner Side-by-Side */}
+            <div className="grid md:grid-cols-12 gap-2.5 pt-0.5 items-start">
+              {/* Subtitle / Excerpt Input */}
+              <div className="md:col-span-7 flex flex-col justify-between">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                  Summary &amp; SEO Excerpt
                 </label>
+                <textarea
+                  rows={3}
+                  value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  placeholder="Write a concise, engaging summary for article cards and Google search results..."
+                  className="w-full p-2.5 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-800 placeholder:text-slate-400 resize-none min-h-[84px]"
+                />
               </div>
-            )}
+
+              {/* Featured Cover Banner */}
+              <div className="md:col-span-5 flex flex-col">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                    <ImageIcon className="w-3.5 h-3.5 text-royal-blue" />
+                    Cover Banner
+                  </span>
+                  {coverUrl && (
+                    <button
+                      type="button"
+                      onClick={() => setCoverUrl("")}
+                      className="inline-flex items-center gap-1 text-[10px] text-rose-600 hover:text-rose-700 font-semibold cursor-pointer"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>Remove</span>
+                    </button>
+                  )}
+                </div>
+
+                {coverUrl ? (
+                  <div className="relative group rounded-lg overflow-hidden border border-slate-200 h-[84px] shadow-inner">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={coverUrl}
+                      alt="Cover preview"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                      <label className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white text-slate-900 text-[11px] font-bold shadow-md hover:bg-slate-100 cursor-pointer">
+                        <Upload className="w-3 h-3 text-royal-blue" />
+                        <span>Replace</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleCoverUpload}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between gap-2 p-2 rounded-lg border-2 border-dashed border-slate-200 hover:border-royal-blue/40 bg-slate-50/50 transition-all h-[84px]">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div className="w-7 h-7 rounded-lg bg-royal-blue/10 text-royal-blue flex items-center justify-center shrink-0">
+                        <Upload className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-slate-800 truncate">
+                          Upload banner
+                        </p>
+                        <p className="text-[9px] text-slate-400 truncate">
+                          1920x1080 (16:9)
+                        </p>
+                      </div>
+                    </div>
+                    <label className="px-2.5 py-1 rounded-md bg-royal-blue hover:bg-royal-blue/90 text-white font-bold text-[10px] shadow-2xs cursor-pointer shrink-0 transition-all">
+                      <span>Browse</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleCoverUpload}
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Complete Editorial Editor Canvas */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+          <div className="bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden flex flex-col">
             {/* Rich Toolbar */}
             <EditorToolbar
               onFormat={formatSelection}
@@ -526,20 +530,20 @@ export default function ArticleEditor() {
 
             {/* Split View: Dual Pane (Left Write, Right Live Preview) */}
             {viewMode === "split" && (
-              <div className="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 min-h-[580px]">
+              <div className="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 min-h-[500px]">
                 {/* Editor Textarea Pane */}
-                <div className="p-4 sm:p-6 flex flex-col bg-white">
+                <div className="p-3.5 sm:p-4 flex flex-col bg-white">
                   <textarea
                     ref={textareaRef}
                     value={content}
                     onChange={(e) => updateContentWithHistory(e.target.value)}
                     placeholder="Write your article content using Markdown or HTML..."
-                    className="w-full h-full min-h-[520px] font-mono text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none resize-none bg-transparent"
+                    className="w-full h-full min-h-[460px] font-mono text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none resize-none bg-transparent"
                   />
                 </div>
 
                 {/* Live Synchronized Preview Pane */}
-                <div className="p-4 sm:p-6 bg-slate-50/50 overflow-y-auto max-h-[750px]">
+                <div className="p-3.5 sm:p-5 bg-slate-50/50 overflow-y-auto max-h-[700px]">
                   <PreviewRenderer
                     content={content}
                     title={title}
@@ -553,20 +557,20 @@ export default function ArticleEditor() {
 
             {/* Write Focus View: Full-width Distraction-free Editor */}
             {viewMode === "write" && (
-              <div className="p-6 sm:p-8 min-h-[580px] bg-white">
+              <div className="p-4 sm:p-6 min-h-[500px] bg-white">
                 <textarea
                   ref={textareaRef}
                   value={content}
                   onChange={(e) => updateContentWithHistory(e.target.value)}
                   placeholder="Draft your in-depth publication here..."
-                  className="w-full h-full min-h-[520px] font-mono text-sm sm:text-base text-slate-800 leading-relaxed focus:outline-none resize-y bg-transparent"
+                  className="w-full h-full min-h-[460px] font-mono text-sm sm:text-base text-slate-800 leading-relaxed focus:outline-none resize-y bg-transparent"
                 />
               </div>
             )}
 
             {/* Preview Only View: High-fidelity Publication Page */}
             {viewMode === "preview" && (
-              <div className="p-4 sm:p-8 bg-slate-50/70 min-h-[580px]">
+              <div className="p-4 sm:p-6 bg-slate-50/70 min-h-[500px]">
                 <PreviewRenderer
                   content={content}
                   title={title}
@@ -579,7 +583,7 @@ export default function ArticleEditor() {
             )}
 
             {/* Bottom Status Ribbon */}
-            <div className="px-5 py-2.5 bg-slate-50/90 border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
+            <div className="px-4 py-2 bg-slate-50/90 border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5 font-medium text-emerald-600">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -602,27 +606,26 @@ export default function ArticleEditor() {
 
         {/* Right Column: Editorial & Publishing Sidebar (Hidden in fullscreen unless toggled) */}
         {!isFullscreen && (
-          <div className="lg:col-span-4">
-            <ArticleEditorSidebar
-              title={title}
-              slug={slug}
-              excerpt={excerpt}
-              content={content}
-              coverUrl={coverUrl}
-              category={category}
-              setCategory={setCategory}
-              readTime={readTime}
-              setReadTime={setReadTime}
-              level={level}
-              setLevel={setLevel}
-              author={author}
-              setAuthor={setAuthor}
-              tags={tags}
-              setTags={setTags}
-              onPublish={handlePublish}
-              isSaving={isSaving}
-            />
-          </div>
+          <ArticleEditorSidebar
+            className="lg:col-span-4"
+            title={title}
+            slug={slug}
+            excerpt={excerpt}
+            content={content}
+            coverUrl={coverUrl}
+            category={category}
+            setCategory={setCategory}
+            readTime={readTime}
+            setReadTime={setReadTime}
+            level={level}
+            setLevel={setLevel}
+            author={author}
+            setAuthor={setAuthor}
+            tags={tags}
+            setTags={setTags}
+            onPublish={handlePublish}
+            isSaving={isSaving}
+          />
         )}
       </div>
 
