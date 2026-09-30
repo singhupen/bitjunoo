@@ -13,6 +13,7 @@ import Category from "@/models/Category";
 
 export interface CreateArticlePayload {
   title: string;
+  slug?: string;
   excerpt: string;
   content: string;
   category: string;
@@ -41,6 +42,7 @@ export async function createArticle(
 ): Promise<IArticle> {
   const article = await Article.create({
     title: payload.title,
+    slug: payload.slug,
     excerpt: payload.excerpt,
     content: payload.content,
     category: payload.category,

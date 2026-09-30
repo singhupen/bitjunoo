@@ -37,16 +37,20 @@ export async function handleGetArticles(req: NextRequest) {
 export async function handleCreateArticle(req: NextRequest) {
   try {
     const body = await req.json();
-    const { title, excerpt, content, category, tags, status, coverImage, authorId, readTime } = body;
+    const { title, slug, excerpt, content, category, tags, status, coverImage, readTime } = body;
+
+    // authorId comes from the body if explicitly provided, otherwise fall back to
+    // the authenticated user's ID injected by withAuth via the x-user-id header.
+    const authorId = body.authorId ?? req.headers.get("x-user-id");
 
     if (!title || !excerpt || !content || !category || !authorId) {
       return NextResponse.json(
-        { success: false, message: "title, excerpt, content, category, and authorId are required." },
+        { success: false, message: "title, excerpt, content, and category are required." },
         { status: 400 }
       );
     }
 
-    const article = await createArticle({ title, excerpt, content, category, tags, status, coverImage, authorId, readTime });
+    const article = await createArticle({ title, slug, excerpt, content, category, tags, status, coverImage, authorId, readTime });
     return NextResponse.json({ success: true, data: article }, { status: 201 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to create article.";

@@ -80,7 +80,7 @@ const ArticleSchema = new Schema<IArticle>(
 
 // ── Auto-generate slug from title ────────────────────────────────────────────
 ArticleSchema.pre<IArticle>("save", function () {
-  if (this.isModified("title") && !this.slug) {
+  if (!this.slug) {
     this.slug = this.title
       .toLowerCase()
       .replace(/[^a-z0-9 -]/g, "")

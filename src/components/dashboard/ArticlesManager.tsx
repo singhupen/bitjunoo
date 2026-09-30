@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { authFetch } from "@/lib/api/apiClient";
 import Link from "next/link";
 import {
   FileText,
@@ -81,7 +82,7 @@ export default function ArticlesManager({ initialArticles }: { initialArticles: 
   const handleDelete = async (id: string, title: string) => {
     if (confirm(`Archive article "${title}"?`)) {
       try {
-        const res = await fetch(`/api/articles/${id}`, { method: 'DELETE' });
+        const res = await authFetch(`/api/articles/${id}`, { method: 'DELETE' });
         if (res.ok) {
           setArticles((prev) => prev.filter((a) => a.id !== id));
         } else {

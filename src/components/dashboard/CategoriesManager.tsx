@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { authFetch } from "@/lib/api/apiClient";
 import {
   Tags,
   Plus,
@@ -50,7 +51,7 @@ export default function CategoriesManager({
     if (!name.trim()) return;
 
     try {
-      const res = await fetch("/api/categories", {
+      const res = await authFetch("/api/categories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -88,7 +89,7 @@ export default function CategoriesManager({
   const handleDelete = async (id: string, catName: string) => {
     if (confirm(`Delete category "${catName}"?`)) {
       try {
-        const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
+        const res = await authFetch(`/api/categories/${id}`, { method: "DELETE" });
         if (!res.ok) throw new Error("Failed to delete category");
         setCategories(categories.filter((c) => c.id !== id));
       } catch (err: any) {

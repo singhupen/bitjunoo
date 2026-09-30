@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { authFetch } from "@/lib/api/apiClient";
 import {
   Sparkles,
   CheckCircle2,
@@ -276,9 +277,8 @@ export default function ArticleEditor() {
 
     try {
       // Post to /api/articles
-      const res = await fetch("/api/articles", {
+      const res = await authFetch("/api/articles", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
           slug,
