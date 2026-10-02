@@ -3,15 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { 
-  ExternalLink, 
   ArrowUpRight, 
-  Layers, 
-  Server, 
-  Smartphone, 
-  Cpu, 
   CheckCircle2, 
-  Sparkles,
-  TrendingUp
+  TrendingUp,
+  Sparkles
 } from "lucide-react";
 
 const categories = [
@@ -30,7 +25,8 @@ const projects = [
     desc: "Architected a zero-downtime payments and treasury orchestration engine processing $40M+ in weekly transaction volume with sub-50ms deterministic settlement latencies.",
     metric: "40ms Latency • $40M/Wk Volume",
     stack: [".NET 9", "C#", "Next.js 16", "PostgreSQL", "Kafka", "Docker"],
-    gradient: "from-royal-blue to-deep-blue",
+    gradient: "from-blue-600/40 via-indigo-700/40 to-slate-900",
+    glowColor: "rgba(59, 130, 246, 0.3)",
     impact: ["99.995% transaction uptime", "45% reduction in compute footprint", "Automated compliance ledger"],
   },
   {
@@ -40,7 +36,8 @@ const projects = [
     desc: "Engineered an end-to-end patient telehealth and remote monitoring application with real-time WebRTC audio/video consultations, biometrics sync, and electronic medical record integration.",
     metric: "250K+ Active Patients • 4.9★ Store Rating",
     stack: ["React Native", "Expo", "TypeScript", "Node.js", "WebRTC"],
-    gradient: "from-cyan-blue to-teal-400",
+    gradient: "from-cyan-600/40 via-teal-700/40 to-slate-900",
+    glowColor: "rgba(6, 182, 212, 0.3)",
     impact: ["Zero crash rate across 250K users", "Sub-second WebRTC connection", "Seamless Bluetooth device pairing"],
   },
   {
@@ -50,7 +47,8 @@ const projects = [
     desc: "A mission-critical logistics dashboard aggregating telemetry from 12,000+ cargo containers globally with predictive ETA modeling and live satellite map rendering.",
     metric: "12,000+ Live Telemetry Assets Tracked",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Mapbox GL"],
-    gradient: "from-indigo to-violet",
+    gradient: "from-indigo-600/40 via-purple-700/40 to-slate-900",
+    glowColor: "rgba(99, 102, 241, 0.3)",
     impact: ["100 Lighthouse performance score", "30% faster customs dispatching", "Live WebSocket telemetry"],
   },
   {
@@ -60,7 +58,8 @@ const projects = [
     desc: "Built a secure, on-premise Retrieval-Augmented Generation (RAG) platform that processes millions of pages of complex technical manuals and legal contracts with citations.",
     metric: "85% Reduction in Review Time",
     stack: ["Python", "FastAPI", "Next.js", "pgvector", "LangChain"],
-    gradient: "from-purple to-royal-blue",
+    gradient: "from-purple-600/40 via-pink-700/40 to-slate-900",
+    glowColor: "rgba(168, 85, 247, 0.3)",
     impact: ["Over 2.4M pages indexed", "Sub-second multi-document queries", "Zero data leak to public LLMs"],
   },
   {
@@ -70,7 +69,8 @@ const projects = [
     desc: "Engineered a high-concurrency seat reservation engine capable of absorbing black swan traffic spikes without cache desynchronization or double-booking errors.",
     metric: "15,000 RPS Peak Concurrency",
     stack: [".NET 9", "Redis Enterprise", "C#", "Kubernetes", "AWS"],
-    gradient: "from-deep-blue to-cyan-blue",
+    gradient: "from-sky-600/40 via-blue-800/40 to-slate-900",
+    glowColor: "rgba(14, 165, 233, 0.3)",
     impact: ["Zero race conditions or lockouts", "Sub-15ms cache read latency", "Elastic Kubernetes scaling"],
   },
   {
@@ -80,7 +80,8 @@ const projects = [
     desc: "A native-grade mobile fitness experience featuring live heart rate streaming, personalized AI workout generators, audio haptics, and social leaderboards.",
     metric: "65% 30-Day Cohort Retention",
     stack: ["React Native", "TypeScript", "GraphQL", "Tailwind", "Swift/Kotlin"],
-    gradient: "from-violet to-purple",
+    gradient: "from-violet-600/40 via-fuchsia-700/40 to-slate-900",
+    glowColor: "rgba(139, 92, 246, 0.3)",
     impact: ["60fps interactive animations", "Offline workout logging", "Over 500K workout sessions"],
   },
 ];
@@ -93,23 +94,29 @@ export default function PortfolioShowcase() {
     : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="py-10 sm:py-14 bg-white relative">
-      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
+    <section className="py-10 sm:py-14 bg-slate-950 relative overflow-hidden border-b border-slate-800/80">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-royal-blue/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 relative z-10">
         {/* Category Filters */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                activeCategory === cat
-                  ? "bg-slate-950 text-white shadow-md shadow-slate-950/20 scale-105"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? "bg-gradient-to-r from-royal-blue to-cyan-blue text-white shadow-md shadow-cyan-blue/20 scale-105 border border-cyan-blue/40"
+                    : "bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
         {/* Projects Grid */}
@@ -117,27 +124,28 @@ export default function PortfolioShowcase() {
           {filtered.map((p) => (
             <div
               key={p.title}
-              className="group bg-slate-50 hover:bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-royal-blue/40 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-slate-900/60 hover:bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-blue/40 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between backdrop-blur-sm"
             >
               <div>
                 {/* Header Banner */}
-                <div className={`p-5 sm:p-6 bg-gradient-to-br ${p.gradient} text-white relative overflow-hidden`}>
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl pointer-events-none" />
+                <div className={`p-5 sm:p-6 bg-gradient-to-br ${p.gradient} relative overflow-hidden border-b border-slate-800/80`}>
+                  <div className="absolute -top-10 -right-10 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none" />
                   
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/25">
+                  {/* Status header */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-900/70 border border-slate-700/80 text-cyan-blue backdrop-blur-sm">
                       {p.category}
                     </span>
-                    <span className="text-xs font-semibold text-white/90 flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3 text-cyan-blue" />
+                    <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       Live in Prod
                     </span>
                   </div>
 
-                  <h3 className="font-heading text-base sm:text-lg font-bold leading-snug text-white mb-1.5">
+                  <h3 className="font-heading text-base sm:text-lg font-bold leading-snug text-white mb-1.5 group-hover:text-cyan-blue transition-colors">
                     {p.title}
                   </h3>
-                  <p className="text-xs text-white/80 font-medium">
+                  <p className="text-xs text-slate-300 font-medium">
                     {p.tagline}
                   </p>
                 </div>
@@ -145,18 +153,18 @@ export default function PortfolioShowcase() {
                 {/* Body */}
                 <div className="p-5 sm:p-6">
                   {/* Metric Pill */}
-                  <div className="inline-block text-xs font-bold text-royal-blue bg-royal-blue/10 border border-royal-blue/20 px-2.5 py-1 rounded-md mb-3">
+                  <div className="inline-block text-xs font-bold text-cyan-blue bg-cyan-blue/10 border border-cyan-blue/25 px-2.5 py-1 rounded-md mb-3">
                     {p.metric}
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                     {p.desc}
                   </p>
 
                   {/* Impact highlights */}
-                  <div className="space-y-1.5 mb-4 pt-3 border-t border-slate-200/60">
+                  <div className="space-y-1.5 mb-4 pt-3 border-t border-slate-800">
                     {p.impact.map((imp) => (
-                      <div key={imp} className="flex items-center gap-1.5 text-xs text-slate-700">
+                      <div key={imp} className="flex items-center gap-2 text-xs text-slate-300">
                         <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0" />
                         <span>{imp}</span>
                       </div>
@@ -164,11 +172,11 @@ export default function PortfolioShowcase() {
                   </div>
 
                   {/* Tech stack */}
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-1.5">
                     {p.stack.map((s) => (
                       <span
                         key={s}
-                        className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600"
+                        className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700 text-slate-300"
                       >
                         {s}
                       </span>
@@ -181,9 +189,9 @@ export default function PortfolioShowcase() {
               <div className="p-5 sm:p-6 pt-0">
                 <Link
                   href="/contact"
-                  className="w-full inline-flex items-center justify-between px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-900 group-hover:border-royal-blue/50 group-hover:text-royal-blue transition-all"
+                  className="w-full inline-flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-white group-hover:border-cyan-blue/50 group-hover:text-cyan-blue transition-all"
                 >
-                  <span>Request Architecture Case Study</span>
+                  <span>Request Architecture Deep-Dive</span>
                   <ArrowUpRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </Link>
               </div>

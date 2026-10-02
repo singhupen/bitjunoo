@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Clock, Calendar, ArrowRight, Tag } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 
 const categories = [
   "All Articles",
@@ -77,23 +77,29 @@ export default function BlogGrid() {
     : posts.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="py-8 sm:py-10 bg-white relative">
-      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
+    <section className="py-8 sm:py-10 bg-slate-950 relative overflow-hidden border-b border-slate-800/80">
+      {/* Background glow */}
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-royal-blue/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 relative z-10">
         {/* Category Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-6 sm:mb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
-                activeCategory === cat
-                  ? "bg-slate-950 text-white shadow-md shadow-slate-950/20 scale-105"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? "bg-gradient-to-r from-royal-blue to-cyan-blue text-white shadow-md shadow-cyan-blue/20 scale-105 border border-cyan-blue/40"
+                    : "bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
         {/* Posts Grid */}
@@ -101,40 +107,40 @@ export default function BlogGrid() {
           {filtered.map((post) => (
             <article
               key={post.title}
-              className="group bg-slate-50 hover:bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-royal-blue/30 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-slate-900/60 hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-cyan-blue/40 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between backdrop-blur-sm"
             >
               <div>
                 {/* Meta */}
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
-                  <span className="font-bold uppercase tracking-wider text-royal-blue px-2 py-0.5 rounded-md bg-royal-blue/10 border border-royal-blue/20 text-[10px]">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-3">
+                  <span className="font-bold uppercase tracking-wider text-cyan-blue px-2 py-0.5 rounded-md bg-cyan-blue/10 border border-cyan-blue/20 text-[10px]">
                     {post.category}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="flex items-center gap-1 text-[11px]">
-                      <Clock className="w-3 h-3" />
+                    <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                      <Clock className="w-3 h-3 text-cyan-blue/70" />
                       {post.readTime}
                     </span>
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 group-hover:text-royal-blue transition-colors mb-2 leading-snug">
+                <h3 className="font-heading text-base sm:text-lg font-bold text-white group-hover:text-cyan-blue transition-colors mb-2 leading-snug">
                   {post.title}
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                   {post.excerpt}
                 </p>
               </div>
 
               <div>
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1 pt-3 border-t border-slate-200/60 mb-3.5">
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800 mb-3.5">
                   {post.tags.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600"
+                      className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700 text-slate-300"
                     >
                       {t}
                     </span>
@@ -142,11 +148,11 @@ export default function BlogGrid() {
                 </div>
 
                 {/* Read Action */}
-                <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-400">
                   <span className="text-[11px]">By {post.author}</span>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-1 text-royal-blue group-hover:text-purple font-bold transition-colors text-xs"
+                    className="inline-flex items-center gap-1 text-cyan-blue group-hover:text-white font-bold transition-colors text-xs"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

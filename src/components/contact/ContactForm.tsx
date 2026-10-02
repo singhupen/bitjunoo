@@ -43,32 +43,35 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 sm:p-7 lg:p-8 border border-slate-200/80 shadow-lg relative overflow-hidden">
-      <div className="flex items-center justify-between mb-5 pb-4 border-b border-slate-100">
+    <div className="bg-slate-900/70 rounded-2xl p-5 sm:p-7 lg:p-8 border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-md">
+      {/* Subtle corner light */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-blue/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="flex items-center justify-between mb-5 pb-4 border-b border-slate-800 relative z-10">
         <div>
-          <h2 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 mb-0.5">
+          <h2 className="font-heading text-xl sm:text-2xl font-bold text-white mb-0.5">
             Request Technical Discovery
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-400">
             Tell us about your project. We respond within 2 business hours.
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>Engineers Available</span>
         </div>
       </div>
 
       {submitted ? (
-        <div className="py-8 text-center max-w-md mx-auto">
-          <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+        <div className="py-8 text-center max-w-md mx-auto relative z-10">
+          <div className="w-12 h-12 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-3 shadow-lg">
             <CheckCircle2 className="w-7 h-7" />
           </div>
-          <h3 className="font-heading text-xl font-bold text-slate-900 mb-1.5">
+          <h3 className="font-heading text-xl font-bold text-white mb-1.5">
             Inquiry Received Successfully!
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-            Thank you, <strong className="text-slate-900">{formData.name}</strong>. A Principal Engineer from BitJunoo will review your specs and contact you at <strong className="text-slate-900">{formData.email}</strong> within 2 hours with an initial feasibility assessment.
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+            Thank you, <strong className="text-white">{formData.name}</strong>. A Principal Engineer from BitJunoo will review your specs and contact you at <strong className="text-cyan-blue">{formData.email}</strong> within 2 hours with an initial feasibility assessment.
           </p>
           <button
             onClick={() => {
@@ -83,18 +86,18 @@ export default function ContactForm() {
                 message: "",
               });
             }}
-            className="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+            className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
           {/* Row 1: Name and Email */}
           <div className="grid sm:grid-cols-2 gap-3.5">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Your Full Name <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                Your Full Name <span className="text-rose-400">*</span>
               </label>
               <input
                 type="text"
@@ -102,12 +105,12 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Alex Johnson"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Work Email <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                Work Email <span className="text-rose-400">*</span>
               </label>
               <input
                 type="email"
@@ -115,7 +118,7 @@ export default function ContactForm() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="alex@company.com"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all"
               />
             </div>
           </div>
@@ -123,7 +126,7 @@ export default function ContactForm() {
           {/* Row 2: Company and Phone */}
           <div className="grid sm:grid-cols-2 gap-3.5">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
                 Company / Organization
               </label>
               <input
@@ -131,11 +134,11 @@ export default function ContactForm() {
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                 placeholder="Company Inc."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
                 Phone / WhatsApp (Optional)
               </label>
               <input
@@ -143,23 +146,23 @@ export default function ContactForm() {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+1 (555) 000-0000"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all"
               />
             </div>
           </div>
 
           {/* Service Selector */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
               Primary Engineering Need
             </label>
             <select
               value={formData.service}
               onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all cursor-pointer"
             >
               {services.map((s) => (
-                <option key={s} value={s}>
+                <option key={s} value={s} className="bg-slate-900 text-white">
                   {s}
                 </option>
               ))}
@@ -168,7 +171,7 @@ export default function ContactForm() {
 
           {/* Estimated Budget Bracket */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
               Estimated Budget Bracket
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -177,10 +180,10 @@ export default function ContactForm() {
                   type="button"
                   key={b}
                   onClick={() => setFormData({ ...formData, budget: b })}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     formData.budget === b
-                      ? "bg-royal-blue text-white shadow-sm"
-                      : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                      ? "bg-gradient-to-r from-royal-blue to-cyan-blue text-white shadow-md shadow-cyan-blue/20 border border-cyan-blue/40"
+                      : "bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/80"
                   }`}
                 >
                   {b}
@@ -191,8 +194,8 @@ export default function ContactForm() {
 
           {/* Message / Project Details */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Project Description & Requirements <span className="text-rose-500">*</span>
+            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+              Project Description & Requirements <span className="text-rose-400">*</span>
             </label>
             <textarea
               required
@@ -200,7 +203,7 @@ export default function ContactForm() {
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Briefly describe what you're looking to engineer, target timeline, or existing technical challenges..."
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:border-transparent text-xs sm:text-sm bg-slate-50/50 resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-blue/60 focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm transition-all resize-none"
             />
           </div>
 
@@ -209,7 +212,7 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-bold text-sm shadow-md shadow-royal-blue/30 hover:shadow-royal-blue/50 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 transition-all"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-cyan-blue text-white font-bold text-sm shadow-lg shadow-cyan-blue/20 hover:shadow-cyan-blue/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 transition-all cursor-pointer"
             >
               {loading ? (
                 <>
@@ -224,13 +227,13 @@ export default function ContactForm() {
               )}
             </button>
 
-            <div className="flex flex-wrap items-center justify-center gap-3.5 mt-3 text-[11px] text-slate-500">
+            <div className="flex flex-wrap items-center justify-center gap-3.5 mt-3 text-[11px] text-slate-400">
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-royal-blue" />
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-blue" />
                 100% Confidential (Strict Mutual NDA)
               </span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-cyan-blue" />
+                <Clock className="w-3.5 h-3.5 text-royal-blue" />
                 2-Hour SLA Response
               </span>
             </div>

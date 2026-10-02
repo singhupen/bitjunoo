@@ -27,22 +27,22 @@ const steps = [
     icon: ShieldAlert,
     title: "Production Cutover & 24/7 SLA",
     desc: "Zero-downtime deployment, blue-green cutovers, real-time APM telemetry, automated log alerts, and strict enterprise SLA response times for peace of mind.",
-    deliverable: "99.9% Uptime Guarantee & Post-Launch Support",
+    deliverable: "99.9% Uptime Guarantee & SLA",
   },
 ];
 
 export default function DeliveryFramework() {
   return (
-    <section className="py-10 sm:py-14 bg-slate-50 relative overflow-hidden">
-      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8">
+    <section className="py-10 sm:py-14 bg-slate-950 relative overflow-hidden border-b border-slate-800/80">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-blue/10 border border-cyan-blue/20 text-cyan-blue text-xs font-semibold mb-3">
             <span>DELIVERY METHODOLOGY</span>
           </div>
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">
             Our 4-Stage Production Delivery Framework
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-300">
             A battle-tested process designed to remove uncertainty, eliminate technical debt, and ensure predictable releases.
           </p>
         </div>
@@ -51,28 +51,28 @@ export default function DeliveryFramework() {
           {steps.map((s) => (
             <div
               key={s.step}
-              className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-royal-blue/30 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-slate-900/60 hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-cyan-blue/40 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-300 group-hover:text-royal-blue transition-colors">
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-700 group-hover:text-cyan-blue/60 transition-colors">
                     {s.step}
                   </span>
-                  <div className="w-9 h-9 rounded-xl bg-royal-blue/10 text-royal-blue flex items-center justify-center group-hover:bg-royal-blue group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-royal-blue/15 text-cyan-blue flex items-center justify-center group-hover:bg-royal-blue group-hover:text-white transition-colors">
                     <s.icon className="w-4 h-4" />
                   </div>
                 </div>
 
-                <h3 className="font-heading text-base font-bold text-slate-900 mb-2 group-hover:text-royal-blue transition-colors">
+                <h3 className="font-heading text-base font-bold text-white mb-2 group-hover:text-cyan-blue transition-colors">
                   {s.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
                   {s.desc}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-royal-blue">
+              <div className="pt-3 border-t border-slate-800/80 flex items-center gap-1.5 text-xs font-semibold text-cyan-blue">
                 <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0" />
                 <span>{s.deliverable}</span>
               </div>
