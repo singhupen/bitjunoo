@@ -12,7 +12,7 @@
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "bcryptjs": "^3.0.3",
-    "cloudinary": "^2.11.0",
+    "cloudinary": "^1.21.0",
     "framer-motion": "^13.4.4",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.48.0",
