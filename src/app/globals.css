@@ -89,16 +89,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
   body {
     font-family: "Inter", system-ui, sans-serif;
     color: #435575;
-    background-color: #f8fafc;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(6, 117, 250, 0.08) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(168, 15, 245, 0.06) 0px, transparent 50%),
-      radial-gradient(at 50% 50%, rgba(5, 176, 252, 0.04) 0px, transparent 60%);
-    background-attachment: fixed;
+    background-color: #0b0f19;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1,
   h2,
@@ -109,20 +108,21 @@
     font-family: "Poppins", system-ui, sans-serif;
   }
 
+  /* Custom high-performance smooth scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #ECECED;
+    background: #0f172a;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-brand-300);
-    border-radius: 6px;
-    border: none;
+    background: #1e293b;
+    border-radius: 9999px;
+    border: 2px solid #0f172a;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-brand-500);
+    background: #0675FA;
   }
 }
 

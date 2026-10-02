@@ -1,6 +1,5 @@
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import SpiderWebBackground from "@/components/layouts/SpiderWebBackground";
 
 export default function LandingLayout({
   children,
@@ -8,10 +7,9 @@ export default function LandingLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen flex flex-col bg-white selection:bg-royal-blue/20 selection:text-royal-blue relative">
-      <SpiderWebBackground />
+    <div className="min-h-screen flex flex-col bg-slate-950 selection:bg-royal-blue/30 selection:text-white relative">
       <Navbar />
-      <main className="flex-1 relative z-10">{children}</main>
+      <main className="flex-1 relative">{children}</main>
       <Footer />
     </div>
   );

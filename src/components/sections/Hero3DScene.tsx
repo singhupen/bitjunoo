@@ -175,24 +175,28 @@ const Particles = ({ count = 100 }) => {
 
 export default function Hero3DScene() {
   return (
-    <Canvas 
-      camera={{ position: [0, 0, 6], fov: 45 }}
-      // Lowering powerPreference to 'default' or removing to let browser decide if it needs high perf, 
-      // but keeping high-performance is fine for a hero.
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      // Optimizing DPR range for better performance on high-density displays
-      dpr={[1, 1.5]}
-    >
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 10, 5]} intensity={1.5} color="#e0f2fe" />
-        <directionalLight position={[-10, -10, -5]} intensity={0.8} color="#0284c7" />
-        {/* Removed duplicate pointlight as there's already one in TechCore */}
-        <TechCore />
-        <OrbitingNodes />
-        <Particles count={100} /> {/* Reduced from 220 to 100 */}
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-      </Suspense>
-    </Canvas>
+    <div className="w-full h-full pointer-events-none sm:pointer-events-auto" style={{ touchAction: 'pan-y' }}>
+      <Canvas 
+        camera={{ position: [0, 0, 6], fov: 45 }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        dpr={[1, 1.5]}
+        style={{ touchAction: 'pan-y' }}
+      >
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.7} />
+          <directionalLight position={[10, 10, 5]} intensity={1.5} color="#e0f2fe" />
+          <directionalLight position={[-10, -10, -5]} intensity={0.8} color="#0284c7" />
+          <TechCore />
+          <OrbitingNodes />
+          <Particles count={75} />
+          <OrbitControls 
+            enableZoom={false} 
+            enablePan={false} 
+            autoRotate 
+            autoRotateSpeed={0.6}
+          />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }

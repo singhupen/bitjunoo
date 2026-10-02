@@ -25,10 +25,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // When on the homepage at the top, header is transparent over the dark hero.
-  // On interior pages or after scroll, use a crisp white frosted glass header.
-  const isDarkTop = pathname === "/" && !scrolled;
-
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
@@ -37,12 +33,12 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isDarkTop
-          ? "bg-transparent py-3.5 sm:py-4"
-          : "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/70 py-2.5 sm:py-3"
+        scrolled
+          ? "bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/50 py-3 sm:py-3.5"
+          : "bg-transparent py-4 sm:py-5"
       }`}
     >
-      <nav className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 flex items-center justify-between">
+      <nav className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <img
             src="/icon.png"
@@ -60,23 +56,15 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   className={`text-sm font-semibold transition-all relative py-1 ${
-                    isDarkTop
-                      ? active
-                        ? "text-cyan-blue"
-                        : "text-slate-200 hover:text-white"
-                      : active
-                      ? "text-royal-blue font-bold"
-                      : "text-slate-600 hover:text-royal-blue"
+                    active
+                      ? "text-cyan-blue"
+                      : "text-slate-300 hover:text-white"
                   }`}
                 >
                   {l.label}
                   {active && (
                     <span
-                      className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full ${
-                        isDarkTop
-                          ? "bg-gradient-to-r from-cyan-blue to-royal-blue"
-                          : "bg-gradient-to-r from-royal-blue to-purple"
-                      }`}
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-cyan-blue via-royal-blue to-purple shadow-[0_0_8px_rgba(5,176,252,0.8)]"
                     />
                   )}
                 </Link>
@@ -86,22 +74,18 @@ export default function Navbar() {
         </ul>
 
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden md:flex items-center gap-3">
           <Link
             href="/login"
-            className={`text-xs sm:text-sm font-semibold transition-colors px-3 py-1.5 rounded-lg ${
-              isDarkTop
-                ? "text-slate-300 hover:text-white hover:bg-white/10"
-                : "text-slate-600 hover:text-royal-blue hover:bg-slate-100"
-            }`}
+            className="text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/60 px-3.5 py-2 rounded-xl transition-colors"
           >
             Console
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-indigo text-white text-sm font-semibold shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white text-xs sm:text-sm font-semibold shadow-md shadow-royal-blue/30 hover:shadow-royal-blue/50 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
           >
-            Get in Touch
+            <span>Get in Touch</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -109,11 +93,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          className={`md:hidden p-2 rounded-lg transition-colors ${
-            isDarkTop
-              ? "text-white hover:bg-white/10"
-              : "text-slate-800 hover:bg-slate-100"
-          }`}
+          className="md:hidden p-2 rounded-xl text-white hover:bg-slate-800 transition-colors"
           aria-label="Toggle navigation menu"
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -122,7 +102,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {open && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-200/80 shadow-xl px-5 py-4 transition-all">
+        <div className="md:hidden bg-slate-950/95 backdrop-blur-2xl border-t border-slate-800/80 shadow-2xl px-5 py-5 transition-all">
           <ul className="space-y-2">
             {links.map((l) => {
               const active = isActive(l.href);
@@ -131,10 +111,10 @@ export default function Navbar() {
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                    className={`block px-4 py-2.5 rounded-xl text-base font-medium transition-colors ${
                       active
-                        ? "bg-royal-blue/10 text-royal-blue font-bold"
-                        : "text-slate-700 hover:bg-slate-50 hover:text-royal-blue"
+                        ? "bg-royal-blue/15 text-cyan-blue font-bold border border-cyan-blue/20"
+                        : "text-slate-300 hover:bg-slate-900 hover:text-white"
                     }`}
                   >
                     {l.label}
@@ -142,20 +122,20 @@ export default function Navbar() {
                 </li>
               );
             })}
-            <li className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+            <li className="pt-4 border-t border-slate-800/80 flex flex-col gap-2.5">
               <Link
                 href="/login"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-2 w-full px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-50"
+                className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl border border-slate-800 text-slate-300 text-sm font-semibold hover:bg-slate-900 hover:text-white"
               >
                 Sign In to Console
               </Link>
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white text-sm font-bold shadow-md shadow-royal-blue/20"
+                className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white text-sm font-bold shadow-md shadow-royal-blue/30"
               >
-                Get in Touch
+                <span>Get in Touch</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </li>
