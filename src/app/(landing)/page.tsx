@@ -1,29 +1,28 @@
-import Navbar from '@/components/layouts/Navbar';
 import Hero from '@/components/sections/Hero';
+import VideoSection from '@/components/sections/VideoSection';
 import Services from '@/components/sections/Services';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import TechStack from '@/components/sections/TechStack';
 import Portfolio from '@/components/sections/Portfolio';
 import Testimonials from '@/components/sections/Testimonials';
 import CTABanner from '@/components/sections/CTABanner';
-import Footer from '@/components/layouts/Footer';
 
-function App() {
+export const metadata = {
+  title: "BitJunoo | Enterprise IT Consultancy & Digital Engineering",
+  description: "BitJunoo crafts high-performance web applications, enterprise-grade .NET backends, and cloud architectures for scaling enterprises.",
+};
+
+export default function HomePage() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <WhyChooseUs />
-        <TechStack />
-        <Portfolio />
-        <Testimonials />
-        <CTABanner />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <VideoSection />
+      <Services />
+      <WhyChooseUs />
+      <TechStack />
+      <Portfolio />
+      <Testimonials />
+      <CTABanner />
+    </>
   );
 }
-
-export default App;
