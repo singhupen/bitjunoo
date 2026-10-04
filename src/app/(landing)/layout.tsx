@@ -7,7 +7,7 @@ export default function LandingLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 selection:bg-royal-blue/30 selection:text-white relative">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 selection:bg-royal-blue/30 selection:text-white relative transition-colors duration-300">
       <Navbar />
       <main className="flex-1 relative">{children}</main>
       <Footer />

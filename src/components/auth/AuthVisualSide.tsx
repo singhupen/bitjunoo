@@ -24,7 +24,7 @@ export default function AuthVisualSide() {
       <div className="relative z-10">
         <Link href="/" className="inline-flex items-center gap-2.5 group">
           <img
-            src="/icon.png"
+            src="/icon-dark.png"
             alt="BitJunoo Logo"
             className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
           />

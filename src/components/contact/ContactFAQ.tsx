@@ -30,7 +30,7 @@ export default function ContactFAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <section className="py-10 sm:py-14 bg-slate-950 border-t border-slate-800/80 relative overflow-hidden">
+    <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800/80 relative overflow-hidden transition-colors duration-300">
       {/* Background illumination */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-royal-blue/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -40,10 +40,10 @@ export default function ContactFAQ() {
             <HelpCircle className="w-3.5 h-3.5" />
             <span>COMMONLY ASKED QUESTIONS</span>
           </div>
-          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white tracking-tight mb-2">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             Everything you need to know about partnering with BitJunoo for your software engineering.
           </p>
         </div>
@@ -54,11 +54,11 @@ export default function ContactFAQ() {
             return (
               <div
                 key={faq.q}
-                className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden hover:border-slate-700/80 transition-all backdrop-blur-sm"
+                className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-slate-300 dark:hover:border-slate-700/80 transition-all backdrop-blur-sm shadow-sm dark:shadow-none"
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : i)}
-                  className="w-full px-5 py-3.5 text-left flex items-center justify-between gap-3 font-heading font-bold text-white hover:text-cyan-blue transition-colors text-xs sm:text-sm cursor-pointer"
+                  className="w-full px-5 py-3.5 text-left flex items-center justify-between gap-3 font-heading font-bold text-slate-900 dark:text-white hover:text-cyan-blue dark:hover:text-cyan-blue transition-colors text-xs sm:text-sm cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
@@ -68,7 +68,7 @@ export default function ContactFAQ() {
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-4 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800">
+                  <div className="px-5 pb-4 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800">
                     {faq.a}
                   </div>
                 )}

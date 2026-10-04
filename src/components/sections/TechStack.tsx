@@ -61,26 +61,26 @@ export default function TechStack() {
     : technologies.filter((t) => t.category === activeCategory);
 
   return (
-    <section className="relative py-14 sm:py-20 lg:py-24 bg-slate-950 overflow-hidden border-t border-slate-800/80">
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-white dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Background accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-royal-blue/5 dark:bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 border border-royal-blue/25 text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-blue" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 border border-royal-blue/20 dark:border-royal-blue/25 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
             <span className="tracking-wide">ENTERPRISE-GRADE TOOLKIT</span>
           </div>
 
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.18] mb-4">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
             Modern Technologies We{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
               Master & Deploy
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
             We build with battle-tested frameworks and modern standards designed for peak performance, rapid evolution, and enterprise security.
           </p>
 
@@ -92,8 +92,8 @@ export default function TechStack() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeCategory === cat
-                    ? "bg-gradient-to-r from-royal-blue to-purple text-white shadow-lg shadow-royal-blue/30 scale-105"
-                    : "bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-850 border border-slate-800"
+                    ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/25 scale-105"
+                    : "bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-navy-950 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800"
                 }`}
               >
                 {cat}
@@ -107,22 +107,22 @@ export default function TechStack() {
           {filtered.map((t) => (
             <div
               key={t.name}
-              className="group relative p-5 sm:p-6 rounded-2xl bg-slate-900/60 hover:bg-slate-900/90 backdrop-blur-md border border-slate-800 hover:border-cyan-blue/40 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
+              className="group relative p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 backdrop-blur-md border border-slate-200/90 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-xs hover:shadow-lg dark:shadow-md dark:hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className={`p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 group-hover:scale-110 transition-transform ${t.color}`}>
+                <div className={`p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 group-hover:scale-110 transition-transform ${t.color}`}>
                   <t.icon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 border border-slate-700/60">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/60">
                   {t.category}
                 </span>
               </div>
 
               <div>
-                <h3 className="font-heading text-sm sm:text-base font-bold text-white group-hover:text-cyan-blue transition-colors">
+                <h3 className="font-heading text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
                   {t.name}
                 </h3>
-                <p className="text-xs text-slate-400 mt-1 leading-normal">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-normal">
                   {t.specialty}
                 </p>
               </div>
@@ -132,8 +132,8 @@ export default function TechStack() {
 
         {/* Architecture Guarantee Footer */}
         <div className="mt-10 sm:mt-12 text-center">
-          <p className="text-xs sm:text-sm text-slate-400 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/70 border border-slate-800">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100/90 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 inline-block animate-pulse"></span>
             Have a specialized or proprietary tech stack? We integrate seamlessly with your internal infrastructure.
           </p>
         </div>

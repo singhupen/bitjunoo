@@ -38,28 +38,29 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="relative py-14 sm:py-20 lg:py-24 bg-slate-950 overflow-hidden border-t border-slate-800/80">
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-white dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-royal-blue/5 dark:bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-blue/10 border border-cyan-blue/25 text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-blue" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 dark:bg-cyan-blue/10 border border-royal-blue/20 dark:border-cyan-blue/25 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
             <span className="tracking-wide">REAL CLIENT TESTIMONIALS</span>
           </div>
 
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.18] mb-4">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
             Endorsed by Technical Leaders &{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
               Founders Worldwide
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed flex items-center justify-center flex-wrap gap-1">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed flex items-center justify-center flex-wrap gap-1">
             Discover why growth-stage companies and global enterprises trust{" "}
-            <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto inline mx-1" />
+            <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto inline mx-1 dark:hidden" />
+            <img src="/icon-dark.png" alt="BitJunoo Logo" className="h-5 w-auto inline mx-1 hidden dark:inline" />
             with their critical software initiatives.
           </p>
         </div>
@@ -69,7 +70,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="relative group bg-slate-900/60 hover:bg-slate-900/90 backdrop-blur-xl rounded-3xl p-6 sm:p-7 border border-slate-800 hover:border-cyan-blue/40 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              className="relative group bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 backdrop-blur-xl rounded-3xl p-6 sm:p-7 border border-slate-200/90 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-md hover:shadow-xl dark:shadow-xl dark:hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Stars & Verified Badge */}
@@ -83,25 +84,25 @@ export default function Testimonials() {
                     ))}
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                     Verified Project
                   </span>
                 </div>
 
                 {/* Quote Icon watermark */}
                 <div className="mb-4">
-                  <Quote className="w-8 h-8 text-slate-700 group-hover:text-cyan-blue/40 transition-colors" />
+                  <Quote className="w-8 h-8 text-slate-200 dark:text-slate-700 group-hover:text-royal-blue/40 dark:group-hover:text-cyan-blue/40 transition-colors" />
                 </div>
 
                 {/* Quote Text */}
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic mb-6">
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
 
               {/* Client Info Footer */}
-              <div className="pt-5 border-t border-slate-800/80 flex items-center justify-between">
+              <div className="pt-5 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
                   <div
                     className={`flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-br ${t.gradient} text-white font-bold text-xs shadow-md`}
@@ -109,11 +110,11 @@ export default function Testimonials() {
                     {t.initials}
                   </div>
                   <div>
-                    <h4 className="font-heading font-bold text-white text-sm">
+                    <h4 className="font-heading font-bold text-slate-900 dark:text-white text-sm">
                       {t.name}
                     </h4>
-                    <p className="text-xs text-slate-400">
-                      {t.role}, <span className="text-cyan-blue font-medium">{t.company}</span>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      {t.role}, <span className="text-royal-blue dark:text-cyan-blue font-medium">{t.company}</span>
                     </p>
                   </div>
                 </div>
@@ -123,25 +124,25 @@ export default function Testimonials() {
         </div>
 
         {/* Bottom Social Proof Bar */}
-        <div className="mt-10 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-slate-900/70 backdrop-blur-md border border-slate-800 shadow-xl flex flex-wrap items-center justify-around gap-5 text-center">
+        <div className="mt-10 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-wrap items-center justify-around gap-5 text-center">
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-white">4.9 / 5.0</div>
-            <div className="text-xs text-slate-400 font-medium mt-1">Average Client Rating</div>
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white">4.9 / 5.0</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Average Client Rating</div>
           </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-800" />
+          <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-cyan-blue">100%</div>
-            <div className="text-xs text-slate-400 font-medium mt-1">On-Time Sprint Completion</div>
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-royal-blue dark:text-cyan-blue">100%</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">On-Time Sprint Completion</div>
           </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-800" />
+          <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-purple">92%</div>
-            <div className="text-xs text-slate-400 font-medium mt-1">Repeat & Retainer Clients</div>
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-brand-azure dark:text-purple">92%</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Repeat & Retainer Clients</div>
           </div>
-          <div className="hidden sm:block w-px h-8 bg-slate-800" />
+          <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-emerald-400">0 Breaches</div>
-            <div className="text-xs text-slate-400 font-medium mt-1">Enterprise Compliance Track Record</div>
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-emerald-600 dark:text-emerald-400">0 Breaches</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Enterprise Compliance Track Record</div>
           </div>
         </div>
       </div>

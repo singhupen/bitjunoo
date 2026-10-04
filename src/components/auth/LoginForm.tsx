@@ -87,7 +87,7 @@ export default function LoginForm() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Email Field */}
         <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1.5" htmlFor="email">
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1.5" htmlFor="email">
             Work Email Address
           </label>
           <div className="relative">
@@ -101,7 +101,7 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@company.com"
-              className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-royal-blue/30 focus:border-royal-blue text-slate-900 transition-all placeholder:text-slate-400"
+              className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-royal-blue/30 focus:border-royal-blue text-slate-900 dark:text-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500"
             />
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function LoginForm() {
         {/* Password Field */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold text-slate-700" htmlFor="password">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-200" htmlFor="password">
               Security Key / Password
             </label>
             <a
@@ -118,7 +118,7 @@ export default function LoginForm() {
                 e.preventDefault();
                 alert("Password reset instructions have been dispatched to your registered enterprise email.");
               }}
-              className="text-xs font-medium text-royal-blue hover:underline"
+              className="text-xs font-medium text-royal-blue dark:text-cyan-blue hover:underline"
             >
               Forgot password?
             </a>
@@ -134,12 +134,12 @@ export default function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-slate-200 bg-white/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-royal-blue/30 focus:border-royal-blue text-slate-900 transition-all placeholder:text-slate-400"
+              className="w-full pl-10 pr-10 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-royal-blue/30 focus:border-royal-blue text-slate-900 dark:text-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -154,9 +154,9 @@ export default function LoginForm() {
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-4 h-4 rounded border-slate-300 text-royal-blue focus:ring-royal-blue"
+              className="w-4 h-4 rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-royal-blue focus:ring-royal-blue"
             />
-            <span className="text-xs text-slate-600">Remember this workstation for 30 days</span>
+            <span className="text-xs text-slate-600 dark:text-slate-400">Remember this workstation for 30 days</span>
           </label>
         </div>
 
@@ -182,10 +182,10 @@ export default function LoginForm() {
         {/* Divider */}
         <div className="relative my-5">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200" />
+            <div className="w-full border-t border-slate-200 dark:border-slate-800" />
           </div>
           <div className="relative flex justify-center text-xs">
-            <span className="px-3 bg-white text-slate-400 uppercase tracking-wider font-semibold">
+            <span className="px-3 bg-white dark:bg-slate-950 text-slate-400 dark:text-slate-500 uppercase tracking-wider font-semibold">
               Or Authenticate Via
             </span>
           </div>
@@ -198,7 +198,7 @@ export default function LoginForm() {
             onClick={() => {
               alert("Google SSO is not configured.");
             }}
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm cursor-pointer"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
@@ -226,7 +226,7 @@ export default function LoginForm() {
             onClick={() => {
               alert("Enterprise SSO is not configured.");
             }}
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm cursor-pointer"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm cursor-pointer"
           >
             <ShieldCheck className="w-4 h-4 text-purple" />
             Enterprise SSO
@@ -235,9 +235,9 @@ export default function LoginForm() {
       </form>
 
       {/* Footer Support Prompt */}
-      <div className="mt-6 text-center text-xs text-slate-500">
+      <div className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
         <span>Need credentials or project access? </span>
-        <Link href="/contact" className="font-semibold text-royal-blue hover:underline">
+        <Link href="/contact" className="font-semibold text-royal-blue dark:text-cyan-blue hover:underline">
           Contact System Administrator
         </Link>
       </div>

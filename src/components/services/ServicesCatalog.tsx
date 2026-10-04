@@ -100,17 +100,17 @@ const services = [
 
 export default function ServicesCatalog() {
   return (
-    <section className="py-10 sm:py-14 bg-slate-950 relative border-b border-slate-800/80">
+    <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 relative border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-cyan-blue text-xs font-semibold mb-3">
             <Layers className="w-3.5 h-3.5" />
             <span>FULL-SPECTRUM CAPABILITIES</span>
           </div>
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-2">
             Engineered for High-Scale Enterprise Demands
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             From frontend velocity to mission-critical backend throughput, our specialized engineering squads build software that performs flawlessly.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function ServicesCatalog() {
           {services.map((s) => (
             <div
               key={s.title}
-              className="group relative bg-slate-900/60 hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-800 hover:border-cyan-blue/40 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-cyan-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Header row */}
@@ -127,23 +127,23 @@ export default function ServicesCatalog() {
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${s.accentGradient} text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform`}>
                     <s.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700/60 text-slate-300 shadow-sm">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 shadow-xs">
                     {s.badge}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-cyan-blue transition-colors">
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-cyan-blue transition-colors">
                   {s.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                   {s.desc}
                 </p>
 
                 {/* Features list */}
                 <div className="space-y-1.5 mb-5">
                   {s.features.map((f) => (
-                    <div key={f} className="flex items-start gap-2 text-xs text-slate-300">
+                    <div key={f} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
                       <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </div>
@@ -152,12 +152,12 @@ export default function ServicesCatalog() {
               </div>
 
               {/* Bottom footer: Tech Tags & CTA */}
-              <div className="pt-3.5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+              <div className="pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap gap-1.5">
                   {s.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-300"
+                      className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-300"
                     >
                       {t}
                     </span>
