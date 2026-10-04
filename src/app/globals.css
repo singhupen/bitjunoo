@@ -4,21 +4,21 @@
   /* ==========================================================================
      BitJunoo Official Brand Color Palette
      ========================================================================== */
-  --color-deep-blue: #0943F4;   /* Main blue / dark gradient */
-  --color-royal-blue: #0675FA;  /* “Bit” and icon color */
-  --color-cyan-blue: #05B0FC;   /* Bright highlights */
-  --color-indigo: #3523F1;      /* Blue-to-purple transition */
-  --color-violet: #6D15F2;      /* Main purple gradient */
-  --color-purple: #A80FF5;      /* “Junoo” side */
-  --color-light-gray: #ECECED;  /* Background / checkerboard light areas */
-  --color-slate-gray: #435575;  /* Tagline and text */
+  --color-deep-blue: #002ad2;   /* Main blue / dark gradient */
+  --color-royal-blue: #0064da;  /* “Bit” and icon color */
+  --color-cyan-blue: #00a8d9;   /* Bright highlights */
+  --color-indigo: #00cbd0;      /* Blue-to-purple transition */
+  --color-violet: #00e3c6;      /* Main purple gradient */
+  --color-purple: #00e3c6;      /* “Junoo” side */
+  --color-light-gray: #d1d7df;  /* Background / checkerboard light areas */
+  --color-slate-gray: #3a5077;  /* Tagline and text */
 
   /* Brand Role Aliases */
-  --color-brand-bit: #0675FA;
-  --color-brand-junoo: #A80FF5;
-  --color-brand-transition: #3523F1;
-  --color-brand-highlight: #05B0FC;
-  --color-brand-dark: #0943F4;
+  --color-brand-bit: #0064da;
+  --color-brand-junoo: #00e3c6;
+  --color-brand-transition: #00cbd0;
+  --color-brand-highlight: #00a8d9;
+  --color-brand-dark: #002ad2;
 
   /* Brand Scale (Anchored on Royal Blue #0675FA & Deep Blue #0943F4) */
   --color-brand-50: #eff5ff;
@@ -76,14 +76,14 @@
 }
 
 :root {
-  --color-deep-blue: #0943F4;
-  --color-royal-blue: #0675FA;
-  --color-cyan-blue: #05B0FC;
-  --color-indigo: #3523F1;
-  --color-violet: #6D15F2;
-  --color-purple: #A80FF5;
-  --color-light-gray: #ECECED;
-  --color-slate-gray: #435575;
+  --color-deep-blue: #002ad2;
+  --color-royal-blue: #0064da;
+  --color-cyan-blue: #00a8d9;
+  --color-indigo: #00cbd0;
+  --color-violet: #00e3c6;
+  --color-purple: #00e3c6;
+  --color-light-gray: #d1d7df;
+  --color-slate-gray: #3a5077;
 }
 
 @layer base {
