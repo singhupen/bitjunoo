@@ -14,13 +14,11 @@
  *    do NOT need to await connectDB() before every query.
  *  – Call connectDB() exactly once from lib/db/index.ts at module evaluation
  *    time so the promise is in-flight before the first API request arrives.
- * 
- * 
  */
 
 import mongoose, { Mongoose } from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://awaneesh9170_db_user:Iu5n6X81xPxY9zff@ats-0.0r1100m.mongodb.net/bitjunoo?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {
   throw new Error(
