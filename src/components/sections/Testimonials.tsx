@@ -57,10 +57,9 @@ export default function Testimonials() {
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed flex items-center justify-center flex-wrap gap-1">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Discover why growth-stage companies and global enterprises trust{" "}
-            <img src="/icon.png" alt="BitJunoo Logo" className="h-5 w-auto inline mx-1 dark:hidden" />
-            <img src="/icon-dark.png" alt="BitJunoo Logo" className="h-5 w-auto inline mx-1 hidden dark:inline" />
+            <span className="font-semibold text-slate-900 dark:text-white">Bitjunoo</span>{" "}
             with their critical software initiatives.
           </p>
         </div>

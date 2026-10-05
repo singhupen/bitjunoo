@@ -109,11 +109,11 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href="mailto:hello@bitjunoo.com"
+                  href="mailto:Info@bitjunoo.com"
                   className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 hover:text-royal-blue dark:hover:text-brand-cyan transition-colors group"
                 >
                   <Mail className="w-3.5 h-3.5 mt-0.5 text-royal-blue dark:text-brand-cyan flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  hello@bitjunoo.com
+                  Info@bitjunoo.com
                 </a>
               </li>
               <li>
@@ -145,10 +145,7 @@ export default function Footer() {
 
         <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center sm:justify-start gap-1">
-            &copy; {new Date().getFullYear()}{" "}
-            <img src="/icon.png" alt="BitJunoo Logo" className="h-4 sm:h-5 w-auto object-contain mx-1 dark:hidden" />
-            <img src="/icon-dark.png" alt="BitJunoo Logo" className="h-4 sm:h-5 w-auto object-contain mx-1 hidden dark:block" />
-            . All rights reserved.
+            &copy; {new Date().getFullYear()} Bitjunoo. All rights reserved.
           </p>
           <div className="flex gap-4 sm:gap-6">
             <Link href="/about" className="text-xs sm:text-sm text-slate-500 hover:text-royal-blue dark:hover:text-brand-cyan transition-colors">About Us</Link>
