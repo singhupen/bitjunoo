@@ -92,7 +92,7 @@ export default function BlogGrid() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "bg-gradient-to-r from-royal-blue to-cyan-blue text-white shadow-md shadow-cyan-blue/20 scale-105 border border-cyan-blue/40"
+                    ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/20 scale-105"
                     : "bg-white dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs"
                 }`}
               >
@@ -107,24 +107,24 @@ export default function BlogGrid() {
           {filtered.map((post) => (
             <article
               key={post.title}
-              className="group bg-white dark:bg-slate-900/60 hover:bg-slate-50/60 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-cyan-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between backdrop-blur-sm"
+              className="group bg-white dark:bg-slate-900/60 hover:bg-slate-50/60 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between backdrop-blur-sm"
             >
               <div>
                 {/* Meta */}
                 <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3">
-                  <span className="font-bold uppercase tracking-wider text-cyan-blue px-2 py-0.5 rounded-md bg-cyan-blue/10 border border-cyan-blue/20 text-[10px]">
+                  <span className="font-bold uppercase tracking-wider text-royal-blue dark:text-cyan-blue px-2 py-0.5 rounded-md bg-royal-blue/10 dark:bg-cyan-blue/10 border border-royal-blue/20 dark:border-cyan-blue/20 text-[10px]">
                     {post.category}
                   </span>
                   <div className="flex items-center gap-2">
                     <span className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-                      <Clock className="w-3 h-3 text-cyan-blue/70" />
+                      <Clock className="w-3 h-3 text-royal-blue/70 dark:text-cyan-blue/70" />
                       {post.readTime}
                     </span>
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-blue transition-colors mb-2 leading-snug">
+                <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors mb-2 leading-snug">
                   {post.title}
                 </h3>
 
@@ -152,7 +152,7 @@ export default function BlogGrid() {
                   <span className="text-[11px]">By {post.author}</span>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-1 text-royal-blue dark:text-cyan-blue group-hover:text-cyan-blue dark:group-hover:text-white font-bold transition-colors text-xs"
+                    className="inline-flex items-center gap-1 text-royal-blue dark:text-cyan-blue group-hover:text-brand-azure dark:group-hover:text-white font-bold transition-colors text-xs"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

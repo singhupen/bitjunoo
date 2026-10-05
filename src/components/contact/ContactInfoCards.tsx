@@ -6,10 +6,10 @@ export default function ContactInfoCards() {
       {/* Primary Card */}
       <div className="rounded-2xl p-5 sm:p-6 bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white shadow-xl relative overflow-hidden backdrop-blur-md transition-colors duration-300">
         <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-blue/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-mint/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-blue/15 border border-cyan-blue/30 text-cyan-blue text-[11px] font-semibold mb-3">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-royal-blue/10 dark:bg-cyan-blue/15 border border-royal-blue/20 dark:border-cyan-blue/30 text-royal-blue dark:text-cyan-blue text-[11px] font-semibold mb-3">
             <Clock className="w-3 h-3" />
             <span>DIRECT CHANNELS</span>
           </div>
@@ -24,9 +24,9 @@ export default function ContactInfoCards() {
           <div className="space-y-2.5 pt-3 border-t border-slate-200 dark:border-slate-800">
             <a
               href="mailto:hello@bitjunoo.com"
-              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-cyan-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
+              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
             >
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
                 <Mail className="w-4 h-4" />
               </div>
               <div>
@@ -37,9 +37,9 @@ export default function ContactInfoCards() {
 
             <a
               href="tel:+918882434777"
-              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-cyan-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
+              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
             >
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
                 <Phone className="w-4 h-4" />
               </div>
               <div>
@@ -49,7 +49,7 @@ export default function ContactInfoCards() {
             </a>
 
             <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 p-2">
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-cyan-blue flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue flex-shrink-0">
                 <MapPin className="w-4 h-4" />
               </div>
               <div>
@@ -64,13 +64,13 @@ export default function ContactInfoCards() {
       {/* SLA Card */}
       <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 backdrop-blur-sm transition-colors duration-300">
         <h4 className="font-heading font-bold text-slate-950 dark:text-white text-xs sm:text-sm mb-2 flex items-center gap-2">
-          <Calendar className="w-3.5 h-3.5 text-cyan-blue" />
+          <Calendar className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
           Average Response Times
         </h4>
         <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
           <li className="flex items-center justify-between">
             <span>Inquiry Acknowledgment:</span>
-            <strong className="text-cyan-blue">&lt; 2 Hours</strong>
+            <strong className="text-royal-blue dark:text-cyan-blue">&lt; 2 Hours</strong>
           </li>
           <li className="flex items-center justify-between">
             <span>Architecture Blueprint & Estimate:</span>

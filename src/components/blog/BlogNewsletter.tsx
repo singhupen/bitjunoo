@@ -20,7 +20,7 @@ export default function BlogNewsletter() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 text-center relative z-10">
-        <div className="w-10 h-10 rounded-xl bg-royal-blue/15 border border-royal-blue/30 text-cyan-blue flex items-center justify-center mx-auto mb-3 shadow-lg">
+        <div className="w-10 h-10 rounded-xl bg-royal-blue/15 border border-royal-blue/30 text-royal-blue dark:text-cyan-blue flex items-center justify-center mx-auto mb-3 shadow-lg">
           <Mail className="w-5 h-5" />
         </div>
 
@@ -46,11 +46,11 @@ export default function BlogNewsletter() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your work email..."
               required
-              className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/90 focus:outline-none focus:border-cyan-blue focus:ring-1 focus:ring-cyan-blue/40 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-all"
+              className="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/90 focus:outline-none focus:border-royal-blue dark:focus:border-cyan-blue focus:ring-1 focus:ring-royal-blue/30 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-all"
             />
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue to-cyan-blue text-white font-bold text-xs sm:text-sm shadow-md shadow-cyan-blue/20 hover:shadow-cyan-blue/40 hover:-translate-y-0.5 transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-xs sm:text-sm shadow-md shadow-royal-blue/20 hover:shadow-royal-blue/40 hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               <span>Subscribe</span>
               <ArrowRight className="w-4 h-4" />
@@ -59,7 +59,7 @@ export default function BlogNewsletter() {
         )}
 
         <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
-          <ShieldCheck className="w-3.5 h-3.5 text-cyan-blue" />
+          <ShieldCheck className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
           <span>Strictly technical insights. No marketing spam. Unsubscribe anytime.</span>
         </div>
       </div>

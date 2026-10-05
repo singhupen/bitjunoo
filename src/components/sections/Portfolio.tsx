@@ -32,33 +32,33 @@ const projects: Project[] = [
     id: "shopgo",
     title: "ShopGo Omnichannel Commerce",
     category: "Mobile App",
-    tagColor: "bg-teal-500/10 text-teal-300 border-teal-500/20",
+    tagColor: "bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/20",
     metrics: "2.4x Checkout Conversion",
     desc: "Cross-platform mobile e-commerce application with 1-click biometrics checkout, real-time order tracking, and offline inventory caching.",
     stack: ["React Native", "TypeScript", "Stripe API", "Node.js"],
-    gradient: "from-cyan-blue via-teal-600 to-emerald-600",
+    gradient: "from-brand-azure via-cyan-blue to-brand-teal",
     accentBg: "bg-teal-500/10",
   },
   {
     id: "teamflow",
     title: "TeamFlow Enterprise Hub",
     category: "Enterprise",
-    tagColor: "bg-purple/10 text-purple border-purple/20",
+    tagColor: "bg-royal-blue/10 text-royal-blue dark:text-cyan-blue border-royal-blue/20",
     metrics: "40% Server Latency Reduction",
     desc: "Robust .NET microservices architecture managing multi-tenant team workflows, real-time document collaboration, and compliance auditing for 50,000+ seats.",
     stack: [".NET 9 / C#", "Azure Cloud", "Docker", "gRPC"],
-    gradient: "from-purple via-violet to-indigo",
-    accentBg: "bg-purple/10",
+    gradient: "from-royal-blue via-deep-blue to-brand-azure",
+    accentBg: "bg-royal-blue/10",
   },
   {
     id: "nexusai",
     title: "NexusAI Process Automator",
     category: "AI & Cloud",
-    tagColor: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+    tagColor: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20",
     metrics: "85% Time Saved on Audits",
     desc: "An intelligent document parsing and anomaly detection engine powered by custom LLM pipelines, vector databases, and automated compliance verification.",
     stack: ["Python", "FastAPI", "Vector DB", "AWS Fargate"],
-    gradient: "from-emerald-600 via-cyan-blue to-royal-blue",
+    gradient: "from-brand-teal via-brand-azure to-royal-blue",
     accentBg: "bg-emerald-500/10",
   },
 ];
@@ -88,7 +88,7 @@ export default function Portfolio() {
 
             <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
               Featured Case Studies &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
+              <span className="brand-title-gradient">
                 Shipped Systems
               </span>
             </h2>
@@ -191,7 +191,7 @@ export default function Portfolio() {
                   {/* Read case study trigger */}
                   <Link
                     href="/portfolio"
-                    className="mt-5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-royal-blue dark:text-cyan-blue hover:text-brand-azure dark:hover:text-purple transition-colors"
+                    className="mt-5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-royal-blue dark:text-cyan-blue hover:text-brand-azure dark:hover:text-cyan-blue transition-colors"
                   >
                     <span>Request Full Architecture Case Study</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

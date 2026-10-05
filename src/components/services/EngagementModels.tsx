@@ -51,7 +51,7 @@ export default function EngagementModels() {
     <section className="py-10 sm:py-14 bg-white dark:bg-slate-950 relative transition-colors duration-300">
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-cyan-blue text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-3">
             <Users className="w-3.5 h-3.5" />
             <span>HOW WE COLLABORATE</span>
           </div>
@@ -78,7 +78,7 @@ export default function EngagementModels() {
                   <span
                     className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                       m.popular
-                        ? "bg-gradient-to-r from-royal-blue to-purple text-white shadow-sm"
+                        ? "bg-gradient-to-r from-royal-blue to-brand-azure text-white shadow-sm"
                         : "bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700/60"
                     }`}
                   >
@@ -109,7 +109,7 @@ export default function EngagementModels() {
                   href="/contact"
                   className={`w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all ${
                     m.popular
-                      ? "bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white shadow-md shadow-royal-blue/30 hover:shadow-royal-blue/50 hover:-translate-y-0.5"
+                      ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/30 hover:shadow-royal-blue/50 hover:-translate-y-0.5"
                       : "bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 hover:-translate-y-0.5 shadow-xs"
                   }`}
                 >

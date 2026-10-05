@@ -11,7 +11,7 @@ export default function FeaturedArticle() {
         <div className="relative rounded-2xl overflow-hidden bg-slate-900/90 dark:bg-slate-900/70 border border-royal-blue/30 dark:border-slate-800 hover:border-cyan-blue/40 text-white p-6 sm:p-8 lg:p-9 shadow-2xl backdrop-blur-md transition-all duration-300">
           {/* Subtle ambient lighting */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-blue/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-mint/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute inset-0 hero-grid-bg opacity-10 pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl">
@@ -42,7 +42,7 @@ export default function FeaturedArticle() {
             {/* Author and Action */}
             <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-700/80 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-royal-blue to-purple flex items-center justify-center font-bold text-white text-xs border border-white/20">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-royal-blue to-brand-azure flex items-center justify-center font-bold text-white text-xs border border-white/20">
                   BJ
                 </div>
                 <div>
@@ -53,7 +53,7 @@ export default function FeaturedArticle() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue to-cyan-blue text-white text-xs sm:text-sm font-bold shadow-md shadow-cyan-blue/20 hover:shadow-cyan-blue/40 hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs sm:text-sm font-bold shadow-md shadow-royal-blue/20 hover:shadow-royal-blue/40 hover:-translate-y-0.5 transition-all"
               >
                 <span>Read Full Technical Paper</span>
                 <ArrowRight className="w-3.5 h-3.5" />

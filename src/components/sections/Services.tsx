@@ -18,7 +18,7 @@ const services = [
     title: "Web App Development",
     desc: "Bespoke, high-performance web applications engineered with Next.js 16 and TypeScript. Sub-second loads, edge rendering, and accessible enterprise UX.",
     tags: ["Next.js 16", "React 19", "TypeScript", "Edge SSR"],
-    gradient: "from-royal-blue to-cyan-blue",
+    gradient: "from-royal-blue to-brand-azure",
     glow: "group-hover:border-cyan-blue/40 shadow-royal-blue/10",
   },
   {
@@ -27,8 +27,8 @@ const services = [
     title: "Mobile App Development",
     desc: "Intuitive, native-grade iOS and Android mobile solutions built with cross-platform frameworks. Engaging offline-first architecture & push notifications.",
     tags: ["React Native", "iOS & Android", "Offline Sync", "Biometrics"],
-    gradient: "from-cyan-blue to-teal-400",
-    glow: "group-hover:border-teal-400/40 shadow-cyan-blue/10",
+    gradient: "from-brand-azure to-cyan-blue",
+    glow: "group-hover:border-cyan-blue/40 shadow-brand-azure/10",
   },
   {
     icon: Server,
@@ -36,8 +36,8 @@ const services = [
     title: "Enterprise .NET Systems",
     desc: "Industrial-strength backend systems, clean microservices, and high-throughput APIs powered by .NET 9 and C# for mission-critical workloads.",
     tags: [".NET 9 / C#", "Microservices", "REST & gRPC", "Azure Cloud"],
-    gradient: "from-indigo to-violet",
-    glow: "group-hover:border-violet/40 shadow-indigo/10",
+    gradient: "from-royal-blue to-deep-blue",
+    glow: "group-hover:border-royal-blue/40 shadow-deep-blue/10",
   },
   {
     icon: Cloud,
@@ -54,8 +54,8 @@ const services = [
     title: "AI Integration & Automation",
     desc: "Custom LLM integrations, retrieval-augmented generation (RAG), and smart automated workflows that streamline repetitive processes at scale.",
     tags: ["OpenAI / Claude", "RAG Pipelines", "Process Automation", "Vector Search"],
-    gradient: "from-violet to-purple",
-    glow: "group-hover:border-purple/40 shadow-purple/10",
+    gradient: "from-brand-azure to-brand-teal",
+    glow: "group-hover:border-brand-teal/40 shadow-brand-teal/10",
   },
   {
     icon: Atom,
@@ -63,7 +63,7 @@ const services = [
     title: "Code Audit & Modernization",
     desc: "Comprehensive architecture reviews, security vulnerability scanning, and refactoring to rescue, modernize, and accelerate legacy codebases.",
     tags: ["Security Audits", "Refactoring", "Clean Architecture", "Performance Tuning"],
-    gradient: "from-purple to-royal-blue",
+    gradient: "from-cyan-blue to-royal-blue",
     glow: "group-hover:border-cyan-blue/40 shadow-royal-blue/10",
   },
 ];
@@ -84,7 +84,7 @@ export default function Services() {
 
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
             Solutions Built to Scale Your{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
+            <span className="brand-title-gradient">
               Competitive Advantage
             </span>
           </h2>

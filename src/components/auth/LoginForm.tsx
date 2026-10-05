@@ -164,7 +164,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={loading || success}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-bold text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {loading ? (
             <>
@@ -228,7 +228,7 @@ export default function LoginForm() {
             }}
             className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm cursor-pointer"
           >
-            <ShieldCheck className="w-4 h-4 text-purple" />
+            <ShieldCheck className="w-4 h-4 text-royal-blue dark:text-cyan-blue" />
             Enterprise SSO
           </button>
         </div>

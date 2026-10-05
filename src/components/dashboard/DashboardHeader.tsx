@@ -183,7 +183,7 @@ export default function DashboardHeader({
           }`}
           title="Account Profile"
         >
-          <div className="w-5 h-5 rounded-md bg-gradient-to-br from-royal-blue to-purple text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">
+          <div className="w-5 h-5 rounded-md bg-gradient-to-br from-royal-blue to-brand-azure text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">
             PA
           </div>
           <span className="text-xs font-semibold hidden xl:inline">
@@ -202,7 +202,7 @@ export default function DashboardHeader({
         ) : (
           <Link
             href="/add-articles"
-            className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg bg-gradient-to-r from-royal-blue to-purple text-white text-xs font-bold shadow-xs shadow-royal-blue/20 hover:shadow-sm hover:shadow-royal-blue/35 transition-all cursor-pointer whitespace-nowrap h-7.5"
+            className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs font-bold shadow-xs shadow-royal-blue/20 hover:shadow-sm hover:shadow-royal-blue/35 transition-all cursor-pointer whitespace-nowrap h-7.5"
           >
             <Plus className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">New Article</span>
@@ -212,7 +212,7 @@ export default function DashboardHeader({
 
       {/* Mobile Search Overlay Bar */}
       {mobileSearchOpen && (
-        <div className="sm:hidden absolute top-full left-0 right-0 p-2 bg-white border-b border-slate-200 shadow-md flex items-center gap-2 animate-in slide-in-from-top-1 duration-200 z-50">
+        <div className="sm:hidden absolute top-full left-0 right-0 p-2 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-md flex items-center gap-2 animate-in slide-in-from-top-1 duration-200 z-50">
           <div className="relative flex-1">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
             <input
@@ -221,12 +221,12 @@ export default function DashboardHeader({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search console..."
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-royal-blue"
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-royal-blue"
             />
           </div>
           <button
             onClick={() => setMobileSearchOpen(false)}
-            className="p-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800"
+            className="p-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
           >
             Cancel
           </button>

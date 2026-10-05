@@ -120,7 +120,7 @@ export default function DashboardSidebar({
                         : "justify-between px-3 py-2"
                     } ${
                       active
-                        ? "bg-gradient-to-r from-royal-blue to-indigo text-white shadow-xs font-bold"
+                        ? "bg-gradient-to-r from-royal-blue to-brand-azure text-white shadow-xs font-bold"
                         : "text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
                     }`}
                   >
@@ -192,7 +192,7 @@ export default function DashboardSidebar({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bookmark className="w-4 h-4 text-purple group-hover:scale-105 transition-transform" />
+                  <Bookmark className="w-4 h-4 text-brand-azure group-hover:scale-105 transition-transform" />
                   {!isCollapsedMode && <span>Live Blog</span>}
                 </div>
                 {!isCollapsedMode && (
@@ -217,7 +217,7 @@ export default function DashboardSidebar({
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Globe className="w-4 h-4 text-cyan-blue group-hover:scale-105 transition-transform" />
+                  <Globe className="w-4 h-4 text-royal-blue dark:text-cyan-blue group-hover:scale-105 transition-transform" />
                   {!isCollapsedMode && <span>Main Website</span>}
                 </div>
                 {!isCollapsedMode && (
@@ -235,7 +235,7 @@ export default function DashboardSidebar({
 
         {/* AI & Readability Badge (Expanded only) */}
         {!isCollapsedMode && (
-          <div className="p-3 rounded-xl bg-gradient-to-br from-royal-blue/5 via-purple/5 to-cyan-blue/5 border border-royal-blue/15 dark:border-royal-blue/30 text-slate-800 dark:text-slate-200">
+          <div className="p-3 rounded-xl bg-gradient-to-br from-royal-blue/5 via-brand-azure/5 to-brand-cyan/5 border border-royal-blue/15 dark:border-royal-blue/30 text-slate-800 dark:text-slate-200">
             <div className="flex items-center gap-1.5 text-xs font-bold text-royal-blue dark:text-cyan-blue mb-0.5">
               <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue animate-pulse" />
               <span>AI Writing Assistant</span>
@@ -262,7 +262,7 @@ export default function DashboardSidebar({
           title="Account Profile"
         >
           <div className="relative shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-royal-blue to-purple text-white font-bold text-xs flex items-center justify-center shadow-2xs group-hover:ring-2 group-hover:ring-royal-blue/40 transition-all">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-royal-blue to-brand-azure text-white font-bold text-xs flex items-center justify-center shadow-2xs group-hover:ring-2 group-hover:ring-royal-blue/40 transition-all">
               PA
             </div>
             <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-white dark:border-slate-900" />

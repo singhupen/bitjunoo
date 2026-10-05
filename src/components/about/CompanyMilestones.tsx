@@ -32,7 +32,7 @@ export default function CompanyMilestones() {
     <section className="py-10 sm:py-14 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-cyan-blue text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-3">
             <TrendingUp className="w-3.5 h-3.5" />
             <span>OUR JOURNEY</span>
           </div>
@@ -48,16 +48,16 @@ export default function CompanyMilestones() {
           {milestones.map((m, idx) => (
             <div
               key={m.year}
-              className="relative p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 hover:border-cyan-blue/40 dark:hover:border-cyan-blue/40 hover:bg-white dark:hover:bg-slate-900/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              className="relative p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 hover:bg-white dark:hover:bg-slate-900/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
+                  <span className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan">
                     {m.year}
                   </span>
                   <span className="text-xs font-mono font-bold text-slate-400 dark:text-slate-500">Phase 0{idx + 1}</span>
                 </div>
-                <h3 className="font-heading text-base font-bold text-slate-900 dark:text-white mb-2 group-hover:text-cyan-blue transition-colors">
+                <h3 className="font-heading text-base font-bold text-slate-900 dark:text-white mb-2 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
                   {m.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
@@ -65,8 +65,8 @@ export default function CompanyMilestones() {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center gap-1.5 text-xs font-semibold text-cyan-blue">
-                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0" />
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center gap-1.5 text-xs font-semibold text-royal-blue dark:text-cyan-blue">
+                <CheckCircle2 className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue flex-shrink-0" />
                 <span>{m.highlight}</span>
               </div>
             </div>

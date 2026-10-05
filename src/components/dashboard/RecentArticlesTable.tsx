@@ -124,8 +124,8 @@ export default function RecentArticlesTable() {
         );
       case "Scheduled":
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple/10 text-purple border border-purple/20">
-            <Clock className="w-3 h-3 text-purple" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-azure/10 text-brand-azure border border-brand-azure/20">
+            <Clock className="w-3 h-3 text-brand-azure" />
             Scheduled
           </span>
         );

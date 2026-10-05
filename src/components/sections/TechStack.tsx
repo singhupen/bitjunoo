@@ -27,28 +27,28 @@ interface TechItem {
 
 const technologies: TechItem[] = [
   // Frontend
-  { name: "React 19", category: "Frontend", icon: Atom, specialty: "Concurrent UI & Hooks", color: "text-cyan-blue group-hover:border-cyan-blue/40" },
-  { name: "Next.js 16", category: "Frontend", icon: Layers, specialty: "Turbopack & Edge SSR", color: "text-slate-100 group-hover:border-slate-400" },
+  { name: "React 19", category: "Frontend", icon: Atom, specialty: "Concurrent UI & Hooks", color: "text-royal-blue dark:text-cyan-blue group-hover:border-royal-blue/40" },
+  { name: "Next.js 16", category: "Frontend", icon: Layers, specialty: "Turbopack & Edge SSR", color: "text-slate-900 dark:text-white group-hover:border-slate-400" },
   { name: "TypeScript", category: "Frontend", icon: Terminal, specialty: "Type-Safe Architecture", color: "text-royal-blue group-hover:border-royal-blue/40" },
-  { name: "Tailwind CSS", category: "Frontend", icon: Globe, specialty: "Modern Design Systems", color: "text-cyan-400 group-hover:border-cyan-400/40" },
+  { name: "Tailwind CSS", category: "Frontend", icon: Globe, specialty: "Modern Design Systems", color: "text-cyan-600 dark:text-cyan-400 group-hover:border-cyan-400/40" },
 
   // Backend
-  { name: ".NET 9 / C#", category: "Backend", icon: Server, specialty: "Enterprise Microservices", color: "text-purple group-hover:border-purple/40" },
-  { name: "Node.js", category: "Backend", icon: Hexagon, specialty: "Async I/O & Event Loops", color: "text-emerald-400 group-hover:border-emerald-400/40" },
-  { name: "gRPC & REST", category: "Backend", icon: Workflow, specialty: "High-Throughput APIs", color: "text-indigo-400 group-hover:border-indigo-400/40" },
-  { name: "Python / AI", category: "Backend", icon: Cpu, specialty: "LLM Workflows & Pipelines", color: "text-amber-400 group-hover:border-amber-400/40" },
+  { name: ".NET 9 / C#", category: "Backend", icon: Server, specialty: "Enterprise Microservices", color: "text-royal-blue dark:text-brand-azure group-hover:border-royal-blue/40" },
+  { name: "Node.js", category: "Backend", icon: Hexagon, specialty: "Async I/O & Event Loops", color: "text-emerald-600 dark:text-emerald-400 group-hover:border-emerald-400/40" },
+  { name: "gRPC & REST", category: "Backend", icon: Workflow, specialty: "High-Throughput APIs", color: "text-royal-blue dark:text-brand-azure group-hover:border-royal-blue/40" },
+  { name: "Python / AI", category: "Backend", icon: Cpu, specialty: "LLM Workflows & Pipelines", color: "text-amber-600 dark:text-amber-400 group-hover:border-amber-400/40" },
 
   // Cloud & DevOps
-  { name: "Docker", category: "Cloud & DevOps", icon: Boxes, specialty: "Container Standards", color: "text-sky-400 group-hover:border-sky-400/40" },
-  { name: "Kubernetes", category: "Cloud & DevOps", icon: Cloud, specialty: "Cluster Orchestration", color: "text-blue-400 group-hover:border-blue-400/40" },
-  { name: "AWS & Azure", category: "Cloud & DevOps", icon: Cloud, specialty: "Serverless & Cloud Native", color: "text-orange-400 group-hover:border-orange-400/40" },
-  { name: "CI / CD Security", category: "Cloud & DevOps", icon: Shield, specialty: "Automated Deployments", color: "text-teal-400 group-hover:border-teal-400/40" },
+  { name: "Docker", category: "Cloud & DevOps", icon: Boxes, specialty: "Container Standards", color: "text-sky-600 dark:text-sky-400 group-hover:border-sky-400/40" },
+  { name: "Kubernetes", category: "Cloud & DevOps", icon: Cloud, specialty: "Cluster Orchestration", color: "text-blue-600 dark:text-blue-400 group-hover:border-blue-400/40" },
+  { name: "AWS & Azure", category: "Cloud & DevOps", icon: Cloud, specialty: "Serverless & Cloud Native", color: "text-orange-600 dark:text-orange-400 group-hover:border-orange-400/40" },
+  { name: "CI / CD Security", category: "Cloud & DevOps", icon: Shield, specialty: "Automated Deployments", color: "text-teal-600 dark:text-teal-400 group-hover:border-teal-400/40" },
 
   // Data & AI
-  { name: "PostgreSQL", category: "Data & AI", icon: Database, specialty: "Relational Core & Vector", color: "text-indigo-400 group-hover:border-indigo-400/40" },
-  { name: "Redis", category: "Data & AI", icon: Database, specialty: "In-Memory Caching & PubSub", color: "text-rose-400 group-hover:border-rose-400/40" },
-  { name: "Vector DBs", category: "Data & AI", icon: Cpu, specialty: "RAG & Semantic Retrieval", color: "text-violet-400 group-hover:border-violet-400/40" },
-  { name: "Kafka / RabbitMQ", category: "Data & AI", icon: Workflow, specialty: "Event-Driven Streams", color: "text-amber-500 group-hover:border-amber-500/40" },
+  { name: "PostgreSQL", category: "Data & AI", icon: Database, specialty: "Relational Core & Vector", color: "text-blue-700 dark:text-blue-400 group-hover:border-blue-400/40" },
+  { name: "Redis", category: "Data & AI", icon: Database, specialty: "In-Memory Caching & PubSub", color: "text-rose-600 dark:text-rose-400 group-hover:border-rose-400/40" },
+  { name: "Vector DBs", category: "Data & AI", icon: Cpu, specialty: "RAG & Semantic Retrieval", color: "text-royal-blue dark:text-cyan-300 group-hover:border-royal-blue/40" },
+  { name: "Kafka / RabbitMQ", category: "Data & AI", icon: Workflow, specialty: "Event-Driven Streams", color: "text-amber-600 dark:text-amber-400 group-hover:border-amber-500/40" },
 ];
 
 const categories = ["All Stacks", "Frontend", "Backend", "Cloud & DevOps", "Data & AI"] as const;
@@ -93,7 +93,7 @@ export default function TechStack() {
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeCategory === cat
                     ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/25 scale-105"
-                    : "bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-navy-950 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800"
+                    : "bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-royal-blue dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
                 }`}
               >
                 {cat}

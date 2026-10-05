@@ -17,7 +17,7 @@ export default function CTASection({
   return (
     <section className="relative py-10 sm:py-14 bg-white dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-brand-blue/35 border border-royal-blue/30 p-6 sm:p-9 lg:p-10 shadow-2xl text-white">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-royal-blue/35 border border-royal-blue/30 p-6 sm:p-9 lg:p-10 shadow-2xl text-white">
           {/* Ambient Lighting Orbs */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-brand-cyan/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-mint/15 rounded-full blur-3xl pointer-events-none" />

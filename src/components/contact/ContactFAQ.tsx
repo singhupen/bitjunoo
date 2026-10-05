@@ -36,7 +36,7 @@ export default function ContactFAQ() {
 
       <div className="max-w-5xl mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 relative z-10">
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-blue/10 border border-cyan-blue/20 text-cyan-blue text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-3">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>COMMONLY ASKED QUESTIONS</span>
           </div>
@@ -58,12 +58,12 @@ export default function ContactFAQ() {
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : i)}
-                  className="w-full px-5 py-3.5 text-left flex items-center justify-between gap-3 font-heading font-bold text-slate-900 dark:text-white hover:text-cyan-blue dark:hover:text-cyan-blue transition-colors text-xs sm:text-sm cursor-pointer"
+                  className="w-full px-5 py-3.5 text-left flex items-center justify-between gap-3 font-heading font-bold text-slate-900 dark:text-white hover:text-royal-blue dark:hover:text-cyan-blue transition-colors text-xs sm:text-sm cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
                     className={`w-4 h-4 text-slate-400 transition-transform duration-200 flex-shrink-0 ${
-                      isOpen ? "rotate-180 text-cyan-blue" : ""
+                      isOpen ? "rotate-180 text-royal-blue dark:text-cyan-blue" : ""
                     }`}
                   />
                 </button>

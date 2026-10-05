@@ -31,7 +31,7 @@ const testimonials = [
     company: "TeamFlow Inc.",
     initials: "EC",
     projectTag: "Enterprise .NET Microservices",
-    gradient: "from-purple to-indigo",
+    gradient: "from-royal-blue to-deep-blue",
     rating: 5,
   },
 ];
@@ -52,7 +52,7 @@ export default function Testimonials() {
 
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
             Endorsed by Technical Leaders &{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
+            <span className="brand-title-gradient">
               Founders Worldwide
             </span>
           </h2>
@@ -136,7 +136,7 @@ export default function Testimonials() {
           </div>
           <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-brand-azure dark:text-purple">92%</div>
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-brand-azure dark:text-cyan-blue">92%</div>
             <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Repeat & Retainer Clients</div>
           </div>
           <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-800" />

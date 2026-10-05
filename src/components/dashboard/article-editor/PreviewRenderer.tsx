@@ -311,7 +311,7 @@ export default function PreviewRenderer({
       if (line.startsWith("## ")) {
         elements.push(
           <h2 key={`h2-${i}`} className="font-heading text-xl sm:text-2xl font-bold text-slate-900 mt-7 mb-3 tracking-tight flex items-center gap-2">
-            <span className="w-1.5 h-5 rounded-full bg-gradient-to-b from-royal-blue to-purple inline-block" />
+            <span className="w-1.5 h-5 rounded-full bg-gradient-to-b from-royal-blue to-brand-azure inline-block" />
             <span dangerouslySetInnerHTML={{ __html: formatInline(line.replace(/^##\s+/, "")) }} />
           </h2>
         );
@@ -476,7 +476,7 @@ export default function PreviewRenderer({
 
       {/* Author and Date Mockup */}
       <div className="flex items-center gap-3 pb-6 mb-6 border-b border-slate-200/80">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-royal-blue to-purple flex items-center justify-center text-white font-bold text-xs shadow-sm">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-royal-blue to-brand-azure flex items-center justify-center text-white font-bold text-xs shadow-sm">
           {authorName ? authorName[0].toUpperCase() : "A"}
         </div>
         <div>

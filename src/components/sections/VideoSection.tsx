@@ -7,7 +7,7 @@ export default function VideoSection() {
     <section className="py-14 sm:py-20 bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Ambient Lighting Gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-royal-blue/5 dark:bg-royal-blue/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-10 w-96 h-96 bg-brand-mint/5 dark:bg-purple/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-96 h-96 bg-brand-mint/5 dark:bg-cyan-blue/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         {/* Section Header */}
@@ -19,7 +19,7 @@ export default function VideoSection() {
 
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4 tracking-tight leading-[1.18]">
             Shaping the Future with{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
+            <span className="brand-title-gradient">
               Autonomous Intelligence
             </span>
           </h2>

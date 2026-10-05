@@ -389,7 +389,7 @@ export default function ProfilePage() {
           <button
             onClick={handleSaveProfile}
             disabled={isSaving}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-royal-blue to-purple text-white text-xs font-bold shadow-sm hover:opacity-95 transition-all cursor-pointer disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs font-bold shadow-sm hover:opacity-95 transition-all cursor-pointer disabled:opacity-60"
           >
             <Save className="w-3.5 h-3.5" />
             <span>{isSaving ? "Saving..." : "Save Changes"}</span>
@@ -416,7 +416,7 @@ export default function ProfilePage() {
       {/* Profile Hero Card */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-2xs overflow-hidden">
         {/* Cover Banner */}
-        <div className="h-24 bg-gradient-to-r from-royal-blue/20 via-indigo/15 to-purple/20 border-b border-slate-200/60 relative overflow-hidden">
+        <div className="h-24 bg-gradient-to-r from-royal-blue/20 via-brand-azure/15 to-brand-teal/20 border-b border-slate-200/60 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/10" />
         </div>
@@ -434,7 +434,7 @@ export default function ProfilePage() {
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-white shadow-lg"
                   />
                 ) : (
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-royal-blue via-indigo to-purple text-white text-2xl font-black flex items-center justify-center ring-4 ring-white shadow-lg font-heading">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-royal-blue via-brand-azure to-brand-teal text-white text-2xl font-black flex items-center justify-center ring-4 ring-white shadow-lg font-heading">
                     {initials}
                   </div>
                 )}
@@ -849,7 +849,7 @@ export default function ProfilePage() {
               {[
                 {
                   icon: <Sparkles className="w-3.5 h-3.5" />,
-                  bg: "bg-purple/10 text-purple",
+                  bg: "bg-brand-azure/10 text-brand-azure",
                   title: "Core Contributor",
                   desc: "Verified author account",
                   earned: true,

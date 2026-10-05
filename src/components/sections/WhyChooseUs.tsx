@@ -23,7 +23,7 @@ const reasons = [
     title: "Enterprise Quality & Security",
     desc: "From strict type checking and automated test suites to SOC2/HIPAA compliance awareness, we build clean code that scales smoothly from seed to enterprise.",
     bullets: ["Rigorous 90%+ test coverage", "Automated linting & security scans", "Thorough API documentation"],
-    gradient: "from-indigo to-violet",
+    gradient: "from-royal-blue to-deep-blue",
   },
   {
     icon: Headphones,
@@ -31,7 +31,7 @@ const reasons = [
     title: "Unwavering Post-Launch SLA",
     desc: "Deployment is just day one. We stand behind our work with proactive observability, automated alerting, performance tuning, and 24/7 emergency response.",
     bullets: ["99.9% uptime SLA commitments", "Real-time error & log monitoring", "Continuous performance tuning"],
-    gradient: "from-violet to-purple",
+    gradient: "from-brand-azure to-brand-teal",
   },
 ];
 
@@ -56,7 +56,7 @@ export default function WhyChooseUs() {
 
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
             Engineering Precision.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint">
+            <span className="brand-title-gradient">
               Uncompromising Standards.
             </span>
           </h2>
@@ -118,7 +118,7 @@ export default function WhyChooseUs() {
         {/* Bottom Trust & Verification Stats Bar */}
         <div className="mt-10 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-white/90 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-md dark:shadow-xl text-center">
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-royal-blue to-brand-cyan dark:from-cyan-blue dark:to-white">
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-royal-blue to-brand-azure dark:from-cyan-blue dark:to-white">
               3-4 Wks
             </div>
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-1">Average MVP Delivery</div>
@@ -130,13 +130,13 @@ export default function WhyChooseUs() {
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-1">Automated Test Coverage</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-azure to-brand-mint dark:from-purple dark:to-pink-300">
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-azure to-brand-teal dark:from-cyan-blue dark:to-brand-mint">
               99.8%
             </div>
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-1">Milestone On-Time Rate</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-teal-200">
+            <div className="text-2xl sm:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-mint dark:from-brand-teal dark:to-brand-mint">
               100%
             </div>
             <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-1">Full Code Ownership</div>

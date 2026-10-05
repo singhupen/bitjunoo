@@ -29,7 +29,7 @@ export default function Footer() {
     <footer className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-slate-800/80 relative overflow-hidden transition-colors duration-300">
       {/* Ambient background brand glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-azure/5 dark:bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-mint/5 dark:bg-purple/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-mint/5 dark:bg-cyan-blue/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">

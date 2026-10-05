@@ -54,9 +54,9 @@ export default function Hero() {
       className="relative min-h-[92vh] flex flex-col justify-center pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300"
     >
       {/* Dynamic Ambient Lighting Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[550px] bg-gradient-to-b from-royal-blue/10 via-brand-cyan/5 to-transparent dark:from-royal-blue/15 dark:via-purple/10 dark:to-transparent blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[550px] bg-gradient-to-b from-royal-blue/10 via-brand-cyan/5 to-transparent dark:from-royal-blue/15 dark:via-brand-azure/10 dark:to-transparent blur-[140px] pointer-events-none" />
       <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] bg-brand-cyan/10 dark:bg-cyan-blue/15 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 -right-20 w-[480px] h-[480px] bg-brand-mint/10 dark:bg-purple/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 -right-20 w-[480px] h-[480px] bg-brand-mint/10 dark:bg-cyan-blue/15 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Grid Pattern with Smooth Radial Mask */}
       <div 
@@ -96,7 +96,7 @@ export default function Hero() {
               className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-4 sm:mb-5"
             >
               Engineering Powerful{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-cyan to-brand-mint">
+              <span className="text-transparent bg-clip-text brand-title-gradient">
                 Digital Systems
               </span>{" "}
               for Scaling Enterprises
@@ -109,7 +109,7 @@ export default function Hero() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mb-6 sm:mb-8 font-normal"
             >
-              BitJunoo unites rigorous software architecture (<span className="text-royal-blue font-semibold">Bit</span>) with relentless execution drive (<span className="text-brand-cyan dark:text-brand-mint font-semibold">Junoo</span>). We craft high-throughput web apps, resilient .NET backends, and cloud microservices built for extreme reliability.
+              BitJunoo unites rigorous software architecture (<span className="text-royal-blue font-semibold">Bit</span>) with relentless execution drive (<span className="text-royal-blue dark:text-cyan-blue font-semibold">Junoo</span>). We craft high-throughput web apps, resilient .NET backends, and cloud microservices built for extreme reliability.
             </motion.p>
 
             {/* CTAs */}
@@ -152,7 +152,7 @@ export default function Hero() {
                 <span>Senior Principal Engineers</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Activity className="w-4 h-4 text-brand-azure dark:text-purple" />
+                <Activity className="w-4 h-4 text-royal-blue dark:text-cyan-blue" />
                 <span>48h Architecture Review</span>
               </div>
             </motion.div>
@@ -173,7 +173,7 @@ export default function Hero() {
               </div>
 
               <div className="p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 backdrop-blur-sm hover:border-cyan-blue/40 transition-colors shadow-xs">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-azure via-brand-cyan to-brand-mint dark:from-cyan-300 dark:via-sky-200 dark:to-white">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-azure to-brand-mint dark:from-cyan-300 dark:via-sky-200 dark:to-white">
                   99.98%
                 </div>
                 <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">High-Availability SLA</div>
@@ -181,7 +181,7 @@ export default function Hero() {
               </div>
 
               <div className="p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 backdrop-blur-sm hover:border-brand-mint/40 transition-colors shadow-xs">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-teal to-brand-mint dark:from-purple dark:via-violet-300 dark:to-white">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-brand-teal to-brand-mint dark:from-cyan-300 dark:via-sky-100 dark:to-white">
                   40%
                 </div>
                 <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Latency Reduction</div>
@@ -219,7 +219,7 @@ export default function Hero() {
               {/* 3D Canvas Container */}
               <div className="relative h-[290px] sm:h-[350px] lg:h-[390px] w-full rounded-2xl bg-slate-100/90 dark:bg-slate-950/70 border border-slate-200/80 dark:border-slate-800/50 overflow-hidden flex items-center justify-center">
                 {/* Subtle internal lighting */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-royal-blue/10 dark:from-royal-blue/15 via-transparent to-brand-mint/10 dark:to-purple/15 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-royal-blue/10 dark:from-royal-blue/15 via-transparent to-brand-mint/10 dark:to-cyan-blue/15 pointer-events-none" />
 
                 {/* Desktop Interactive Rotation Hint */}
                 <div className="absolute top-2 right-2 z-20 hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/90 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 text-[10px] text-slate-700 dark:text-slate-300 backdrop-blur-md pointer-events-none select-none shadow-xs">
@@ -250,7 +250,7 @@ export default function Hero() {
                 </div>
                 <div className="p-2 rounded-lg bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/60 shadow-xs">
                   <div className="text-slate-500 dark:text-slate-400">DEPLOYMENT</div>
-                  <div className="text-brand-azure dark:text-purple font-bold mt-0.5">Multi-Region</div>
+                  <div className="text-royal-blue dark:text-cyan-blue font-bold mt-0.5">Multi-Region</div>
                 </div>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function Hero() {
               {stack.map((t) => (
                 <div
                   key={t.name}
-                  className="flex items-center justify-center sm:justify-start gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 hover:bg-white dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 hover:text-navy-950 dark:hover:text-white text-xs font-medium transition-all select-none shadow-xs"
+                  className="flex items-center justify-center sm:justify-start gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 hover:bg-white dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-royal-blue dark:hover:text-white text-xs font-medium transition-all select-none shadow-xs"
                 >
                   <t.icon className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue flex-shrink-0" />
                   <span className="whitespace-nowrap">{t.name}</span>

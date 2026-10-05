@@ -187,7 +187,7 @@ export default function SignupForm() {
         <button
           type="submit"
           disabled={loading || success}
-          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-royal-blue via-deep-blue to-purple text-white font-bold text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
         >
           {loading ? (
             <>

@@ -156,8 +156,8 @@ echo "==> Deployment successfully finished!"
     <span class="block text-2xl font-black text-royal-blue font-heading">&lt; 14ms</span>
     <span class="text-xs font-semibold text-slate-600">P99 Edge Latency</span>
   </div>
-  <div class="p-4 rounded-2xl bg-purple/5 border border-purple/20">
-    <span class="block text-2xl font-black text-purple font-heading">99.999%</span>
+  <div class="p-4 rounded-2xl bg-brand-azure/5 border border-brand-azure/20">
+    <span class="block text-2xl font-black text-brand-azure font-heading">99.999%</span>
     <span class="text-xs font-semibold text-slate-600">High Availability SLA</span>
   </div>
   <div class="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
@@ -242,7 +242,7 @@ export default function CodeSnippetsModal({
         {/* Header */}
         <div className="p-5 sm:p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-purple/10 text-purple">
+            <div className="p-2 rounded-xl bg-royal-blue/10 text-royal-blue">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -272,7 +272,7 @@ export default function CodeSnippetsModal({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search code & components..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple/20 text-slate-900"
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-900"
             />
           </div>
 
@@ -284,7 +284,7 @@ export default function CodeSnippetsModal({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-purple text-white shadow-sm"
+                    ? "bg-royal-blue text-white shadow-sm"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
@@ -306,11 +306,11 @@ export default function CodeSnippetsModal({
               {filteredSnippets.map((snippet) => (
                 <div
                   key={snippet.id}
-                  className="p-4 rounded-2xl border border-slate-200 hover:border-purple/40 bg-white hover:bg-purple/[0.02] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+                  className="p-4 rounded-2xl border border-slate-200 hover:border-royal-blue/40 bg-white hover:bg-royal-blue/[0.02] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-heading font-bold text-xs sm:text-sm text-slate-900 group-hover:text-purple transition-colors">
+                      <span className="font-heading font-bold text-xs sm:text-sm text-slate-900 group-hover:text-royal-blue transition-colors">
                         {snippet.title}
                       </span>
                       <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-mono font-bold uppercase tracking-wider">

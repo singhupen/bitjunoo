@@ -24,7 +24,7 @@ const services = [
       "Core Web Vitals Optimization (100 Lighthouse score target)",
     ],
     tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS"],
-    accentGradient: "from-royal-blue to-cyan-blue",
+    accentGradient: "from-royal-blue to-brand-azure",
   },
   {
     icon: Smartphone,
@@ -38,7 +38,7 @@ const services = [
       "App Store & Google Play automated deployment",
     ],
     tech: ["React Native", "Expo", "iOS & Android", "WebSockets"],
-    accentGradient: "from-cyan-blue to-teal-400",
+    accentGradient: "from-brand-azure to-cyan-blue",
   },
   {
     icon: Server,
@@ -52,7 +52,7 @@ const services = [
       "Horizontal auto-scaling & memory management",
     ],
     tech: [".NET 9", "C#", "PostgreSQL", "Docker", "Redis"],
-    accentGradient: "from-indigo to-violet",
+    accentGradient: "from-royal-blue to-deep-blue",
   },
   {
     icon: Cloud,
@@ -80,7 +80,7 @@ const services = [
       "Data ingestion, cleansing & ETL pipelines",
     ],
     tech: ["Python", "LangChain", "Vector DBs", "OpenAI", "Anthropic"],
-    accentGradient: "from-violet to-purple",
+    accentGradient: "from-brand-azure to-brand-teal",
   },
   {
     icon: ShieldCheck,
@@ -94,7 +94,7 @@ const services = [
       "Database schema query optimization & indexing",
     ],
     tech: ["SonarQube", "Snyk", "OWASP", "OAuth2", "Vault"],
-    accentGradient: "from-purple to-royal-blue",
+    accentGradient: "from-cyan-blue to-royal-blue",
   },
 ];
 
@@ -103,7 +103,7 @@ export default function ServicesCatalog() {
     <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 relative border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-cyan-blue text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-3">
             <Layers className="w-3.5 h-3.5" />
             <span>FULL-SPECTRUM CAPABILITIES</span>
           </div>
@@ -119,7 +119,7 @@ export default function ServicesCatalog() {
           {services.map((s) => (
             <div
               key={s.title}
-              className="group relative bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-cyan-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Header row */}
@@ -132,7 +132,7 @@ export default function ServicesCatalog() {
                   </span>
                 </div>
 
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-cyan-blue transition-colors">
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
                   {s.title}
                 </h3>
 
@@ -144,7 +144,7 @@ export default function ServicesCatalog() {
                 <div className="space-y-1.5 mb-5">
                   {s.features.map((f) => (
                     <div key={f} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-blue flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </div>
                   ))}
@@ -166,7 +166,7 @@ export default function ServicesCatalog() {
 
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-blue hover:text-purple transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-royal-blue dark:text-cyan-blue hover:text-brand-azure transition-colors"
                 >
                   Consult Squad
                   <ArrowRight className="w-3.5 h-3.5" />

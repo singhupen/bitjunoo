@@ -17,9 +17,9 @@ import {
 
 const trafficSources = [
   { source: "Organic Search (Google, DuckDuckGo)", percentage: 48, visitors: "164,540", color: "bg-royal-blue" },
-  { source: "Direct Traffic & Developer Bookmarks", percentage: 24, visitors: "82,270", color: "bg-purple" },
+  { source: "Direct Traffic & Developer Bookmarks", percentage: 24, visitors: "82,270", color: "bg-brand-azure" },
   { source: "Tech Communities (HackerNews, Reddit r/dotnet)", percentage: 16, visitors: "54,840", color: "bg-cyan-blue" },
-  { source: "Engineering Networks (LinkedIn, Twitter/X)", percentage: 8, visitors: "27,420", color: "bg-indigo" },
+  { source: "Engineering Networks (LinkedIn, Twitter/X)", percentage: 8, visitors: "27,420", color: "bg-brand-azure" },
   { source: "Newsletter Dispatch & RSS Feeds", percentage: 4, visitors: "13,710", color: "bg-emerald-500" },
 ];
 
@@ -106,12 +106,12 @@ export default function AnalyticsOverview() {
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-purple/30 transition-all">
-          <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-brand-azure/30 transition-all">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span>Unique Engineering Readers</span>
-            <Users className="w-4 h-4 text-purple" />
+            <Users className="w-4 h-4 text-brand-azure" />
           </div>
-          <div className="font-heading text-2xl sm:text-3xl font-bold text-slate-900">124.5k</div>
+          <div className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">124.5k</div>
           <div className="flex items-center gap-1 mt-2 text-xs font-semibold text-emerald-600">
             <ArrowUpRight className="w-3.5 h-3.5" />
             <span>+28.4% vs previous</span>
@@ -262,7 +262,7 @@ export default function AnalyticsOverview() {
                   <div className="text-[10px] text-slate-400">Completion</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-mono font-bold text-purple">{art.shares}</div>
+                  <div className="font-mono font-bold text-brand-azure">{art.shares}</div>
                   <div className="text-[10px] text-slate-400">Bookmarks</div>
                 </div>
               </div>

@@ -20,14 +20,14 @@ const values = [
     title: "Security by Design",
     desc: "Enterprise auth (OAuth, SAML), OWASP Top 10 defenses, encrypted datastores, and SOC2 awareness baked into foundational schemas.",
     badge: "Enterprise Grade",
-    color: "from-indigo to-violet",
+    color: "from-royal-blue to-deep-blue",
   },
   {
     icon: Users,
     title: "Radical Transparency",
     desc: "Shared Slack channels, real-time Jira/Linear boards, and clickable staging builds every Friday. You always know what is being built.",
     badge: "High Visibility",
-    color: "from-violet to-purple",
+    color: "from-brand-azure to-brand-teal",
   },
   {
     icon: Lock,
@@ -41,7 +41,7 @@ const values = [
     title: "Long-Term Partnership",
     desc: "Deployment is just day one. We stay committed post-launch with proactive observability, automated alerting, and 24/7 SLA emergency support.",
     badge: "Post-Launch Care",
-    color: "from-purple to-indigo",
+    color: "from-brand-teal to-royal-blue",
   },
 ];
 
@@ -50,7 +50,7 @@ export default function CoreValues() {
     <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-blue/10 border border-cyan-blue/20 text-cyan-blue text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-royal-blue/10 border border-royal-blue/20 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-3">
             <span>OUR CORE VALUES</span>
           </div>
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-2">
@@ -76,7 +76,7 @@ export default function CoreValues() {
                     {v.badge}
                   </span>
                 </div>
-                <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-cyan-blue transition-colors">
+                <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
                   {v.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
