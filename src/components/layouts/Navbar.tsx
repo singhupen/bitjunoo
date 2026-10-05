@@ -87,12 +87,15 @@ export default function Navbar() {
           {/* Reusable Theme Switcher */}
           <ThemeSwitcher />
 
+          {/* Console button temporarily commented out */}
+          {/*
           <Link
             href="/login"
             className="text-xs sm:text-sm font-semibold text-slate-700 hover:text-navy-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60 px-3.5 py-2 rounded-xl transition-colors"
           >
             Console
           </Link>
+          */}
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs sm:text-sm font-semibold shadow-md shadow-royal-blue/25 hover:shadow-royal-blue/45 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
@@ -138,6 +141,8 @@ export default function Navbar() {
               );
             })}
             <li className="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex flex-col gap-2.5">
+              {/* Console button temporarily commented out */}
+              {/*
               <Link
                 href="/login"
                 onClick={() => setOpen(false)}
@@ -145,6 +150,7 @@ export default function Navbar() {
               >
                 Sign In to Console
               </Link>
+              */}
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
