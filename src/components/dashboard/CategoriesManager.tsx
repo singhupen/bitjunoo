@@ -167,7 +167,7 @@ export default function CategoriesManager({
             <button
               type="submit"
               disabled={!name.trim()}
-              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white font-bold text-xs sm:text-sm shadow-md shadow-royal-blue/20 hover:shadow-lg transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-xs sm:text-sm shadow-md shadow-royal-blue/20 hover:shadow-lg transition-all disabled:opacity-50 cursor-pointer"
             >
               Create Category
             </button>
@@ -231,8 +231,8 @@ export default function CategoriesManager({
       {/* Popular Tags Taxonomy Cloud */}
       <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div className="flex items-center justify-between mb-3.5">
-          <h3 className="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
-            <Hash className="w-4 h-4 text-purple" />
+          <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+            <Hash className="w-4 h-4 text-brand-azure" />
             <span>Keyword Taxonomy & Tag Frequency</span>
           </h3>
           <span className="text-xs text-slate-400">Indexed for semantic search</span>

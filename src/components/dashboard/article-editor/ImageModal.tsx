@@ -496,7 +496,7 @@ export default function ImageModal({
             type="button"
             disabled={!imageUrl.trim()}
             onClick={handleInsert}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white font-bold text-xs shadow-md shadow-royal-blue/20 hover:shadow-lg hover:shadow-royal-blue/35 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-xs shadow-md shadow-royal-blue/20 hover:shadow-lg hover:shadow-royal-blue/35 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Check className="w-4 h-4" />
             <span>Insert Image</span>

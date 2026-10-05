@@ -13,10 +13,10 @@ export default function BlogDashboardShell({
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="h-screen h-[100dvh] w-screen max-w-full bg-slate-50/70 text-slate-800 flex relative overflow-hidden">
+    <div className="h-screen h-[100dvh] w-screen max-w-full bg-slate-50/70 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex relative overflow-hidden transition-colors duration-300">
       {/* Subtle brand ambient glows */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[300px] bg-royal-blue/[0.04] rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/3 w-[500px] h-[350px] bg-purple/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/3 w-[500px] h-[350px] bg-cyan-blue/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
       {/* Fixed Sidebar */}
       <DashboardSidebar

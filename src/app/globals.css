@@ -1,89 +1,111 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
+
 @theme {
   /* ==========================================================================
-     BitJunoo Official Brand Color Palette
+     BitJunoo Official Brand Color Palette (Derived strictly from Icon/Logo)
      ========================================================================== */
-  --color-deep-blue: #0943F4;   /* Main blue / dark gradient */
-  --color-royal-blue: #0675FA;  /* “Bit” and icon color */
-  --color-cyan-blue: #05B0FC;   /* Bright highlights */
-  --color-indigo: #3523F1;      /* Blue-to-purple transition */
-  --color-violet: #6D15F2;      /* Main purple gradient */
-  --color-purple: #A80FF5;      /* “Junoo” side */
-  --color-light-gray: #ECECED;  /* Background / checkerboard light areas */
-  --color-slate-gray: #435575;  /* Tagline and text */
+  --color-deep-blue: #002ad2;     /* Deep royal/navy blue in icon */
+  --color-royal-blue: #0064da;    /* Primary brand blue ("Bit" wordmark) */
+  --color-cyan-blue: #00a8d9;     /* High-tech cyan highlight */
+  --color-brand-azure: #008bdd;   /* Vibrant blue bridge */
+  --color-brand-cyan: #00a8d9;    /* Bright highlight */
+  --color-brand-teal: #00cbd0;    /* Transition teal in icon curve */
+  --color-brand-mint: #00d2b4;    /* Mint endpoint in icon curve */
+  --color-brand-blue: #0064da;    /* Alias for royal-blue */
+
+  /* Icon text / Dark base navy */
+  --color-navy-900: #00152d;      /* Wordmark dark navy in icon.png */
+  --color-navy-950: #000f20;      /* Ultra deep navy */
+  --color-slate-850: #111827;     /* High-contrast dark neutral */
+  --color-slate-750: #253347;
+
+  /* Aliasing legacy/foreign classes to the brand logo palette */
+  --color-indigo: #008bdd;        /* Aligned to Brand Azure */
+  --color-violet: #00a8d9;        /* Aligned to Brand Cyan */
+  --color-purple: #00cbd0;        /* Aligned to Brand Teal/Aqua */
+  --color-light-gray: #f1f5f9;
+  --color-slate-gray: #334155;
 
   /* Brand Role Aliases */
-  --color-brand-bit: #0675FA;
-  --color-brand-junoo: #A80FF5;
-  --color-brand-transition: #3523F1;
-  --color-brand-highlight: #05B0FC;
-  --color-brand-dark: #0943F4;
+  --color-brand-bit: #0064da;
+  --color-brand-junoo: #00d2b4;
+  --color-brand-transition: #00cbd0;
+  --color-brand-highlight: #00a8d9;
+  --color-brand-dark: #00152d;
 
-  /* Brand Scale (Anchored on Royal Blue #0675FA & Deep Blue #0943F4) */
-  --color-brand-50: #eff5ff;
-  --color-brand-100: #dce7fe;
-  --color-brand-200: #bfd4fe;
-  --color-brand-300: #93b9fd;
-  --color-brand-400: #558dfb;
-  --color-brand-500: #0675FA;
-  --color-brand-600: #0943F4;
-  --color-brand-700: #0837cd;
-  --color-brand-800: #062ca5;
-  --color-brand-900: #05217b;
-  --color-brand-950: #031349;
+  /* Brand Scale (Anchored on Royal Blue #0064da & Deep Blue #002ad2) */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #3b82f6;
+  --color-brand-500: #0064da;
+  --color-brand-600: #0052cc;
+  --color-brand-700: #003fa6;
+  --color-brand-800: #002ad2;
+  --color-brand-900: #00152d;
+  --color-brand-950: #000f20;
 
-  /* Accent Scale (Anchored on Cyan Blue #05B0FC Bright Highlights) */
+  /* Accent Scale (Anchored on Cyan Blue #00a8d9 Bright Highlights) */
   --color-accent-50: #f0faff;
   --color-accent-100: #e0f4fe;
   --color-accent-200: #bae8fe;
   --color-accent-300: #7bd5fd;
   --color-accent-400: #38c2fc;
-  --color-accent-500: #05B0FC;
-  --color-accent-600: #028dd2;
-  --color-accent-700: #036fa7;
-  --color-accent-800: #075b87;
-  --color-accent-900: #0c4c6e;
-  --color-accent-950: #063048;
+  --color-accent-500: #00a8d9;
+  --color-accent-600: #0087b8;
+  --color-accent-700: #006c94;
+  --color-accent-800: #055473;
+  --color-accent-900: #0a445d;
+  --color-accent-950: #04293a;
 
-  /* Junoo Spectrum Scale (Violet #6D15F2 to Purple #A80FF5) */
-  --color-junoo-50: #faf5ff;
-  --color-junoo-100: #f4e8ff;
-  --color-junoo-200: #ebd5ff;
-  --color-junoo-300: #dab5fe;
-  --color-junoo-400: #c288fc;
-  --color-junoo-500: #A80FF5;
-  --color-junoo-600: #8c0ed6;
-  --color-junoo-700: #6D15F2;
-  --color-junoo-800: #540ec1;
-  --color-junoo-900: #3f0996;
-  --color-junoo-950: #280366;
+  /* Junoo Spectrum Scale (Teal #00cbd0 to Vibrant Mint #00d2b4) */
+  --color-junoo-50: #f0fdfa;
+  --color-junoo-100: #ccfbf1;
+  --color-junoo-200: #99f6e4;
+  --color-junoo-300: #5eead4;
+  --color-junoo-400: #2dd4bf;
+  --color-junoo-500: #00d2b4;
+  --color-junoo-600: #00cbd0;
+  --color-junoo-700: #00a896;
+  --color-junoo-800: #007a6c;
+  --color-junoo-900: #044e45;
+  --color-junoo-950: #022c27;
 
-  /* Slate Scale (Anchored on Slate Gray #435575 Tagline and Text) */
+  /* Slate Scale (Crisp, High-Contrast Neutrals) */
   --color-slate-50: #f8fafc;
-  --color-slate-100: #ECECED;
-  --color-slate-200: #e1e5eb;
-  --color-slate-300: #cbd2dc;
-  --color-slate-400: #8d9eb5;
-  --color-slate-500: #62748f;
-  --color-slate-600: #435575;
-  --color-slate-700: #34435c;
-  --color-slate-800: #242f41;
-  --color-slate-900: #141b27;
-  --color-slate-950: #0a0e16;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #0b0f19;
 
   --font-heading: "Poppins", system-ui, sans-serif;
 }
 
 :root {
-  --color-deep-blue: #0943F4;
-  --color-royal-blue: #0675FA;
-  --color-cyan-blue: #05B0FC;
-  --color-indigo: #3523F1;
-  --color-violet: #6D15F2;
-  --color-purple: #A80FF5;
-  --color-light-gray: #ECECED;
-  --color-slate-gray: #435575;
+  --color-deep-blue: #002ad2;
+  --color-royal-blue: #0064da;
+  --color-cyan-blue: #00a8d9;
+  --color-brand-azure: #008bdd;
+  --color-brand-cyan: #00a8d9;
+  --color-brand-teal: #00cbd0;
+  --color-brand-mint: #00d2b4;
+  --color-brand-blue: #0064da;
+  --color-navy-900: #00152d;
+  --color-navy-950: #000f20;
+  --color-indigo: #008bdd;
+  --color-violet: #00a8d9;
+  --color-purple: #00cbd0;
+  --color-light-gray: #f1f5f9;
+  --color-slate-gray: #334155;
 }
 
 @layer base {
@@ -93,11 +115,17 @@
   }
   body {
     font-family: "Inter", system-ui, sans-serif;
-    color: #435575;
-    background-color: #0b0f19;
+    color: #1e293b;
+    background-color: #ffffff;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .dark body,
+  [data-theme="dark"] body {
+    color: #cbd5e1;
+    background-color: #0b0f19;
   }
   h1,
   h2,
@@ -114,15 +142,29 @@
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #f1f5f9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #cbd5e1;
     border-radius: 9999px;
-    border: 2px solid #0f172a;
+    border: 2px solid #f1f5f9;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #0675FA;
+    background: #0064da;
+  }
+
+  .dark ::-webkit-scrollbar-track,
+  [data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  .dark ::-webkit-scrollbar-thumb,
+  [data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border: 2px solid #0f172a;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover,
+  [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #00a8d9;
   }
 }
 
@@ -130,42 +172,66 @@
   /* Subtle brand grid background */
   .hero-grid-bg {
     background-image:
-      linear-gradient(to right, rgba(9, 67, 244, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(9, 67, 244, 0.06) 1px, transparent 1px);
+      linear-gradient(to right, rgba(0, 100, 218, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 100, 218, 0.08) 1px, transparent 1px);
     background-size: 48px 48px;
   }
+  .dark .hero-grid-bg,
+  [data-theme="dark"] .hero-grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(0, 168, 217, 0.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 168, 217, 0.12) 1px, transparent 1px);
+  }
 
-  /* Checkerboard light area using Light Gray #ECECED */
+  /* Checkerboard light area using Light Gray #f1f5f9 */
   .checkerboard-light {
     background-color: #ffffff;
     background-image:
-      linear-gradient(45deg, #ECECED 25%, transparent 25%),
-      linear-gradient(-45deg, #ECECED 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #ECECED 75%),
-      linear-gradient(-45deg, transparent 75%, #ECECED 75%);
+      linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+      linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+      linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
     background-size: 24px 24px;
     background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
   }
+  .dark .checkerboard-light,
+  [data-theme="dark"] .checkerboard-light {
+    background-color: #0b0f19;
+    background-image:
+      linear-gradient(45deg, #141b27 25%, transparent 25%),
+      linear-gradient(-45deg, #141b27 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #141b27 75%),
+      linear-gradient(-45deg, transparent 75%, #141b27 75%);
+  }
 
-  /* Signature BitJunoo Brand Text Gradient (Royal Blue -> Indigo -> Violet -> Purple) */
-  .gradient-text {
-    background: linear-gradient(135deg, #0675FA 0%, #3523F1 45%, #6D15F2 75%, #A80FF5 100%);
+  /* Signature BitJunoo High-Contrast Brand Text Gradient (Deep Blue -> Royal Blue -> Azure -> Mint Teal) */
+  .gradient-text,
+  .brand-title-gradient {
+    background: linear-gradient(135deg, #002ad2 0%, #0064da 35%, #008bdd 70%, #008b74 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .dark .gradient-text,
+  [data-theme="dark"] .gradient-text,
+  .dark .brand-title-gradient,
+  [data-theme="dark"] .brand-title-gradient {
+    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 45%, #2dd4bf 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Highlight Text Gradient (Cyan Blue -> Royal Blue -> Indigo) */
+  /* Highlight Text Gradient (Royal Blue -> Azure -> Cyan) */
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #05B0FC 0%, #0675FA 60%, #3523F1 100%);
+    background: linear-gradient(135deg, #0052cc 0%, #0064da 40%, #0087b8 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-
-  /* Junoo Purple Gradient Text (Violet -> Purple) */
-  .gradient-text-purple {
-    background: linear-gradient(135deg, #3523F1 0%, #6D15F2 50%, #A80FF5 100%);
+  .dark .gradient-text-cyan,
+  [data-theme="dark"] .gradient-text-cyan {
+    background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 60%, #a7f3d0 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -173,12 +239,12 @@
 
   /* Full brand background gradient */
   .bg-gradient-bitjunoo {
-    background: linear-gradient(135deg, #0675FA 0%, #3523F1 50%, #A80FF5 100%);
+    background: linear-gradient(135deg, #002ad2 0%, #0064da 40%, #008bdd 75%, #00cbd0 100%);
   }
 
   /* Deep dark gradient */
   .bg-gradient-dark-brand {
-    background: linear-gradient(135deg, #031349 0%, #0943F4 60%, #3523F1 100%);
+    background: linear-gradient(135deg, #00152d 0%, #002ad2 60%, #008bdd 100%);
   }
 
   .animate-float {

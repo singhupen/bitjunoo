@@ -17,14 +17,14 @@ export default function AuthVisualSide() {
       {/* Ambient background brand glows */}
       <div className="absolute inset-0 hero-grid-bg opacity-20 pointer-events-none" />
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-royal-blue/25 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple/20 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-mint/15 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-cyan-blue/15 rounded-full blur-[110px] pointer-events-none" />
 
       {/* Top Logo */}
       <div className="relative z-10">
         <Link href="/" className="inline-flex items-center gap-2.5 group">
           <img
-            src="/icon.png"
+            src="/icon-dark.png"
             alt="BitJunoo Logo"
             className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
           />
@@ -70,8 +70,8 @@ export default function AuthVisualSide() {
             </div>
             <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10">
               <div className="text-[10px] uppercase font-semibold text-slate-400 mb-0.5">Throughput</div>
-              <div className="font-mono text-base font-bold text-purple">2.4M/s</div>
-              <div className="text-[9px] text-purple/80 mt-0.5">Auto-Scaling</div>
+              <div className="font-mono text-base font-bold text-brand-azure">2.4M/s</div>
+              <div className="text-[9px] text-brand-azure/80 mt-0.5">Auto-Scaling</div>
             </div>
           </div>
 
@@ -85,12 +85,12 @@ export default function AuthVisualSide() {
               <span className="font-mono text-[10px] text-cyan-300 font-semibold">60 FPS</span>
             </div>
 
-            <div className="flex items-center justify-between p-2.5 rounded-xl bg-purple/10 border border-purple/30 text-xs">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-royal-blue/15 border border-royal-blue/30 text-xs">
               <div className="flex items-center gap-2.5">
-                <Server className="w-4 h-4 text-purple" />
+                <Server className="w-4 h-4 text-brand-azure" />
                 <span className="font-medium text-slate-200">.NET 9 Core Enterprise Microservices</span>
               </div>
-              <span className="font-mono text-[10px] text-purple/90 font-semibold">gRPC / REST</span>
+              <span className="font-mono text-[10px] text-brand-azure font-semibold">gRPC / REST</span>
             </div>
 
             <div className="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs">
@@ -107,7 +107,7 @@ export default function AuthVisualSide() {
         <div>
           <h2 className="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2 leading-snug">
             Where Systemic Logic{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-royal-blue to-purple">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-blue via-brand-azure to-brand-mint">
               Meets Unstoppable Passion
             </span>
           </h2>
@@ -139,7 +139,7 @@ export default function AuthVisualSide() {
           <span>256-Bit SSL Encrypted</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <Zap className="w-4 h-4 text-purple" />
+          <Zap className="w-4 h-4 text-brand-mint" />
           <span>Zero Junior Delegation</span>
         </div>
       </div>

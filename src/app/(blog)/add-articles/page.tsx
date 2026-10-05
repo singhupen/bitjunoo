@@ -54,7 +54,7 @@ export default async function AddArticlesPage({ searchParams }: Props) {
             <h1 className="font-heading text-lg sm:text-xl font-extrabold text-slate-950 tracking-tight">
               {isEditMode ? "Edit Publication" : "Create New Publication"}
             </h1>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-royal-blue/10 via-purple/10 to-royal-blue/10 border border-royal-blue/20 text-royal-blue text-[10px] font-bold tracking-wider uppercase shadow-2xs">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-royal-blue/10 via-brand-azure/10 to-royal-blue/10 border border-royal-blue/20 text-royal-blue text-[10px] font-bold tracking-wider uppercase shadow-2xs">
               <Sparkles className="w-2.5 h-2.5 text-royal-blue animate-pulse" />
               <span>Studio Pro</span>
             </span>

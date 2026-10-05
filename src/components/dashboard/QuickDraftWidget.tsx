@@ -46,10 +46,10 @@ export default function QuickDraftWidget() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-purple/10 text-purple border border-purple/20">
+              <div className="p-2 rounded-xl bg-royal-blue/10 dark:bg-royal-blue/20 text-royal-blue dark:text-cyan-blue border border-royal-blue/20">
                 <Sparkles className="w-4 h-4" />
               </div>
-              <h3 className="font-heading font-bold text-base sm:text-lg text-slate-900">
+              <h3 className="font-heading font-bold text-base sm:text-lg text-slate-900 dark:text-white">
                 Quick Editorial Jotter
               </h3>
             </div>
@@ -184,7 +184,7 @@ export default function QuickDraftWidget() {
               <div className="text-[10px] text-slate-400">Edge TTFB</div>
             </div>
             <div>
-              <div className="text-base font-bold font-mono text-purple">94.8%</div>
+              <div className="text-base font-bold font-mono text-brand-azure">94.8%</div>
               <div className="text-[10px] text-slate-400">Cache Hit Rate</div>
             </div>
           </div>

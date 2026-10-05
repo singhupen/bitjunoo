@@ -103,9 +103,9 @@ export default function PublicationSettings() {
 
       {/* SEO & Analytics Integrations Card */}
       <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-          <Share2 className="w-4 h-4 text-purple" />
-          <h3 className="font-heading font-bold text-sm sm:text-base text-slate-900">
+        <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <Share2 className="w-4 h-4 text-brand-azure" />
+          <h3 className="font-heading font-bold text-sm sm:text-base text-slate-900 dark:text-white">
             SEO & Syndication Tracking
           </h3>
         </div>
@@ -204,7 +204,7 @@ export default function PublicationSettings() {
       <div className="flex items-center justify-end gap-3 pt-2">
         <button
           type="submit"
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white font-bold text-xs sm:text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-bold text-xs sm:text-sm shadow-md shadow-royal-blue/25 hover:shadow-lg transition-all cursor-pointer"
         >
           <Save className="w-4 h-4" />
           <span>Save Changes</span>

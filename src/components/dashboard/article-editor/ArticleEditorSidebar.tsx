@@ -202,7 +202,7 @@ export default function ArticleEditorSidebar({
             type="button"
             disabled={isSaving}
             onClick={() => onPublish(publishStatus, publishStatus === "Scheduled" ? scheduleDate : undefined)}
-            className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-indigo to-purple hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
+            className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
           >
             <Send className="w-3.5 h-3.5" />
             <span>
@@ -294,9 +294,9 @@ export default function ArticleEditorSidebar({
       </div>
 
       {/* 3. Taxonomy & Properties */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs space-y-3">
-        <h3 className="font-heading font-bold text-sm text-slate-900 flex items-center gap-1.5">
-          <Layers className="w-3.5 h-3.5 text-purple" />
+      <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-3">
+        <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+          <Layers className="w-3.5 h-3.5 text-brand-azure" />
           <span>Taxonomy & Meta</span>
         </h3>
 
@@ -463,7 +463,7 @@ export default function ArticleEditorSidebar({
               // eslint-disable-next-line @next/next/no-img-element
               <img src={coverUrl} alt="Social card" className="w-full h-24 object-cover" />
             ) : (
-              <div className="w-full h-20 bg-gradient-to-r from-royal-blue to-purple flex items-center justify-center text-white text-xs font-bold">
+              <div className="w-full h-20 bg-gradient-to-r from-royal-blue to-brand-azure flex items-center justify-center text-white text-xs font-bold">
                 BitJunoo Editorial
               </div>
             )}

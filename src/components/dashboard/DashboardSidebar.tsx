@@ -47,10 +47,10 @@ export default function DashboardSidebar({
   const pathname = usePathname();
 
   const renderContent = (isCollapsedMode: boolean) => (
-    <div className="flex flex-col h-full bg-white/95 backdrop-blur-md text-slate-700 border-r border-slate-200/90 select-none">
+    <div className="flex flex-col h-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-slate-700 dark:text-slate-200 border-r border-slate-200/90 dark:border-slate-800 select-none transition-colors duration-300">
       {/* Top Header & Logo */}
       <div
-        className={`flex items-center border-b border-slate-200/80 transition-all ${
+        className={`flex items-center border-b border-slate-200/80 dark:border-slate-800 transition-all ${
           isCollapsedMode ? "p-3 justify-center" : "px-4 py-3 justify-between"
         }`}
       >
@@ -63,14 +63,20 @@ export default function DashboardSidebar({
           <img
             src="/icon.png"
             alt="BitJunoo Logo"
-            className="h-7 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-7 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/icon-dark.png"
+            alt="BitJunoo Logo"
+            className="h-7 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
           />
           {!isCollapsedMode && (
             <div className="flex flex-col min-w-0">
-              <span className="font-heading font-extrabold text-slate-950 text-sm tracking-tight leading-tight">
+              <span className="font-heading font-extrabold text-slate-950 dark:text-white text-sm tracking-tight leading-tight">
                 BitJunoo
               </span>
-              <span className="text-[10px] font-bold text-royal-blue uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-royal-blue dark:text-cyan-blue uppercase tracking-wider">
                 Editorial Studio
               </span>
             </div>
@@ -80,7 +86,7 @@ export default function DashboardSidebar({
         {/* Mobile Close Button */}
         <button
           onClick={onClose}
-          className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+          className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           aria-label="Close navigation drawer"
         >
           <X className="w-4 h-4" />
@@ -114,8 +120,8 @@ export default function DashboardSidebar({
                         : "justify-between px-3 py-2"
                     } ${
                       active
-                        ? "bg-gradient-to-r from-royal-blue to-indigo text-white shadow-xs font-bold"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-slate-100/80"
+                        ? "bg-gradient-to-r from-royal-blue to-brand-azure text-white shadow-xs font-bold"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -123,7 +129,7 @@ export default function DashboardSidebar({
                         className={`w-4 h-4 shrink-0 transition-transform ${
                           active
                             ? "text-white"
-                            : "text-slate-400 group-hover:text-royal-blue group-hover:scale-105"
+                            : "text-slate-400 group-hover:text-royal-blue dark:group-hover:text-cyan-blue group-hover:scale-105"
                         }`}
                       />
                       {!isCollapsedMode && <span>{item.label}</span>}
@@ -134,7 +140,7 @@ export default function DashboardSidebar({
                         className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider ${
                           active
                             ? "bg-white/20 text-white"
-                            : "bg-royal-blue/10 text-royal-blue border border-royal-blue/20"
+                            : "bg-royal-blue/10 dark:bg-royal-blue/20 text-royal-blue dark:text-cyan-blue border border-royal-blue/20"
                         }`}
                       >
                         {item.badge}
@@ -146,7 +152,7 @@ export default function DashboardSidebar({
                         className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
                           active
                             ? "bg-white/20 text-white"
-                            : "bg-slate-100 text-slate-500"
+                            : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
                         }`}
                       >
                         {item.count}
@@ -169,7 +175,7 @@ export default function DashboardSidebar({
         {/* Public Portals Section */}
         <div>
           {!isCollapsedMode && (
-            <div className="px-2 mb-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="px-2 mb-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
               Public Channels
             </div>
           )}
@@ -179,14 +185,14 @@ export default function DashboardSidebar({
                 href="/blog"
                 target="_blank"
                 title={isCollapsedMode ? "Live Blog" : undefined}
-                className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 hover:text-royal-blue hover:bg-slate-100/80 transition-colors group relative ${
+                className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors group relative ${
                   isCollapsedMode
                     ? "justify-center p-2.5"
                     : "justify-between px-3 py-1.5"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Bookmark className="w-4 h-4 text-purple group-hover:scale-105 transition-transform" />
+                  <Bookmark className="w-4 h-4 text-brand-azure group-hover:scale-105 transition-transform" />
                   {!isCollapsedMode && <span>Live Blog</span>}
                 </div>
                 {!isCollapsedMode && (
@@ -204,14 +210,14 @@ export default function DashboardSidebar({
                 href="/"
                 target="_blank"
                 title={isCollapsedMode ? "Main Website" : undefined}
-                className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 hover:text-royal-blue hover:bg-slate-100/80 transition-colors group relative ${
+                className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors group relative ${
                   isCollapsedMode
                     ? "justify-center p-2.5"
                     : "justify-between px-3 py-1.5"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Globe className="w-4 h-4 text-cyan-blue group-hover:scale-105 transition-transform" />
+                  <Globe className="w-4 h-4 text-royal-blue dark:text-cyan-blue group-hover:scale-105 transition-transform" />
                   {!isCollapsedMode && <span>Main Website</span>}
                 </div>
                 {!isCollapsedMode && (
@@ -229,12 +235,12 @@ export default function DashboardSidebar({
 
         {/* AI & Readability Badge (Expanded only) */}
         {!isCollapsedMode && (
-          <div className="p-3 rounded-xl bg-gradient-to-br from-royal-blue/5 via-purple/5 to-cyan-blue/5 border border-royal-blue/15 text-slate-800">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-royal-blue mb-0.5">
-              <Sparkles className="w-3.5 h-3.5 text-royal-blue animate-pulse" />
+          <div className="p-3 rounded-xl bg-gradient-to-br from-royal-blue/5 via-brand-azure/5 to-brand-cyan/5 border border-royal-blue/15 dark:border-royal-blue/30 text-slate-800 dark:text-slate-200">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-royal-blue dark:text-cyan-blue mb-0.5">
+              <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue animate-pulse" />
               <span>AI Writing Assistant</span>
             </div>
-            <p className="text-[10px] text-slate-500 leading-relaxed">
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed">
               Markdown validation, SEO checks, and live code highlighting active.
             </p>
           </div>
@@ -243,7 +249,7 @@ export default function DashboardSidebar({
 
       {/* User Profile Footer */}
       <div
-        className={`border-t border-slate-200/80 bg-slate-50/70 transition-all ${
+        className={`border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/80 transition-all ${
           isCollapsedMode
             ? "p-2.5 flex items-center justify-center"
             : "p-2.5 px-3 flex items-center justify-between"
@@ -256,17 +262,17 @@ export default function DashboardSidebar({
           title="Account Profile"
         >
           <div className="relative shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-royal-blue to-purple text-white font-bold text-xs flex items-center justify-center shadow-2xs group-hover:ring-2 group-hover:ring-royal-blue/40 transition-all">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-royal-blue to-brand-azure text-white font-bold text-xs flex items-center justify-center shadow-2xs group-hover:ring-2 group-hover:ring-royal-blue/40 transition-all">
               PA
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-white" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-white dark:border-slate-900" />
           </div>
           {!isCollapsedMode && (
             <div className="flex flex-col min-w-0">
-              <span className="text-xs font-bold text-slate-900 truncate leading-tight group-hover:text-royal-blue transition-colors">
+              <span className="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
                 Principal Architect
               </span>
-              <span className="text-[10px] text-slate-400 truncate">
+              <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate">
                 admin@bitjunoo.com
               </span>
             </div>
@@ -277,7 +283,7 @@ export default function DashboardSidebar({
           <Link
             href="/login"
             title="Sign Out"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
           </Link>

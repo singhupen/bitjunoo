@@ -260,7 +260,7 @@ export default function EditorToolbar({
           <button
             type="button"
             onClick={onOpenSnippetsModal}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-purple/10 hover:bg-purple text-purple hover:text-white transition-all text-xs font-bold cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-royal-blue/10 hover:bg-royal-blue text-royal-blue dark:text-cyan-blue hover:text-white transition-all text-xs font-bold cursor-pointer"
             title="HTML & Code Suggestions"
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -323,7 +323,7 @@ export default function EditorToolbar({
           title={isFullscreen ? "Exit Fullscreen" : "Distraction-Free Fullscreen"}
         >
           {isFullscreen ? (
-            <Minimize2 className="w-4 h-4 text-purple" />
+            <Minimize2 className="w-4 h-4 text-royal-blue dark:text-cyan-blue" />
           ) : (
             <Maximize2 className="w-4 h-4" />
           )}

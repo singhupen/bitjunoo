@@ -55,8 +55,8 @@ function StatusBadge({ status }: { status: ArticleItem["status"] }) {
       );
     case "scheduled":
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple/10 text-purple border border-purple/20">
-          <Clock className="w-3 h-3 text-purple" />
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-azure/10 text-brand-azure border border-brand-azure/20">
+          <Clock className="w-3 h-3 text-brand-azure" />
           Scheduled
         </span>
       );
@@ -157,8 +157,8 @@ export default function ArticlesManager() {
         {[
           { label: "Total", value: stats.total, color: "text-slate-900", bg: "bg-slate-50", border: "border-slate-200" },
           { label: "Published", value: stats.published, color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200" },
-          { label: "Drafts", value: stats.drafts, color: "text-slate-700", bg: "bg-slate-100", border: "border-slate-200" },
-          { label: "Scheduled", value: stats.scheduled, color: "text-purple", bg: "bg-purple/5", border: "border-purple/20" },
+          { label: "Drafts", value: stats.drafts, color: "text-slate-700 dark:text-slate-300", bg: "bg-slate-100 dark:bg-slate-800", border: "border-slate-200 dark:border-slate-700" },
+          { label: "Scheduled", value: stats.scheduled, color: "text-brand-azure", bg: "bg-brand-azure/5 dark:bg-brand-azure/10", border: "border-brand-azure/20" },
         ].map((s) => (
           <div key={s.label} className={`${s.bg} border ${s.border} rounded-xl p-3 text-center`}>
             <span className={`block font-heading font-black text-xl ${s.color}`}>{s.value}</span>
@@ -211,7 +211,7 @@ export default function ArticlesManager() {
 
           <Link
             href="/add-articles"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-royal-blue to-purple text-white text-xs font-bold shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/35 transition-all whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs font-bold shadow-md shadow-royal-blue/25 hover:shadow-lg hover:shadow-royal-blue/35 transition-all whitespace-nowrap"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Article</span>
