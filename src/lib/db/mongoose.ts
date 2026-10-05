@@ -14,6 +14,8 @@
  *    do NOT need to await connectDB() before every query.
  *  – Call connectDB() exactly once from lib/db/index.ts at module evaluation
  *    time so the promise is in-flight before the first API request arrives.
+ * 
+ * 
  */
 
 import mongoose, { Mongoose } from "mongoose";
