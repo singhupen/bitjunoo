@@ -35,8 +35,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/50 py-3 sm:py-3.5"
-          : "bg-transparent py-4 sm:py-5"
+          ? "bg-white/90 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-md shadow-slate-900/5 dark:shadow-black/50 py-2 sm:py-2.5"
+          : "bg-transparent py-3 sm:py-4"
       }`}
     >
       <nav className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between">
@@ -46,13 +46,13 @@ export default function Navbar() {
           <img
             src="/icon.png"
             alt="BitJunoo Logo"
-            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
           />
           {/* Dark Mode Logo (Pristine White Wordmark with Mint/Cyan Preserved) */}
           <img
             src="/icon-dark.png"
             alt="BitJunoo Logo"
-            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
           />
         </Link>
 
