@@ -143,7 +143,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md">
-              Where systemic engineering logic (<strong className="text-royal-blue font-semibold">Bit</strong>) meets relentless passion & drive (<strong className="text-brand-cyan dark:text-brand-mint font-semibold">Junoo</strong>). Delivering enterprise software architectures and scalable digital solutions.
+              Bitjuno combines strategic consulting with modern technology to build secure, scalable, and high-performance digital solutions that help businesses grow faster.
             </p>
 
             {/* Social Media Icons (Prominent, High-Fidelity & Interactive) */}
