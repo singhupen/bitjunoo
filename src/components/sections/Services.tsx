@@ -49,24 +49,32 @@ export default function Services() {
     >
       {/* Background soft ambient blobs */}
       <div 
-        className="absolute top-1/2 left-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none dark:hidden"
         style={{
           background: "radial-gradient(circle, rgba(238, 247, 255, 0.9) 0%, rgba(221, 247, 252, 0.4) 40%, transparent 70%)",
           filter: "blur(70px)",
         }}
       />
       <div 
-        className="absolute top-1/3 right-[-10%] w-[650px] h-[650px] rounded-full pointer-events-none"
+        className="absolute top-1/3 right-[-10%] w-[650px] h-[650px] rounded-full pointer-events-none opacity-50 dark:opacity-30"
         style={{
-          background: "radial-gradient(circle, rgba(8, 105, 232, 0.05) 0%, rgba(8, 185, 217, 0.03) 45%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(8, 105, 232, 0.08) 0%, rgba(8, 185, 217, 0.04) 45%, transparent 70%)",
           filter: "blur(80px)",
         }}
       />
+      {/* Dark mode specific cyan ambient bloom */}
+      <div 
+        className="absolute top-1/2 left-[-5%] w-[550px] h-[550px] rounded-full pointer-events-none hidden dark:block opacity-25"
+        style={{
+          background: "radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(8, 105, 232, 0.1) 45%, transparent 70%)",
+          filter: "blur(90px)",
+        }}
+      />
 
-      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
           {/* Pill Badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -75,7 +83,7 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#0B1733] border border-[#DCE8F5] dark:border-slate-800 shadow-[0_2px_10px_rgba(8,105,232,0.06)] text-xs font-semibold mb-4 text-[#0B1733] dark:text-slate-200"
           >
-            <span className="w-2 h-2 rounded-full bg-[#0869E8]" />
+            <span className="w-2 h-2 rounded-full bg-[#0869E8] dark:bg-[#38bdf8]" />
             <span>Our Services</span>
           </motion.div>
 
@@ -87,7 +95,7 @@ export default function Services() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#0B1733] dark:text-white tracking-tight leading-[1.14] mb-4"
           >
-            End-to-End <span className="text-[#0869E8]">IT Solutions</span>
+            End-to-End <span className="text-[#0869E8] dark:text-[#38bdf8]">IT Solutions</span>
           </motion.h2>
 
           {/* Subtitle */}
@@ -113,7 +121,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 * index, duration: 0.6 }}
-                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-[22px] bg-white dark:bg-[#0B1733]/70 border border-[#DCE8F5] dark:border-slate-800/80 shadow-[0_10px_40px_rgba(24,88,150,0.06)] hover:shadow-[0_16px_50px_rgba(8,105,232,0.12)] hover:border-[#0869E8]/40 hover:-translate-y-1.5 transition-all duration-300"
+                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-[22px] bg-white dark:bg-[#0B1733]/80 border border-[#DCE8F5] dark:border-slate-800 shadow-[0_10px_40px_rgba(24,88,150,0.06)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_50px_rgba(8,105,232,0.12)] dark:hover:shadow-[0_16px_50px_rgba(56,189,248,0.2)] hover:border-[#0869E8]/40 dark:hover:border-cyan-400/40 hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div>
                   {/* Icon badge */}
@@ -122,7 +130,7 @@ export default function Services() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg sm:text-[19px] font-bold text-[#0B1733] dark:text-white tracking-tight leading-snug mb-3 group-hover:text-[#0869E8] dark:group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-lg sm:text-[19px] font-bold text-[#0B1733] dark:text-white tracking-tight leading-snug mb-3 group-hover:text-[#0869E8] dark:group-hover:text-[#38bdf8] transition-colors">
                     {item.title}
                   </h3>
 
@@ -136,7 +144,7 @@ export default function Services() {
                 <div className="pt-2">
                   <Link
                     href={item.href}
-                    className="w-10 h-10 rounded-full bg-[#F7FBFF] dark:bg-slate-900 border border-[#DCE8F5] dark:border-slate-800 text-[#0869E8] dark:text-cyan-400 flex items-center justify-center group-hover:bg-[#0869E8] group-hover:text-white group-hover:border-[#0869E8] group-hover:shadow-[0_4px_16px_rgba(8,105,232,0.3)] transition-all duration-200"
+                    className="w-10 h-10 rounded-full bg-[#F7FBFF] dark:bg-slate-900 border border-[#DCE8F5] dark:border-slate-800 text-[#0869E8] dark:text-[#38bdf8] flex items-center justify-center group-hover:bg-[#0869E8] dark:group-hover:bg-[#38bdf8] group-hover:text-white dark:group-hover:text-[#0B1733] group-hover:border-[#0869E8] dark:group-hover:border-[#38bdf8] group-hover:shadow-[0_4px_16px_rgba(8,105,232,0.3)] transition-all duration-200"
                     aria-label={`Learn more about ${item.title}`}
                   >
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />

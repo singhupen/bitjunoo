@@ -48,7 +48,7 @@ export default function WhyChooseUs() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 dark:bg-cyan-blue/10 border border-royal-blue/20 dark:border-cyan-blue/25 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md shadow-xs">
             <Award className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
             <span>
-              WHY PARTNER WITH Bitjunoo
+              WHY PARTNER WITH BITJUNO
             </span>
           </div>
 

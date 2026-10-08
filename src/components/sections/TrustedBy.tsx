@@ -2,9 +2,9 @@
 
 export default function TrustedBy() {
   return (
-    <section className="relative py-6 sm:py-8 bg-white dark:bg-[#081022] border-y border-[#DCE8F5] dark:border-slate-800/80 overflow-hidden transition-colors duration-300">
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+    <section className="relative py-6 sm:py-7 bg-white dark:bg-[#070E1E] border-y border-[#DCE8F5] dark:border-slate-800/80 overflow-hidden transition-colors duration-300">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-8">
           
           {/* Label */}
           <div className="shrink-0 text-xs sm:text-[13px] font-semibold text-[#50627D] dark:text-slate-400 tracking-tight whitespace-nowrap">

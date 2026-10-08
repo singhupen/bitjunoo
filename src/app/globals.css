@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
+@variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   /* ==========================================================================
@@ -128,6 +128,34 @@
   --color-purple: #00cbd0;
   --color-light-gray: #F7FBFF;
   --color-slate-gray: #50627D;
+}
+
+.dark, [data-theme="dark"] {
+  --color-deep-navy: #F8FAFC;
+  --color-primary-blue: #38BDF8;
+  --color-bright-blue: #60A5FA;
+  --color-brand-cyan: #22D3EE;
+  --color-soft-cyan: #083344;
+  --color-very-light-blue: #0C1E3C;
+  --color-sec-bg: #070E1E;
+  --color-border-subtle: #1E2E4A;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  --color-deep-blue: #3B82F6;
+  --color-royal-blue: #38BDF8;
+  --color-cyan-blue: #22D3EE;
+  --color-brand-azure: #60A5FA;
+  --color-brand-teal: #2DD4BF;
+  --color-brand-mint: #34D399;
+  --color-brand-blue: #38BDF8;
+  --color-navy-900: #F8FAFC;
+  --color-navy-950: #050B18;
+  --color-indigo: #38BDF8;
+  --color-violet: #22D3EE;
+  --color-purple: #2DD4BF;
+  --color-light-gray: #0F172A;
+  --color-slate-gray: #94A3B8;
 }
 
 @layer base {
@@ -281,14 +309,30 @@
   .shadow-enterprise {
     box-shadow: 0 10px 40px rgba(24, 88, 150, 0.08);
   }
+  .dark .shadow-enterprise,
+  [data-theme="dark"] .shadow-enterprise {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  }
   .shadow-floating {
     box-shadow: 0 15px 45px rgba(30, 100, 180, 0.10);
+  }
+  .dark .shadow-floating,
+  [data-theme="dark"] .shadow-floating {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.55);
   }
   .shadow-cta {
     box-shadow: 0 10px 25px rgba(8, 105, 232, 0.22);
   }
+  .dark .shadow-cta,
+  [data-theme="dark"] .shadow-cta {
+    box-shadow: 0 10px 25px rgba(56, 189, 248, 0.25);
+  }
   .shadow-cta:hover {
     box-shadow: 0 14px 30px rgba(8, 105, 232, 0.32);
+  }
+  .dark .shadow-cta:hover,
+  [data-theme="dark"] .shadow-cta:hover {
+    box-shadow: 0 14px 30px rgba(56, 189, 248, 0.40);
   }
 
   .animate-float-card-1 {

@@ -33,54 +33,30 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 pt-2 sm:pt-3 px-3 sm:px-6 lg:px-8 transition-all duration-300">
       <div
-        className={`max-w-[1360px] mx-auto rounded-2xl transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between ${
+        className={`max-w-[1536px] mx-auto rounded-2xl transition-all duration-300 px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between ${
           scrolled
-            ? "bg-white/95 dark:bg-[#0B1733]/90 backdrop-blur-xl border border-[#DCE8F5] dark:border-slate-800/80 shadow-[0_12px_40px_rgba(11,23,51,0.08)]"
-            : "bg-white/85 dark:bg-[#0B1733]/70 backdrop-blur-lg border border-[#DCE8F5]/80 dark:border-slate-800/60 shadow-[0_8px_30px_rgba(11,23,51,0.04)]"
+            ? "bg-white/95 dark:bg-[#070E1E]/95 backdrop-blur-xl border border-[#DCE8F5] dark:border-slate-800/80 shadow-[0_12px_40px_rgba(11,23,51,0.08)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
+            : "bg-white/85 dark:bg-[#070E1E]/85 backdrop-blur-lg border border-[#DCE8F5]/80 dark:border-slate-800/60 shadow-[0_8px_30px_rgba(11,23,51,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
         }`}
       >
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative flex items-center justify-center">
-            {/* High fidelity Bitjuno B-mark */}
-            <svg
-              className="w-8 h-8 sm:w-9 sm:h-9 transition-transform group-hover:scale-105"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="40" height="40" rx="10" fill="url(#b-bg-grad)" fillOpacity="0.1" />
-              <circle cx="15" cy="14" r="5" fill="#08B9D9" />
-              <path
-                d="M15 13C15 10.7909 16.7909 9 19 9H24C27.3137 9 30 11.6863 30 15C30 17.5 28.5 19.6 26.2 20.5C28.9 21.4 31 23.9 31 27C31 30.866 27.866 34 24 34H18C15.7909 34 14 32.2091 14 30V15"
-                stroke="url(#b-stroke-grad)"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="21" cy="27" r="3" fill="#0869E8" />
-              <defs>
-                <linearGradient id="b-bg-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#0869E8" />
-                  <stop offset="1" stopColor="#08B9D9" />
-                </linearGradient>
-                <linearGradient id="b-stroke-grad" x1="14" y1="9" x2="31" y2="34" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#0869E8" />
-                  <stop offset="0.5" stopColor="#168CFF" />
-                  <stop offset="1" stopColor="#08B9D9" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <span className="font-heading font-extrabold text-xl sm:text-2xl text-[#0B1733] dark:text-white tracking-tight flex items-baseline">
-            Bitjuno<span className="text-[#0869E8]">.</span>
-          </span>
+        {/* Brand Logo - Uses icon.png from public folder */}
+        <Link href="/" className="flex items-center group py-0.5">
+          <img
+            src="/icon.png"
+            alt="Bitjuno Logo"
+            className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 dark:hidden"
+          />
+          <img
+            src="/icon-dark.png"
+            alt="Bitjuno Logo"
+            className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105 hidden dark:block"
+          />
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-7 lg:gap-8">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {links.map((l) => {
             const active = isActive(l.href);
             return (
