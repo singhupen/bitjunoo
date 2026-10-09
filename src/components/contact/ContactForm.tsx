@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Phone, Code, FileText, FileSignature, ArrowRight } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Phone, Code, FileText, FileSignature, ArrowRight, ChevronDown } from "lucide-react";
 
 const services = [
   "Web Application (Next.js/React)",
@@ -10,14 +10,9 @@ const services = [
   "Cloud & DevOps Architecture",
   "AI & Automation Integration",
   "Code Audit & Refactoring",
-];
-
-const budgetRanges = [
-  "< $10,000",
-  "$10,000 - $25,000",
-  "$25,000 - $50,000",
-  "$50,000 - $100,000+",
-  "Flexible / Retainer",
+  "UI/UX Design & Prototyping",
+  "Dedicated Offshore Engineering Team",
+  "Other",
 ];
 
 export default function ContactForm() {
@@ -27,11 +22,26 @@ export default function ContactForm() {
     company: "",
     phone: "",
     service: services[0],
-    budget: budgetRanges[1],
     message: "",
   });
+  
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside to close custom dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +89,6 @@ export default function ContactForm() {
                 company: "",
                 phone: "",
                 service: services[0],
-                budget: budgetRanges[1],
                 message: "",
               });
             }}
@@ -168,53 +177,45 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* Service Selector */}
-          <div>
+          {/* Custom Service Selector */}
+          <div ref={dropdownRef} className="relative">
             <label className="block text-[12px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
               Primary Engineering Need <span className="text-rose-500">*</span>
             </label>
-            <div className="relative">
+            <div 
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className={`relative flex items-center w-full py-3 pl-11 pr-10 rounded-xl border ${isDropdownOpen ? 'border-blue-500 ring-1 ring-blue-500' : 'border-slate-200 dark:border-slate-800'} bg-[#F8FAFC] dark:bg-slate-900/50 text-slate-900 dark:text-white text-[13px] font-bold transition-all cursor-pointer`}
+            >
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-blue-600 dark:text-cyan-blue">
                 <Code className="w-4 h-4 stroke-[2]" />
               </div>
-              <select
-                value={formData.service}
-                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900/50 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-[13px] font-bold transition-all cursor-pointer appearance-none"
-              >
-                {services.map((s) => (
-                  <option key={s} value={s} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-medium">
-                    {s}
-                  </option>
-                ))}
-              </select>
+              <span className="block truncate">{formData.service}</span>
               <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-500">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </div>
             </div>
-          </div>
-
-          {/* Estimated Budget Bracket */}
-          <div>
-            <label className="block text-[12px] font-bold text-slate-700 dark:text-slate-300 mb-2">
-              Estimated Budget Bracket
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {budgetRanges.map((b) => (
-                <button
-                  type="button"
-                  key={b}
-                  onClick={() => setFormData({ ...formData, budget: b })}
-                  className={`px-4 py-2 rounded-full text-[12px] font-bold transition-all duration-300 cursor-pointer ${
-                    formData.budget === b
-                      ? "bg-[#007AFF] text-white shadow-md shadow-blue-500/25 border-transparent"
-                      : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
-                  }`}
-                >
-                  {b}
-                </button>
-              ))}
-            </div>
+            
+            {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute z-20 w-full mt-2 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl dark:shadow-2xl overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-100">
+                {services.map((s) => (
+                  <div
+                    key={s}
+                    onClick={() => {
+                      setFormData({ ...formData, service: s });
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`px-4 py-2.5 text-[13px] font-medium cursor-pointer transition-colors ${
+                      formData.service === s 
+                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50'
+                    }`}
+                  >
+                    {s}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Message / Project Details */}
@@ -235,7 +236,7 @@ export default function ContactForm() {
                 className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-[13px] font-medium transition-all resize-none"
               />
               <div className="absolute bottom-3 right-4 text-[10px] text-slate-400 font-medium">
-                0/1000
+                {formData.message.length}/1000
               </div>
             </div>
           </div>
