@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import PageHeader from "@/components/common/PageHeader";
+import AboutHero from "@/components/about/AboutHero";
 import CTASection from "@/components/common/CTASection";
 import AboutMission from "@/components/about/AboutMission";
 import CoreValues from "@/components/about/CoreValues";
@@ -13,12 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
-        badge="ABOUT BITJUNOO"
-        title="Pioneering the Next Era of"
-        titleHighlight="Digital Engineering"
-        description="We are a senior-led technical consultancy that builds resilient, high-speed software architectures for forward-thinking enterprises and venture-backed startups."
-      />
+      <AboutHero />
 
       <AboutMission />
       <CoreValues />
