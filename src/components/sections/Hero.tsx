@@ -241,24 +241,13 @@ export default function Hero() {
 
             {/* Central Realistic 3D Laptop Visual with Screen & Globe */}
             <div className="relative w-full max-w-[640px] aspect-[4/3] flex items-center justify-center">
-              {/* Light Mode 3D Render */}
               <Image
-                src="/hero-laptop-globe.jpg"
+                src="/Laptop-Digital-Globe.png"
                 alt="Bitjuno High Performance Digital Systems on Modern 3D Laptop"
                 width={1024}
                 height={768}
                 priority
-                className="w-full h-auto object-contain select-none drop-shadow-[0_20px_45px_rgba(8,105,232,0.12)] dark:hidden"
-              />
-
-              {/* Dark Mode 3D Render */}
-              <Image
-                src="/hero-laptop-globe-dark.jpg"
-                alt="Bitjuno High Performance Digital Systems on Modern 3D Laptop"
-                width={1024}
-                height={768}
-                priority
-                className="w-full h-auto object-contain select-none drop-shadow-[0_20px_50px_rgba(8,185,217,0.25)] hidden dark:block"
+                className="w-full h-auto object-contain select-none drop-shadow-[0_20px_45px_rgba(8,105,232,0.12)] dark:drop-shadow-[0_20px_50px_rgba(8,185,217,0.25)]"
               />
 
               {/* ── Desktop & Tablet Floating Glass Service Cards ── */}
