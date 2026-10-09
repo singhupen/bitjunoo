@@ -176,7 +176,7 @@ export default function CTABanner() {
               </div>
 
               {/* Floating Pill 3 (Top Right) */}
-              <div className="absolute top-[15%] right-[-5%] sm:right-[-10%] z-20 animate-float-card-3 hidden sm:flex">
+              <div className="absolute top-[5%] right-[-5%] sm:right-[-10%] z-20 animate-float-card-3 hidden sm:flex">
                 <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-[#E6F0F9] dark:border-slate-700 shadow-[0_10px_30px_rgba(8,105,232,0.1)]">
                   <div className="w-8 h-8 rounded-lg bg-[#EEF7FF] dark:bg-slate-900 flex items-center justify-center text-[#0869E8] dark:text-[#38bdf8] shrink-0">
                     <Box className="w-4 h-4" />
@@ -188,7 +188,7 @@ export default function CTABanner() {
               </div>
 
               {/* Floating Pill 4 (Bottom Right) */}
-              <div className="absolute bottom-[25%] right-[-5%] sm:right-[-15%] z-20 animate-float-card-4 hidden sm:flex">
+              <div className="absolute bottom-[15%] right-[-5%] sm:right-[-15%] z-20 animate-float-card-4 hidden sm:flex">
                 <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-[#E6F0F9] dark:border-slate-700 shadow-[0_10px_30px_rgba(8,105,232,0.1)]">
                   <div className="w-8 h-8 rounded-lg bg-[#EEF7FF] dark:bg-slate-900 flex items-center justify-center text-[#168CFF] dark:text-[#38bdf8] shrink-0">
                     <Code2 className="w-4 h-4" />
