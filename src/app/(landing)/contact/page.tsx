@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import PageHeader from "@/components/common/PageHeader";
+import ContactHero from "@/components/contact/ContactHero";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfoCards from "@/components/contact/ContactInfoCards";
 import ContactFAQ from "@/components/contact/ContactFAQ";
@@ -12,12 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
-        badge="START A CONVERSATION"
-        title="Let's Engineer Your Next"
-        titleHighlight="Digital Breakthrough"
-        description="Schedule a technical consultation with our principal software architects. We provide immediate feasibility insights, architectural guidance, and scoping estimates."
-      />
+      <ContactHero />
 
       <section className="py-10 sm:py-14 bg-white dark:bg-slate-950 relative overflow-hidden border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         {/* Ambient background glows */}

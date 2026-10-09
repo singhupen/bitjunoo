@@ -1,86 +1,122 @@
-import { Mail, Phone, MapPin, Calendar, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, FileText, Rocket, Headphones, ArrowRight } from "lucide-react";
 
 export default function ContactInfoCards() {
   return (
-    <div className="space-y-4">
-      {/* Primary Card */}
-      <div className="rounded-2xl p-5 sm:p-6 bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white shadow-xl relative overflow-hidden backdrop-blur-md transition-colors duration-300">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-blue/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-mint/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-royal-blue/10 dark:bg-cyan-blue/15 border border-royal-blue/20 dark:border-cyan-blue/30 text-royal-blue dark:text-cyan-blue text-[11px] font-semibold mb-3">
-            <Clock className="w-3 h-3" />
-            <span>DIRECT CHANNELS</span>
+    <div className="space-y-6">
+      {/* Primary Card - Direct Contact Channels */}
+      <div className="rounded-[24px] p-6 sm:p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)] text-slate-800 dark:text-white relative z-10 transition-colors duration-300">
+        
+        <div className="flex items-start gap-4 mb-6">
+          <div className="text-blue-500 shrink-0 mt-0.5">
+            <Headphones className="w-6 h-6 stroke-[1.5]" />
           </div>
+          <div>
+            <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">
+              Direct Contact Channels
+            </h3>
+            <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+              Talk directly with our engineering team. No intermediaries.
+            </p>
+          </div>
+        </div>
 
-          <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-950 dark:text-white mb-1">
-            Talk to Principal Engineers
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-            We don&apos;t use intermediary sales reps. You speak directly with experienced software architects who understand code, scale, and deadlines.
-          </p>
-
-          <div className="space-y-2.5 pt-3 border-t border-slate-200 dark:border-slate-800">
-            <a
-              href="mailto:hello@bitjunoo.com"
-              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
-            >
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
-                <Mail className="w-4 h-4" />
+        <div className="space-y-3">
+          {/* Email */}
+          <a
+            href="mailto:hello@bitjunoo.com"
+            className="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-cyan-blue/50 hover:shadow-md transition-all group"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-cyan-blue/10 flex items-center justify-center text-blue-500 dark:text-cyan-blue group-hover:bg-blue-500 group-hover:text-white transition-colors shrink-0">
+                <Mail className="w-5 h-5 stroke-[1.5]" />
               </div>
               <div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">Direct Email</div>
-                <div className="font-semibold text-slate-900 dark:text-white">hello@bitjunoo.com</div>
+                <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-tight">Email Us</div>
+                <div className="text-[14px] font-bold text-slate-900 dark:text-white">hello@bitjunoo.com</div>
               </div>
-            </a>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-blue-500 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors shrink-0 mr-1">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </a>
 
-            {/* 
-            <a
-              href="tel:+918882434777"
-              className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
-            >
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
-                <Phone className="w-4 h-4" />
+          {/* Phone - Commented out for now */}
+          {/* 
+          <a
+            href="tel:+918882434777"
+            className="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-cyan-blue/50 hover:shadow-md transition-all group"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-cyan-blue/10 flex items-center justify-center text-blue-500 dark:text-cyan-blue group-hover:bg-blue-500 group-hover:text-white transition-colors shrink-0">
+                <Phone className="w-5 h-5 stroke-[1.5]" />
               </div>
               <div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">Direct Phone & WhatsApp</div>
-                <div className="font-semibold text-slate-900 dark:text-white">+91-88824 34777</div>
+                <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-tight">Call / WhatsApp</div>
+                <div className="text-[14px] font-bold text-slate-900 dark:text-white">+91-88824 34777</div>
               </div>
-            </a>
-            */}
+            </div>
+            <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-blue-500 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors shrink-0 mr-1">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </a>
+          */}
 
-            <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 p-2">
-              <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue flex-shrink-0">
-                <MapPin className="w-4 h-4" />
+          {/* Location */}
+          <div className="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-cyan-blue/50 hover:shadow-md transition-all group cursor-default">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-cyan-blue/10 flex items-center justify-center text-blue-500 dark:text-cyan-blue shrink-0">
+                <MapPin className="w-5 h-5 stroke-[1.5]" />
               </div>
               <div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">Headquarters</div>
-                <div className="font-semibold text-slate-900 dark:text-white">New Delhi, India (Global Remote Squads)</div>
+                <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-tight">Headquarters</div>
+                <div className="text-[14px] font-bold text-slate-900 dark:text-white">New Delhi, India (Global Remote Squads)</div>
               </div>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-blue-500 shrink-0 mr-1">
+              <ArrowRight className="w-4 h-4" />
             </div>
           </div>
         </div>
       </div>
 
       {/* SLA Card */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 backdrop-blur-sm transition-colors duration-300">
-        <h4 className="font-heading font-bold text-slate-950 dark:text-white text-xs sm:text-sm mb-2 flex items-center gap-2">
-          <Calendar className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
-          Average Response Times
-        </h4>
-        <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
-          <li className="flex items-center justify-between">
-            <span>Inquiry Acknowledgment:</span>
-            <strong className="text-royal-blue dark:text-cyan-blue">&lt; 2 Hours</strong>
+      <div className="rounded-[24px] p-6 sm:p-8 bg-[#F4F9FF] dark:bg-slate-900/40 border border-[#E6F0F9] dark:border-slate-800 relative z-10 transition-colors duration-300">
+        
+        <div className="flex items-start gap-4 mb-6">
+          <div className="text-blue-500 shrink-0 mt-0.5">
+            <Clock className="w-6 h-6 stroke-[1.5]" />
+          </div>
+          <div>
+            <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">
+              Typical Response Times
+            </h3>
+            <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+              We value your time. Here&apos;s what to expect:
+            </p>
+          </div>
+        </div>
+
+        <ul className="space-y-2">
+          <li className="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <Mail className="w-4 h-4 text-blue-500" />
+              <span className="text-[13px] font-medium">Inquiry Acknowledgment</span>
+            </div>
+            <strong className="text-[13px] text-blue-600 dark:text-cyan-blue">&lt; 2 Hours</strong>
           </li>
-          <li className="flex items-center justify-between">
-            <span>Architecture Blueprint & Estimate:</span>
-            <strong className="text-slate-900 dark:text-white">&lt; 48 Hours</strong>
+          <li className="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <FileText className="w-4 h-4 text-blue-500" />
+              <span className="text-[13px] font-medium">Architecture Blueprint & Estimate</span>
+            </div>
+            <strong className="text-[13px] text-blue-600 dark:text-cyan-blue">&lt; 48 Hours</strong>
           </li>
-          <li className="flex items-center justify-between">
-            <span>Engineering Pod Kickoff:</span>
-            <strong className="text-slate-900 dark:text-white">Within 5-7 Business Days</strong>
+          <li className="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <Rocket className="w-4 h-4 text-blue-500" />
+              <span className="text-[13px] font-medium">Engineering Pod Kickoff</span>
+            </div>
+            <strong className="text-[13px] text-blue-600 dark:text-cyan-blue">Within 5-7 Business Days</strong>
           </li>
         </ul>
       </div>
