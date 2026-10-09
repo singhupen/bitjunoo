@@ -34,9 +34,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed left-0 right-0 z-40 px-3 sm:px-6 lg:px-8 transition-all duration-300 ${
-        scrolled ? "top-2 sm:top-2.5 pt-0" : "top-8 sm:top-9 pt-1.5 sm:pt-2"
-      }`}
+      className="fixed left-0 right-0 z-40 px-3 sm:px-6 lg:px-8 top-8 sm:top-9 pt-1.5 sm:pt-2 transition-all duration-300"
     >
       <div
         className={`max-w-[1536px] mx-auto rounded-2xl transition-all duration-300 px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between ${
