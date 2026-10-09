@@ -37,7 +37,7 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why" className="relative py-14 sm:py-20 lg:py-24 bg-slate-50/70 dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+    <section id="why" className="relative pt-8 pb-14 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24 bg-slate-50/70 dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Ambient background decoration */}
       <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-royal-blue/5 dark:bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-brand-cyan/5 dark:bg-cyan-blue/10 rounded-full blur-[140px] pointer-events-none" />

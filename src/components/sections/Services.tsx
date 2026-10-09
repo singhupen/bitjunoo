@@ -75,7 +75,7 @@ export default function Services() {
   return (
     <section 
       id="services" 
-      className="relative pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24 bg-[#FFFFFF] dark:bg-[#070E1E] overflow-hidden transition-colors duration-300"
+      className="relative pt-10 pb-8 sm:pt-12 sm:pb-10 lg:pt-14 lg:pb-12 bg-[#FFFFFF] dark:bg-[#070E1E] overflow-hidden transition-colors duration-300"
     >
       {/* ── Background Atmospheric Curved Waves & Gradients ── */}
       <div 
