@@ -126,6 +126,7 @@ export default function CTABanner() {
                   <span>hello@bitjunoo.com</span>
                 </a>
 
+                {/* 
                 <a
                   href="tel:+918882434777"
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-white font-bold text-[13px] border border-[#E6F0F9] dark:border-slate-700 shadow-sm hover:shadow-md hover:border-[#0869E8]/40 transition-all duration-200 whitespace-nowrap"
@@ -133,6 +134,7 @@ export default function CTABanner() {
                   <Phone className="w-4 h-4 text-[#0869E8] dark:text-[#38bdf8]" />
                   <span>+91-88824 34777</span>
                 </a>
+                */}
               </div>
 
             </div>

@@ -74,6 +74,7 @@ export default function Topbar() {
           <span className="w-px h-3 bg-[#DCE8F5] dark:bg-slate-800 shrink-0 hidden xs:inline-block" />
 
           {/* Phone */}
+          {/* 
           <a
             href="tel:+918882434777"
             className="hidden xs:flex items-center gap-1.5 hover:text-[#0869E8] dark:hover:text-[#38bdf8] transition-colors whitespace-nowrap"
@@ -82,6 +83,7 @@ export default function Topbar() {
             <Phone className="w-3.5 h-3.5 text-[#0869E8] dark:text-[#38bdf8] shrink-0" />
             <span className="font-medium">+91-88824 34777</span>
           </a>
+          */}
 
           {/* Location (Desktop) */}
           <span className="hidden md:flex items-center gap-1.5 text-[#718198] dark:text-slate-500 whitespace-nowrap">

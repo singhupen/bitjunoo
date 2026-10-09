@@ -35,6 +35,7 @@ export default function ContactInfoCards() {
               </div>
             </a>
 
+            {/* 
             <a
               href="tel:+918882434777"
               className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
@@ -47,6 +48,7 @@ export default function ContactInfoCards() {
                 <div className="font-semibold text-slate-900 dark:text-white">+91-88824 34777</div>
               </div>
             </a>
+            */}
 
             <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 p-2">
               <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue flex-shrink-0">

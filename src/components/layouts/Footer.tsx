@@ -237,6 +237,7 @@ export default function Footer() {
                 </div>
 
                 {/* Phone */}
+                {/* 
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-[#F4F9FF] dark:bg-slate-800 border border-[#E6F0F9] dark:border-slate-700 flex items-center justify-center text-[#0869E8] dark:text-[#38bdf8] shrink-0">
                     <Phone className="w-4 h-4" />
@@ -246,6 +247,7 @@ export default function Footer() {
                     <a href="tel:+918882434777" className="text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:text-[#0869E8] dark:hover:text-[#38bdf8]">+91- 88824 34777</a>
                   </div>
                 </div>
+                */}
 
                 {/* Location */}
                 <div className="flex items-center gap-3">
