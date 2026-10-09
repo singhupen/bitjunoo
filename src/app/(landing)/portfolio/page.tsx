@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import PageHeader from "@/components/common/PageHeader";
+import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import CTASection from "@/components/common/CTASection";
 import PortfolioShowcase from "@/components/portfolio/PortfolioShowcase";
 import ImpactMetrics from "@/components/portfolio/ImpactMetrics";
@@ -12,12 +12,7 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
-      <PageHeader
-        badge="ENGINEERING CASE STUDIES"
-        title="Production Systems Built for"
-        titleHighlight="Non-Linear Scale"
-        description="Explore how our senior engineering pods architect and deliver high-concurrency systems across Fintech, Logistics, Healthcare, and Enterprise AI."
-      />
+      <PortfolioHero />
 
       <ImpactMetrics />
       <PortfolioShowcase />

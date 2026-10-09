@@ -5,16 +5,19 @@ import Link from "next/link";
 import { 
   ArrowUpRight, 
   CheckCircle2, 
-  TrendingUp,
-  Sparkles
+  LayoutGrid,
+  Monitor,
+  Smartphone,
+  AppWindow,
+  Cpu
 } from "lucide-react";
 
 const categories = [
-  "All Projects",
-  "Web Applications",
-  "Mobile Apps",
-  "Enterprise .NET",
-  "AI & Automation",
+  { name: "All Projects", icon: LayoutGrid },
+  { name: "Web Applications", icon: Monitor },
+  { name: "Mobile Apps", icon: Smartphone },
+  { name: "Enterprise .NET", icon: AppWindow },
+  { name: "AI & Automation", icon: Cpu },
 ];
 
 const projects = [
@@ -94,26 +97,28 @@ export default function PortfolioShowcase() {
     : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+    <section className="py-8 sm:py-12 bg-slate-50/50 dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
       {/* Background ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-royal-blue/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 relative z-10">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 relative z-10">
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10 bg-white/50 dark:bg-slate-900/50 p-2 sm:p-2.5 rounded-full backdrop-blur-md shadow-sm border border-slate-200/60 dark:border-slate-800/60 max-w-fit mx-auto">
           {categories.map((cat) => {
-            const isActive = activeCategory === cat;
+            const isActive = activeCategory === cat.name;
+            const Icon = cat.icon;
             return (
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                key={cat.name}
+                onClick={() => setActiveCategory(cat.name)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/20 scale-105"
-                    : "bg-white dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs"
+                    ? "bg-[#007AFF] text-white shadow-lg shadow-blue-500/25 scale-105"
+                    : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700 hover:border-slate-300"
                 }`}
               >
-                {cat}
+                <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-blue-500"}`} />
+                {cat.name}
               </button>
             );
           })}
