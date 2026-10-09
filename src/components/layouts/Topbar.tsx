@@ -42,6 +42,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  /*
   {
     name: "GitHub",
     href: "https://github.com/singhupen",
@@ -51,6 +52,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  */
 ];
 
 export default function Topbar() {

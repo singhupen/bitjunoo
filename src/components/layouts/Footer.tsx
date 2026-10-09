@@ -46,6 +46,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  /*
   {
     name: "YouTube",
     href: "https://youtube.com",
@@ -55,6 +56,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  */
   {
     name: "Facebook",
     href: "https://www.facebook.com/bitjuno",
@@ -64,6 +66,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  /*
   {
     name: "GitHub",
     href: "https://github.com/singhupen",
@@ -73,6 +76,7 @@ const socialLinks = [
       </svg>
     ),
   },
+  */
 ];
 
 const quickLinks = [
