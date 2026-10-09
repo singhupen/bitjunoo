@@ -1,173 +1,229 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import { 
   Code2, 
-  Smartphone, 
-  Atom, 
-  Server, 
   Cloud, 
   Cpu, 
-  ArrowRight, 
-  Sparkles, 
-  CheckCircle2 
+  ShieldCheck, 
+  ArrowRight,
+  CheckCircle2
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   {
     icon: Code2,
-    badge: "01",
-    title: "Web App Development",
-    desc: "Bespoke, high-performance web applications engineered with Next.js 16 and TypeScript. Sub-second loads, edge rendering, and accessible enterprise UX.",
-    tags: ["Next.js 16", "React 19", "TypeScript", "Edge SSR"],
-    gradient: "from-royal-blue to-brand-azure",
-    glow: "group-hover:border-cyan-blue/40 shadow-royal-blue/10",
-  },
-  {
-    icon: Smartphone,
-    badge: "02",
-    title: "Mobile App Development",
-    desc: "Intuitive, native-grade iOS and Android mobile solutions built with cross-platform frameworks. Engaging offline-first architecture & push notifications.",
-    tags: ["React Native", "iOS & Android", "Offline Sync", "Biometrics"],
-    gradient: "from-brand-azure to-cyan-blue",
-    glow: "group-hover:border-cyan-blue/40 shadow-brand-azure/10",
-  },
-  {
-    icon: Server,
-    badge: "03",
-    title: "Enterprise .NET Systems",
-    desc: "Industrial-strength backend systems, clean microservices, and high-throughput APIs powered by .NET 9 and C# for mission-critical workloads.",
-    tags: [".NET 9 / C#", "Microservices", "REST & gRPC", "Azure Cloud"],
-    gradient: "from-royal-blue to-deep-blue",
-    glow: "group-hover:border-royal-blue/40 shadow-deep-blue/10",
+    badgeBg: "bg-[#EEF7FF] text-[#0869E8] dark:bg-sky-950/60 dark:text-[#38bdf8]",
+    graphic3d: "/services/Glossy-Isometric.png",
+    graphicAlt: "3D Custom Software & Mobile Mockups",
+    title: "Custom Software Development",
+    desc: "Tailored web and mobile applications built for your business goals.",
+    features: [
+      "Web & Mobile Applications",
+      "Scalable Architecture",
+      "Product Engineering",
+    ],
+    href: "/services",
   },
   {
     icon: Cloud,
-    badge: "04",
-    title: "Cloud & DevOps Architecture",
-    desc: "Automated CI/CD pipelines, container orchestration, and infrastructure-as-code ensuring 99.99% uptime and elastic auto-scaling under peak traffic.",
-    tags: ["Docker", "Kubernetes", "AWS & Azure", "Terraform & CI/CD"],
-    gradient: "from-deep-blue to-royal-blue",
-    glow: "group-hover:border-royal-blue/40 shadow-deep-blue/10",
+    badgeBg: "bg-[#EEF7FF] text-[#0869E8] dark:bg-sky-950/60 dark:text-[#38bdf8]",
+    graphic3d: "/services/Glossy-Cloud.png",
+    graphicAlt: "3D Cloud & DevOps Server Infrastructure",
+    title: "Cloud & DevOps",
+    desc: "Scalable cloud infrastructure, CI/CD pipelines, and DevOps automation.",
+    features: [
+      "Cloud Infrastructure",
+      "CI/CD Automation",
+      "Monitoring & Optimization",
+    ],
+    href: "/services",
   },
   {
     icon: Cpu,
-    badge: "05",
-    title: "AI Integration & Automation",
-    desc: "Custom LLM integrations, retrieval-augmented generation (RAG), and smart automated workflows that streamline repetitive processes at scale.",
-    tags: ["OpenAI / Claude", "RAG Pipelines", "Process Automation", "Vector Search"],
-    gradient: "from-brand-azure to-brand-teal",
-    glow: "group-hover:border-brand-teal/40 shadow-brand-teal/10",
+    badgeBg: "bg-[#EEF7FF] text-[#0869E8] dark:bg-sky-950/60 dark:text-[#38bdf8]",
+    graphic3d: "/services/Neon-Brain.png",
+    graphicAlt: "3D AI & Neural Automation Network",
+    title: "AI & Automation",
+    desc: "Leverage AI and automation to improve efficiency and decision making.",
+    features: [
+      "AI-Powered Solutions",
+      "Workflow Automation",
+      "Data Intelligence",
+    ],
+    href: "/services",
   },
   {
-    icon: Atom,
-    badge: "06",
-    title: "Code Audit & Modernization",
-    desc: "Comprehensive architecture reviews, security vulnerability scanning, and refactoring to rescue, modernize, and accelerate legacy codebases.",
-    tags: ["Security Audits", "Refactoring", "Clean Architecture", "Performance Tuning"],
-    gradient: "from-cyan-blue to-royal-blue",
-    glow: "group-hover:border-cyan-blue/40 shadow-royal-blue/10",
+    icon: ShieldCheck,
+    badgeBg: "bg-[#DDF7FC] text-[#08B9D9] dark:bg-cyan-950/60 dark:text-cyan-300",
+    graphic3d: "/services/Growth-Chart.png",
+    graphicAlt: "3D IT Consulting Growth Charts",
+    title: "IT Consulting",
+    desc: "Strategic technology consulting to modernize and scale your business.",
+    features: [
+      "Technology Strategy",
+      "Digital Transformation",
+      "Enterprise Architecture",
+    ],
+    href: "/services",
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-14 sm:py-20 lg:py-24 bg-white dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-royal-blue/5 dark:bg-royal-blue/10 rounded-full blur-[140px] pointer-events-none" />
+    <section 
+      id="services" 
+      className="relative pt-10 pb-8 sm:pt-12 sm:pb-10 lg:pt-14 lg:pb-12 bg-[#FFFFFF] dark:bg-[#070E1E] overflow-hidden transition-colors duration-300"
+    >
+      {/* ── Background Atmospheric Curved Waves & Gradients ── */}
+      <div 
+        className="absolute top-0 left-[-15%] w-[850px] h-[850px] rounded-full pointer-events-none opacity-60 dark:opacity-20"
+        style={{
+          background: "radial-gradient(circle, rgba(221, 247, 252, 0.7) 0%, rgba(238, 247, 255, 0.3) 50%, transparent 75%)",
+          filter: "blur(90px)",
+        }}
+      />
+      <div 
+        className="absolute bottom-0 right-[-15%] w-[900px] h-[900px] rounded-full pointer-events-none opacity-60 dark:opacity-20"
+        style={{
+          background: "radial-gradient(circle, rgba(238, 247, 255, 0.8) 0%, rgba(8, 105, 232, 0.05) 45%, transparent 75%)",
+          filter: "blur(90px)",
+        }}
+      />
 
-      <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      {/* Floating Translucent Ambient Circle Orbs (Matching Reference Image) */}
+      <div className="absolute top-16 left-[18%] w-12 h-12 rounded-full bg-[#0869E8]/10 dark:bg-[#38bdf8]/15 blur-xs pointer-events-none hidden md:block" />
+      <div className="absolute top-10 right-[22%] w-16 h-16 rounded-full bg-[#08B9D9]/15 dark:bg-[#22d3ee]/20 blur-xs pointer-events-none hidden md:block" />
+
+      {/* Decorative Dot Matrix on Left & Right Sides (Matching Reference Image) */}
+      <div className="absolute left-6 lg:left-14 top-20 pointer-events-none opacity-35 dark:opacity-20 hidden lg:block">
+        <svg width="60" height="60" fill="none" viewBox="0 0 60 60">
+          <pattern id="services-dots-left" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2.5" cy="2.5" r="1.5" fill="#0869E8" />
+          </pattern>
+          <rect width="60" height="60" fill="url(#services-dots-left)" />
+        </svg>
+      </div>
+
+      <div className="absolute right-6 lg:right-14 top-24 pointer-events-none opacity-35 dark:opacity-20 hidden lg:block">
+        <svg width="60" height="60" fill="none" viewBox="0 0 60 60">
+          <pattern id="services-dots-right" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2.5" cy="2.5" r="1.5" fill="#0869E8" />
+          </pattern>
+          <rect width="60" height="60" fill="url(#services-dots-right)" />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royal-blue/10 border border-royal-blue/20 dark:border-royal-blue/25 text-royal-blue dark:text-cyan-blue text-xs font-semibold mb-4 backdrop-blur-md shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
-            <span className="tracking-wide">FULL-LIFECYCLE ENGINEERING SERVICES</span>
-          </div>
-
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] mb-4">
-            Solutions Built to Scale Your{" "}
-            <span className="brand-title-gradient">
-              Competitive Advantage
-            </span>
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            From technical discovery to continuous enterprise delivery, we design and build software that performs under demanding loads and scales effortlessly.
-          </p>
-        </div>
-
-        {/* 6-Card Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className={`group relative rounded-2xl p-6 sm:p-7 bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 backdrop-blur-xl shadow-md hover:shadow-xl dark:shadow-lg dark:hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between ${s.glow}`}
-            >
-              <div>
-                {/* Header row: Icon & Index Pill */}
-                <div className="flex items-center justify-between mb-5">
-                  <div
-                    className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${s.gradient} text-white shadow-md group-hover:scale-105 transition-transform duration-300`}
-                  >
-                    <s.icon className="w-6 h-6" />
-                  </div>
-                  <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/80 group-hover:border-royal-blue/40 dark:group-hover:border-cyan-blue/40 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
-                    {s.badge}
-                  </span>
-                </div>
-
-                {/* Service Title */}
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors">
-                  {s.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-                  {s.desc}
-                </p>
-
-                {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {s.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 group-hover:border-slate-300 dark:group-hover:border-slate-600 transition-colors shadow-2xs"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Interactive Link */}
-              <Link
-                href="/services"
-                className="pt-4 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-600 dark:text-slate-400 group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors"
-              >
-                <span>Explore Architecture Specs</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom architecture consultation bar */}
-        <div className="mt-10 sm:mt-12 p-5 sm:p-7 rounded-2xl bg-gradient-to-r from-slate-50 via-white to-royal-blue/10 dark:from-slate-900 dark:via-slate-900/90 dark:to-royal-blue/20 text-slate-900 dark:text-white border border-royal-blue/20 dark:border-royal-blue/30 shadow-lg flex flex-col md:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-royal-blue/15 dark:bg-royal-blue/20 border border-royal-blue/30 flex items-center justify-center flex-shrink-0 text-royal-blue dark:text-cyan-blue">
-              <CheckCircle2 className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="font-heading text-base sm:text-lg font-bold">Have a specialized engineering requirement?</h4>
-              <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm mt-0.5">We provide tailored architectural blueprints and feasibility roadmaps within 48 hours.</p>
-            </div>
-          </div>
-          <Link
-            href="/contact"
-            className="flex-shrink-0 w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white font-semibold text-xs sm:text-sm shadow-md shadow-royal-blue/20 hover:shadow-royal-blue/40 hover:-translate-y-0.5 transition-all"
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          {/* Pill Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#0B1733] border border-[#DCE8F5] dark:border-slate-800 shadow-[0_2px_12px_rgba(8,105,232,0.06)] text-xs font-semibold mb-4 text-[#0B1733] dark:text-slate-200"
           >
-            <span>Request Technical Discovery</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            <span className="w-2 h-2 rounded-full bg-[#0869E8] dark:bg-[#38bdf8]" />
+            <span>Our Services</span>
+          </motion.div>
+
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#0B1733] dark:text-white tracking-tight leading-[1.12] mb-4"
+          >
+            End-to-End <span className="text-[#0869E8] dark:text-[#38bdf8]">IT Solutions</span>
+          </motion.h2>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-sm sm:text-base text-[#50627D] dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal"
+          >
+            We help businesses design, build, and scale digital products with modern technologies and industry best practices.
+          </motion.p>
         </div>
+
+        {/* 4 Service Cards Grid (Exact Composition Matching Reference Image) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.08 * index, duration: 0.6 }}
+                className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-[26px] bg-white dark:bg-[#0B1733]/85 border border-[#DCE8F5] dark:border-slate-800 shadow-[0_12px_40px_rgba(24,88,150,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_50px_rgba(8,105,232,0.12)] hover:border-[#0869E8]/40 dark:hover:border-[#38bdf8]/40 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+              >
+                <div>
+                  {/* Top Row: Icon Badge (Left) & 3D Illustration Graphic (Right) */}
+                  <div className="flex items-start justify-between gap-3 mb-6 min-h-[90px]">
+                    {/* Small Icon Badge */}
+                    <div className={`w-12 h-12 rounded-2xl ${item.badgeBg} border border-[#DCE8F5]/80 dark:border-slate-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200 shadow-2xs`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+
+                    {/* 3D Isometric Illustration Graphic */}
+                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 -mt-2 -mr-1 shrink-0 flex items-center justify-center pointer-events-none">
+                      <Image
+                        src={item.graphic3d}
+                        alt={item.graphicAlt}
+                        width={120}
+                        height={110}
+                        className="w-full h-auto object-contain drop-shadow-[0_8px_18px_rgba(8,105,232,0.15)] dark:drop-shadow-[0_8px_25px_rgba(56,189,248,0.22)] group-hover:scale-108 group-hover:-translate-y-1 transition-transform duration-300"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-[20px] font-bold text-[#0B1733] dark:text-white tracking-tight leading-snug mb-2.5 group-hover:text-[#0869E8] dark:group-hover:text-[#38bdf8] transition-colors">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[13.5px] text-[#50627D] dark:text-slate-300 leading-relaxed font-normal mb-6">
+                    {item.desc}
+                  </p>
+
+                  {/* Checklist (3 bullet points per card with blue checkmarks) */}
+                  <ul className="space-y-2.5 mb-7">
+                    {item.features.map((feat) => (
+                      <li key={feat} className="flex items-center gap-2.5 text-[13px] text-[#50627D] dark:text-slate-200 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-[#0869E8] dark:text-[#38bdf8] shrink-0" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Bottom Action: "Learn More →" link */}
+                <div className="pt-2 border-t border-[#DCE8F5]/70 dark:border-slate-800/80">
+                  <Link
+                    href={item.href}
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#0869E8] dark:text-[#38bdf8] hover:text-[#168CFF] transition-colors group/link py-1"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

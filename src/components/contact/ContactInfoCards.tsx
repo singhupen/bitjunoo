@@ -23,7 +23,7 @@ export default function ContactInfoCards() {
 
           <div className="space-y-2.5 pt-3 border-t border-slate-200 dark:border-slate-800">
             <a
-              href="mailto:Info@bitjunoo.com"
+              href="mailto:hello@bitjunoo.com"
               className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
             >
               <div className="w-8 h-8 rounded-lg bg-royal-blue/15 border border-royal-blue/30 flex items-center justify-center text-royal-blue dark:text-cyan-blue group-hover:scale-110 group-hover:border-cyan-blue/50 transition-all flex-shrink-0">
@@ -31,7 +31,7 @@ export default function ContactInfoCards() {
               </div>
               <div>
                 <div className="text-[10px] text-slate-500 dark:text-slate-400">Direct Email</div>
-                <div className="font-semibold text-slate-900 dark:text-white">Info@bitjunoo.com</div>
+                <div className="font-semibold text-slate-900 dark:text-white">hello@bitjunoo.com</div>
               </div>
             </a>
 
