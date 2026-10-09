@@ -59,11 +59,11 @@ export default function CTABanner() {
               </Link>
 
               <a
-                href="mailto:Info@bitjunoo.com"
+                href="mailto:hello@bitjunoo.com"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs sm:text-sm border border-white/20 hover:border-brand-cyan/40 backdrop-blur-md transition-all duration-200"
               >
                 <Mail className="w-4 h-4 text-brand-cyan" />
-                <span>Info@bitjunoo.com</span>
+                <span>hello@bitjunoo.com</span>
               </a>
 
               <a

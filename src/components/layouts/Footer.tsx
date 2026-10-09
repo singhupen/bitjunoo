@@ -17,7 +17,7 @@ import {
 const socialLinks = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/bitjuno/",
     hoverColor: "hover:text-[#0a66c2] hover:border-[#0a66c2]/50 hover:bg-[#0a66c2]/10 dark:hover:bg-[#0a66c2]/20 hover:shadow-[0_0_16px_rgba(10,102,194,0.35)]",
     icon: (
       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -27,7 +27,7 @@ const socialLinks = [
   },
   {
     name: "Twitter / X",
-    href: "https://twitter.com",
+    href: "https://x.com/bitjuno",
     hoverColor: "hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-white/40 hover:bg-slate-100 dark:hover:bg-white/10 hover:shadow-[0_0_16px_rgba(255,255,255,0.2)]",
     icon: (
       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ const socialLinks = [
   },
   {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/bitjuno",
     hoverColor: "hover:text-[#e4405f] hover:border-[#e4405f]/50 hover:bg-[#e4405f]/10 dark:hover:bg-[#e4405f]/20 hover:shadow-[0_0_16px_rgba(228,64,95,0.35)]",
     icon: (
       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -48,18 +48,8 @@ const socialLinks = [
     ),
   },
   {
-    name: "YouTube",
-    href: "https://youtube.com",
-    hoverColor: "hover:text-[#ff0000] hover:border-[#ff0000]/50 hover:bg-[#ff0000]/10 dark:hover:bg-[#ff0000]/20 hover:shadow-[0_0_16px_rgba(255,0,0,0.35)]",
-    icon: (
-      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      </svg>
-    ),
-  },
-  {
     name: "Facebook",
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/bitjuno",
     hoverColor: "hover:text-[#1877f2] hover:border-[#1877f2]/50 hover:bg-[#1877f2]/10 dark:hover:bg-[#1877f2]/20 hover:shadow-[0_0_16px_rgba(24,119,242,0.35)]",
     icon: (
       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -69,7 +59,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/singhupen",
     hoverColor: "hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-white/40 hover:bg-slate-100 dark:hover:bg-white/10 hover:shadow-[0_0_16px_rgba(0,100,218,0.3)]",
     icon: (
       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -242,7 +232,7 @@ export default function Footer() {
             {/* Polished Glassmorphic Contact Card */}
             <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-2.5">
               <a
-                href="mailto:Info@bitjunoo.com"
+                href="mailto:hello@bithunoo.com"
                 className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors group"
               >
                 <div className="w-7 h-7 rounded-xl bg-royal-blue/10 dark:bg-cyan-blue/15 text-royal-blue dark:text-cyan-blue flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -250,7 +240,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 dark:text-slate-500">Official Email</div>
-                  <div className="font-semibold text-slate-900 dark:text-white">Info@bitjunoo.com</div>
+                  <div className="font-semibold text-slate-900 dark:text-white">hello@bithunoo.com</div>
                 </div>
               </a>
 

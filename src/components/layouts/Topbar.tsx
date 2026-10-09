@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, Sparkles } from "lucide-react";
 const socialLinks = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/bitjuno/",
     icon: (
       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -15,7 +15,7 @@ const socialLinks = [
   },
   {
     name: "Twitter / X",
-    href: "https://twitter.com",
+    href: "https://x.com/bitjuno",
     icon: (
       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -23,17 +23,8 @@ const socialLinks = [
     ),
   },
   {
-    name: "GitHub",
-    href: "https://github.com",
-    icon: (
-      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-        <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017C2 16.446 4.87 20.198 8.84 21.52C9.34 21.61 9.52 21.3 9.52 21.03C9.52 20.79 9.51 20.01 9.51 19.16C6.73 19.76 6.14 17.82 6.14 17.82C5.69 16.67 5.04 16.36 5.04 16.36C4.13 15.74 5.11 15.75 5.11 15.75C6.12 15.82 6.65 16.79 6.65 16.79C7.54 18.33 8.99 17.88 9.56 17.62C9.65 16.97 9.91 16.53 10.2 16.28C7.98 16.03 5.65 15.17 5.65 11.33C5.65 10.24 6.04 9.34 6.68 8.64C6.58 8.39 6.24 7.37 6.78 6C6.78 6 7.62 5.73 9.53 7.02C10.33 6.8 11.19 6.69 12.04 6.69C12.89 6.69 13.75 6.8 14.55 7.02C16.46 5.73 17.3 6 17.3 6C17.84 7.37 17.5 8.39 17.4 8.64C18.04 9.34 18.43 10.24 18.43 11.33C18.43 15.18 16.09 16.02 13.86 16.27C14.22 16.58 14.54 17.2 14.54 18.15C14.54 19.51 14.53 20.61 14.53 20.95C14.53 21.22 14.71 21.54 15.22 21.44C19.18 20.11 22.04 16.39 22.04 12.017C22.04 6.484 17.523 2 12 2Z" />
-      </svg>
-    ),
-  },
-  {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/bitjuno",
     icon: (
       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -43,11 +34,20 @@ const socialLinks = [
     ),
   },
   {
-    name: "YouTube",
-    href: "https://youtube.com",
+    name: "Facebook",
+    href: "https://www.facebook.com/bitjuno",
     icon: (
       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </svg>
+    ),
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/singhupen",
+    icon: (
+      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+        <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017C2 16.446 4.87 20.198 8.84 21.52C9.34 21.61 9.52 21.3 9.52 21.03C9.52 20.79 9.51 20.01 9.51 19.16C6.73 19.76 6.14 17.82 6.14 17.82C5.69 16.67 5.04 16.36 5.04 16.36C4.13 15.74 5.11 15.75 5.11 15.75C6.12 15.82 6.65 16.79 6.65 16.79C7.54 18.33 8.99 17.88 9.56 17.62C9.65 16.97 9.91 16.53 10.2 16.28C7.98 16.03 5.65 15.17 5.65 11.33C5.65 10.24 6.04 9.34 6.68 8.64C6.58 8.39 6.24 7.37 6.78 6C6.78 6 7.62 5.73 9.53 7.02C10.33 6.8 11.19 6.69 12.04 6.69C12.89 6.69 13.75 6.8 14.55 7.02C16.46 5.73 17.3 6 17.3 6C17.84 7.37 17.5 8.39 17.4 8.64C18.04 9.34 18.43 10.24 18.43 11.33C18.43 15.18 16.09 16.02 13.86 16.27C14.22 16.58 14.54 17.2 14.54 18.15C14.54 19.51 14.53 20.61 14.53 20.95C14.53 21.22 14.71 21.54 15.22 21.44C19.18 20.11 22.04 16.39 22.04 12.017C22.04 6.484 17.523 2 12 2Z" />
       </svg>
     ),
   },
@@ -62,12 +62,12 @@ export default function Topbar() {
         <div className="flex items-center gap-3 sm:gap-5 overflow-hidden">
           {/* Email */}
           <a
-            href="mailto:Info@bitjunoo.com"
+            href="mailto:hello@bitjunoo.com"
             className="flex items-center gap-1.5 hover:text-[#0869E8] dark:hover:text-[#38bdf8] transition-colors truncate"
             title="Email us"
           >
             <Mail className="w-3.5 h-3.5 text-[#0869E8] dark:text-[#38bdf8] shrink-0" />
-            <span className="font-medium">Info@bitjunoo.com</span>
+            <span className="font-medium">hello@bitjunoo.com</span>
           </a>
 
           {/* Separator */}
