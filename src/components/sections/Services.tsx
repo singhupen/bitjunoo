@@ -75,7 +75,7 @@ export default function Services() {
   return (
     <section 
       id="services" 
-      className="relative pt-10 pb-8 sm:pt-12 sm:pb-10 lg:pt-14 lg:pb-12 bg-[#FFFFFF] dark:bg-[#070E1E] overflow-hidden transition-colors duration-300"
+      className="relative pt-8 pb-8 sm:pt-10 sm:pb-10 lg:pt-12 lg:pb-12 bg-[#FFFFFF] dark:bg-[#070E1E] overflow-hidden transition-colors duration-300"
     >
       {/* ── Background Atmospheric Curved Waves & Gradients ── */}
       <div 
@@ -119,7 +119,7 @@ export default function Services() {
       <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           {/* Pill Badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}

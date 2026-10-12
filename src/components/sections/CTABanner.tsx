@@ -20,11 +20,11 @@ import {
 
 export default function CTABanner() {
   return (
-    <section id="contact" className="relative py-14 sm:py-20 lg:py-24 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
+    <section id="contact" className="relative py-8 sm:py-12 lg:py-14 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-300">
       <div className="relative z-10 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         
         {/* Main Banner Container */}
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-[#F8FAFC] dark:bg-slate-900 border border-[#E6F0F9] dark:border-slate-800 p-8 sm:p-12 lg:p-16 shadow-[0_20px_60px_rgba(8,105,232,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-[#F8FAFC] dark:bg-slate-900 border border-[#E6F0F9] dark:border-slate-800 p-6 sm:p-10 lg:p-12 shadow-[0_20px_60px_rgba(8,105,232,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
           
           {/* Background Decorative SVG Waves */}
           <div className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-20 z-0">

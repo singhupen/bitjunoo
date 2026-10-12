@@ -24,7 +24,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[85vh] pt-24 pb-8 sm:pt-28 sm:pb-10 lg:pt-30 lg:pb-12 overflow-hidden bg-white dark:bg-[#070E1E] transition-colors duration-300"
+      className="relative min-h-[85vh] pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 lg:pb-10 overflow-hidden bg-white dark:bg-[#070E1E] transition-colors duration-300"
     >
       {/* ── Global Background Atmospheric Gradients & Shapes ── */}
       {/* Soft blue radial gradient top right */}

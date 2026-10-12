@@ -346,7 +346,7 @@ export default function TechStack() {
       : categoriesData.filter((cat) => cat.title === activeCategory);
 
   return (
-    <section className="relative py-16 sm:py-24 lg:py-28 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+    <section className="relative py-10 sm:py-12 lg:py-14 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Soft Ambient Radial Background Lights */}
       <div className="absolute -top-24 -left-24 w-[500px] h-[500px] bg-blue-100/60 dark:bg-blue-900/10 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute top-12 -right-24 w-[550px] h-[550px] bg-sky-100/70 dark:bg-cyan-900/10 rounded-full blur-[140px] pointer-events-none" />
@@ -420,7 +420,7 @@ export default function TechStack() {
         </div>
 
         {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-9">
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 dark:bg-blue-950/50 border border-blue-200/70 dark:border-blue-800/60 text-[#2563eb] dark:text-cyan-400 text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#2563eb] dark:text-cyan-400" />
@@ -441,7 +441,7 @@ export default function TechStack() {
           </p>
 
           {/* Category Filter Pills (Navigation Row) */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-7 sm:mt-9">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-5 sm:mt-6">
             {filterTabs.map((tab) => {
               const isActive = activeCategory === tab.label;
               return (

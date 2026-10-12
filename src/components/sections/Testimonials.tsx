@@ -145,7 +145,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-16 sm:py-24 lg:py-28 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300"
+      className="relative py-10 sm:py-12 lg:py-14 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300"
     >
       {/* Ambient Radial Background Lights */}
       <div className="absolute -top-24 -left-24 w-[500px] h-[500px] bg-blue-100/50 dark:bg-blue-900/10 rounded-full blur-[130px] pointer-events-none" />
@@ -244,7 +244,7 @@ export default function Testimonials() {
         </div>
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 dark:bg-blue-950/50 border border-blue-200/70 dark:border-blue-800/60 text-[#0869e8] dark:text-cyan-400 text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md shadow-xs">
             <Star className="w-3.5 h-3.5 text-[#0869e8] dark:text-cyan-400 fill-blue-500/20" />
@@ -371,7 +371,7 @@ export default function Testimonials() {
           </div>
 
           {/* Carousel Pagination Dots Indicator */}
-          <div className="flex items-center justify-center gap-2 mt-7">
+          <div className="flex items-center justify-center gap-2 mt-5">
             <span className="w-6 h-2 rounded-full bg-blue-600 transition-all cursor-pointer" />
             <span className="w-2 h-2 rounded-full bg-blue-200 dark:bg-blue-800 transition-all cursor-pointer" />
             <span className="w-2 h-2 rounded-full bg-blue-200 dark:bg-blue-800 transition-all cursor-pointer" />
@@ -379,7 +379,7 @@ export default function Testimonials() {
         </div>
 
         {/* Bottom Trust & Verification Stats Bar */}
-        <div className="mt-8 sm:mt-10 bg-white dark:bg-slate-900/90 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 lg:p-7 shadow-xs">
+        <div className="mt-6 sm:mt-8 bg-white dark:bg-slate-900/90 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 lg:p-7 shadow-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 divide-y sm:divide-y-0 sm:divide-x-0 lg:divide-x divide-slate-100 dark:divide-slate-800">
             {metrics.map((m, idx) => (
               <div

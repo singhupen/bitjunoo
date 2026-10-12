@@ -551,7 +551,7 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative py-16 sm:py-24 lg:py-28 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300"
+      className="relative py-10 sm:py-12 lg:py-14 bg-[#fafcff] dark:bg-slate-950 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300"
     >
       {/* Soft Ambient Radial Background Glows */}
       <div className="absolute -top-24 -left-24 w-[500px] h-[500px] bg-blue-100/50 dark:bg-blue-900/10 rounded-full blur-[130px] pointer-events-none" />
@@ -620,7 +620,7 @@ export default function Portfolio() {
         </div>
 
         {/* Section Header */}
-        <div className="max-w-3xl mb-10 sm:mb-12">
+        <div className="max-w-3xl mb-7 sm:mb-8">
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 dark:bg-blue-950/50 border border-blue-200/70 dark:border-blue-800/60 text-[#0869e8] dark:text-cyan-400 text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md shadow-xs">
             <BarChart3 className="w-3.5 h-3.5 text-[#0869e8] dark:text-cyan-400" />
@@ -642,7 +642,7 @@ export default function Portfolio() {
         </div>
 
         {/* Filter Pills & CTA Button Bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 sm:mb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 sm:mb-8">
           {/* Filter Pills */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {filterCategories.map((tab) => {
