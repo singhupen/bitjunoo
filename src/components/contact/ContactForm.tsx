@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Phone, Code, FileText, FileSignature, ArrowRight, ChevronDown } from "lucide-react";
+import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Phone, Code, FileText, FileSignature, ArrowRight, ChevronDown, AlertCircle } from "lucide-react";
 
 const services = [
   "Web Application (Next.js/React)",
@@ -27,6 +27,7 @@ export default function ContactForm() {
   
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -43,13 +44,38 @@ export default function ContactForm() {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      const response = await fetch("/api/resend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Failed to submit discovery request. Please try again."
+        );
+      }
+
       setSubmitted(true);
-    }, 800);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "An unexpected network error occurred. Please try again.";
+      setErrorMessage(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,6 +109,7 @@ export default function ContactForm() {
           <button
             onClick={() => {
               setSubmitted(false);
+              setErrorMessage(null);
               setFormData({
                 name: "",
                 email: "",
@@ -99,6 +126,15 @@ export default function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Submission Error Banner */}
+          {errorMessage && (
+            <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-medium flex items-start gap-3 animate-in fade-in duration-200">
+              <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+              <div className="flex-1 leading-relaxed">
+                <span className="font-semibold">Unable to send inquiry:</span> {errorMessage}
+              </div>
+            </div>
+          )}
           {/* Row 1: Name and Email */}
           <div className="grid sm:grid-cols-2 gap-5">
             <div>

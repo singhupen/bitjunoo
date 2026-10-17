@@ -85,3 +85,21 @@ export interface ApiResponse<T = unknown> {
   message?: string;
   data?: T;
 }
+
+// ── Contact / Resend ──────────────────────────────────────────────────────────
+export interface ContactFormData {
+  name: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  service: string;
+  message: string;
+}
+
+export interface ContactResponse {
+  success: boolean;
+  message: string;
+  data?: {
+    emailId?: string;
+  };
+}
