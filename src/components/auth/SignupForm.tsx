@@ -65,8 +65,8 @@ export default function SignupForm() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
+        window.location.href = "/dashboard";
+      }, 600);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Registration failed. Please try again.");
     } finally {

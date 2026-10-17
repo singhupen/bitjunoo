@@ -3,7 +3,8 @@ import Link from "next/link";
 import SignupForm from "@/components/auth/SignupForm";
 import AuthVisualSide from "@/components/auth/AuthVisualSide";
 import ThemeSwitcher from "@/components/common/ThemeSwitcher";
-import { ArrowLeft, Sparkles, ShieldCheck } from "lucide-react";
+import BackToWebsiteLink from "@/components/common/BackToWebsiteLink";
+import { Sparkles, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Create Account | BitJunoo Enterprise Portal",
@@ -46,13 +47,7 @@ export default function SignupPage() {
 
           <div className="flex items-center gap-2.5">
             <ThemeSwitcher />
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-royal-blue/30 bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Website</span>
-            </Link>
+            <BackToWebsiteLink />
           </div>
         </div>
 

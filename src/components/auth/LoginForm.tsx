@@ -57,8 +57,8 @@ export default function LoginForm() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
+        window.location.href = "/dashboard";
+      }, 600);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Login failed. Please try again.");
     } finally {

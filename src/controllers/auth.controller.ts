@@ -29,7 +29,7 @@ export async function handleRegister(req: NextRequest) {
 
     const result = await registerUser({ name, email, password, role });
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "Account created successfully.",
@@ -37,6 +37,18 @@ export async function handleRegister(req: NextRequest) {
       },
       { status: 201 }
     );
+
+    response.cookies.set({
+      name: "bj_token",
+      value: result.token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60,
+    });
+
+    return response;
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "Registration failed.";
@@ -63,7 +75,7 @@ export async function handleLogin(req: NextRequest) {
 
     const result = await loginUser({ email, password });
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "Login successful.",
@@ -71,6 +83,18 @@ export async function handleLogin(req: NextRequest) {
       },
       { status: 200 }
     );
+
+    response.cookies.set({
+      name: "bj_token",
+      value: result.token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60,
+    });
+
+    return response;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Login failed.";
     return NextResponse.json(

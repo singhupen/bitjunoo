@@ -19,7 +19,10 @@ type RouteHandler = (
 export function withAuth(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
     const authHeader = req.headers.get("Authorization");
-    const token = extractBearerToken(authHeader);
+    let token = extractBearerToken(authHeader);
+    if (!token) {
+      token = req.cookies.get("bj_token")?.value || null;
+    }
 
     if (!token) {
       return NextResponse.json(
