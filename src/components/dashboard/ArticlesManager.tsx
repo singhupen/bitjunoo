@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { authFetch } from "@/lib/api/apiClient";
 import Link from "next/link";
 import {
@@ -134,7 +134,11 @@ export default function ArticlesManager() {
     }
   }, [activeStatus, search]);
 
+  const isFetchingStatsRef = useRef(false);
+
   const fetchStats = useCallback(async () => {
+    if (isFetchingStatsRef.current) return;
+    isFetchingStatsRef.current = true;
     try {
       const res = await authFetch("/api/articles/stats");
       if (res.ok) {
@@ -143,6 +147,8 @@ export default function ArticlesManager() {
       }
     } catch {
       // Non-critical
+    } finally {
+      isFetchingStatsRef.current = false;
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -152,7 +158,7 @@ export default function ArticlesManager() {
 
   useEffect(() => {
     fetchStats();
-  }, [fetchStats, articles]); // Refresh stats when articles change
+  }, [fetchStats]);
 
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Delete article "${title}"? This cannot be undone.`)) return;
