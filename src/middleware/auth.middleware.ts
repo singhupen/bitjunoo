@@ -8,7 +8,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, extractBearerToken } from "@/lib/auth/jwt";
 import User from "@/models/User";
-import "@/lib/db"; // Ensure DB connection is initialized
+import { connectDB } from "@/lib/db/mongoose";
 
 type RouteHandler = (
   req: NextRequest,
@@ -37,6 +37,9 @@ export function withAuth(handler: RouteHandler): RouteHandler {
 
     try {
       const payload = verifyToken(token);
+
+      // Ensure DB connection is active before querying
+      await connectDB();
 
       // Verify user in DB to enforce real-time status and revocations
       const user = await User.findById(payload.userId).select(

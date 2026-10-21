@@ -41,15 +41,18 @@ export async function connectDB(): Promise<Mongoose> {
     );
   }
 
-  // Already connected — return immediately (no new TCP handshake)
-  if (cache.conn) return cache.conn;
+  // Already connected and active — return immediately (no new TCP handshake)
+  if (cache.conn && mongoose.connection.readyState === 1) {
+    return cache.conn;
+  }
 
-  // Connection in-flight — await the same promise (no duplicate connections)
-  if (!cache.promise) {
+  // Connection not active or promise missing — create connection promise
+  if (!cache.promise || mongoose.connection.readyState === 0) {
     cache.promise = mongoose
       .connect(MONGODB_URI, {
-        // Let Mongoose queue commands until the socket is ready
         bufferCommands: true,
+        maxPoolSize: 10,
+        serverSelectionTimeoutMS: 10000,
       })
       .then((instance) => {
         console.log(
@@ -58,15 +61,21 @@ export async function connectDB(): Promise<Mongoose> {
         return instance;
       })
       .catch((err: Error) => {
-        // Clear so the next request can retry
         cache.promise = null;
+        cache.conn = null;
         console.error("\x1b[31m✖ Database connection failed:\x1b[0m", err.message);
         throw err;
       });
   }
 
-  cache.conn = await cache.promise;
-  return cache.conn;
+  try {
+    cache.conn = await cache.promise;
+    return cache.conn;
+  } catch (err) {
+    cache.promise = null;
+    cache.conn = null;
+    throw err;
+  }
 }
 
 // ── Connection state helpers (useful for health-check endpoints) ──────────────

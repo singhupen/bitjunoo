@@ -8,6 +8,7 @@
 import Article, { IArticle } from "@/models/Article";
 import Category from "@/models/Category";
 import "@/models/User"; // Ensure User schema is loaded for Mongoose population
+import { connectDB } from "@/lib/db/mongoose";
 
 export interface CreateArticlePayload {
   title: string;
@@ -69,6 +70,7 @@ export async function createArticle(
   userRole: string = "author",
   canPublish: boolean = false
 ): Promise<IArticle> {
+  await connectDB();
   const generatedSlug = payload.slug ? generateSlug(payload.slug) : generateSlug(payload.title);
 
   // Check slug uniqueness; if taken, append timestamp suffix
@@ -132,6 +134,7 @@ export async function createArticle(
 
 // ── Read / Listing ───────────────────────────────────────────────────────────
 export async function getArticles(options: ArticleListOptions = {}) {
+  await connectDB();
   const { page = 1, limit = 10, status, category, search, authorId, isAdmin } = options;
   const skip = (page - 1) * limit;
 
@@ -182,6 +185,7 @@ export async function getArticleBySlug(slug: string): Promise<{
   article: IArticle | null;
   redirectSlug?: string;
 }> {
+  await connectDB();
   const normalized = slug.toLowerCase().trim();
   const article = await Article.findOne({ slug: normalized }).populate(
     "author",
@@ -203,6 +207,7 @@ export async function getArticleBySlug(slug: string): Promise<{
 }
 
 export async function getArticleById(id: string): Promise<IArticle | null> {
+  await connectDB();
   return Article.findById(id).populate("author", "name email avatar bio headline");
 }
 
@@ -213,6 +218,7 @@ export async function updateArticle(
   requestingUserId: string,
   requestingUserRole: string = "author"
 ): Promise<IArticle | null> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) return null;
 
@@ -290,6 +296,7 @@ export async function submitArticleForReview(
   id: string,
   authorId: string
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -309,6 +316,7 @@ export async function approveArticle(
   id: string,
   adminId: string
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -348,6 +356,7 @@ export async function rejectArticle(
   adminId: string,
   note: string
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -367,6 +376,7 @@ export async function publishArticle(
   userRole: string,
   canPublish: boolean
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -404,6 +414,7 @@ export async function unpublishArticle(
   userId: string,
   userRole: string
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -434,6 +445,7 @@ export async function scheduleArticle(
   userRole: string,
   canPublish: boolean
 ): Promise<IArticle> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) throw new Error("Article not found.");
 
@@ -457,6 +469,7 @@ export async function scheduleArticle(
 
 // ── Review Queue Listing (Admin only) ─────────────────────────────────────────
 export async function getReviewQueue() {
+  await connectDB();
   return Article.find({ status: "in_review" })
     .populate("author", "name email avatar headline")
     .sort({ submittedAt: 1, createdAt: 1 });
@@ -464,6 +477,7 @@ export async function getReviewQueue() {
 
 // ── Cron: Publish Scheduled Articles ─────────────────────────────────────────
 export async function publishScheduledArticles(): Promise<number> {
+  await connectDB();
   const now = new Date();
   const scheduledArticles = await Article.find({
     status: "scheduled",
@@ -491,6 +505,7 @@ export async function deleteArticle(
   requestingUserId: string,
   requestingUserRole: string = "author"
 ): Promise<IArticle | null> {
+  await connectDB();
   const article = await Article.findById(id);
   if (!article) return null;
 
@@ -520,6 +535,7 @@ export async function deleteArticle(
 
 // ── Get Role-Scoped Article Counts ───────────────────────────────────────────
 export async function getUserArticleStats(userId: string, role: string = "author") {
+  await connectDB();
   if (role === "admin") {
     const [drafts, inReview, published, scheduled, total] = await Promise.all([
       Article.countDocuments({ status: "draft" }),
@@ -543,5 +559,6 @@ export async function getUserArticleStats(userId: string, role: string = "author
 
 // ── Increment Views (Safely) ─────────────────────────────────────────────────
 export async function incrementArticleViews(id: string): Promise<void> {
+  await connectDB();
   await Article.findByIdAndUpdate(id, { $inc: { views: 1 } });
 }

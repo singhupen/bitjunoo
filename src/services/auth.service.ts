@@ -6,6 +6,7 @@
 
 import User, { IUser, ISocialLinks, IUserPermissions } from "@/models/User";
 import { signToken, TokenPayload } from "@/lib/auth/jwt";
+import { connectDB } from "@/lib/db/mongoose";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -47,6 +48,7 @@ export interface UpdateProfilePayload {
  * Otherwise, default to author with "pending" approval status and no post permissions.
  */
 export async function registerUser(payload: RegisterPayload): Promise<AuthResult> {
+  await connectDB();
   const normalizedEmail = payload.email.toLowerCase().trim();
   const existing = await User.findOne({ email: normalizedEmail });
   if (existing) {
@@ -91,6 +93,7 @@ export async function registerUser(payload: RegisterPayload): Promise<AuthResult
  * Enforces account status checks (blocks suspended accounts).
  */
 export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
+  await connectDB();
   const normalizedEmail = payload.email.toLowerCase().trim();
 
   // Explicitly select password field for comparison (hidden by default)
@@ -129,6 +132,7 @@ export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
  * Get a user profile by ID (password never returned).
  */
 export async function getUserById(userId: string): Promise<IUser | null> {
+  await connectDB();
   return User.findById(userId);
 }
 
@@ -139,6 +143,7 @@ export async function updateUserProfile(
   userId: string,
   updates: UpdateProfilePayload
 ): Promise<IUser | null> {
+  await connectDB();
   const updateDoc: Record<string, unknown> = {};
 
   if (updates.name !== undefined) updateDoc.name = updates.name;
@@ -173,6 +178,7 @@ export async function changeUserPassword(
   currentPassword: string,
   newPassword: string
 ): Promise<void> {
+  await connectDB();
   const user = await User.findById(userId).select("+password");
   if (!user) throw new Error("User not found.");
 

@@ -6,6 +6,7 @@
 
 import User, { IUser, IUserPermissions } from "@/models/User";
 import Article from "@/models/Article";
+import { connectDB } from "@/lib/db/mongoose";
 
 export interface UserListOptions {
   status?: string;
@@ -25,6 +26,7 @@ export interface UpdateUserPayload {
  * List all registered users with status and permission filters.
  */
 export async function listUsers(options: UserListOptions = {}) {
+  await connectDB();
   const { status, role, search, page = 1, limit = 20 } = options;
   const skip = (page - 1) * limit;
 
@@ -69,6 +71,7 @@ export async function updateUser(
   updates: UpdateUserPayload,
   adminId?: string
 ): Promise<IUser | null> {
+  await connectDB();
   const user = await User.findById(userId);
   if (!user) {
     throw new Error("User not found.");
@@ -121,6 +124,7 @@ export async function updateUser(
  * Delete user account.
  */
 export async function deleteUser(userId: string, requestingAdminId: string): Promise<boolean> {
+  await connectDB();
   if (String(userId) === String(requestingAdminId)) {
     throw new Error("You cannot delete your own administrator account.");
   }
@@ -146,6 +150,7 @@ export async function deleteUser(userId: string, requestingAdminId: string): Pro
  * Get aggregate user statistics for admin console.
  */
 export async function getUserStats() {
+  await connectDB();
   const [total, pending, active, suspended] = await Promise.all([
     User.countDocuments(),
     User.countDocuments({ accountStatus: "pending" }),

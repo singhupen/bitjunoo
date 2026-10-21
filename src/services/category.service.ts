@@ -5,6 +5,7 @@
 
 import Category, { ICategory } from "@/models/Category";
 import Article from "@/models/Article";
+import { connectDB } from "@/lib/db/mongoose";
 
 // ── Create ───────────────────────────────────────────────────────────────────
 export async function createCategory(data: {
@@ -12,6 +13,7 @@ export async function createCategory(data: {
   description?: string;
   color?: string;
 }): Promise<ICategory> {
+  await connectDB();
   const normalizedName = data.name.trim();
   const existing = await Category.findOne({
     name: { $regex: new RegExp(`^${normalizedName}$`, "i") },
@@ -32,6 +34,7 @@ export async function createCategory(data: {
 export async function getAllCategories(): Promise<
   (ICategory & { publishedCount?: number })[]
 > {
+  await connectDB();
   const categories = await Category.find().sort({ name: 1 }).lean();
 
   // Compute live published article count via aggregation (prevents counter drift)
@@ -52,6 +55,7 @@ export async function getAllCategories(): Promise<
 }
 
 export async function getCategoryBySlug(slug: string): Promise<ICategory | null> {
+  await connectDB();
   return Category.findOne({ slug: slug.toLowerCase() });
 }
 
@@ -60,6 +64,7 @@ export async function updateCategory(
   id: string,
   data: Partial<{ name: string; description: string; color: string }>
 ): Promise<ICategory | null> {
+  await connectDB();
   const category = await Category.findById(id);
   if (!category) return null;
 
@@ -89,6 +94,7 @@ export async function updateCategory(
 
 // ── Delete ───────────────────────────────────────────────────────────────────
 export async function deleteCategory(id: string): Promise<ICategory | null> {
+  await connectDB();
   const category = await Category.findById(id);
   if (!category) return null;
 
