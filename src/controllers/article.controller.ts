@@ -91,20 +91,31 @@ export async function handleCreateArticle(req: NextRequest) {
       seo,
     } = body;
 
-    if (!title || !excerpt || !content || !category) {
+    if (!title?.trim() || !content?.trim()) {
       return NextResponse.json(
-        { success: false, message: "Headline, excerpt, content, and category are required." },
+        { success: false, message: "Headline and content are required." },
         { status: 400 }
       );
     }
+
+    // Auto-generate clean excerpt if empty
+    const cleanContent = (content || "")
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/!\[.*?\]\(.*?\)/g, "")
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+      .replace(/[#*`_~>]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const finalExcerpt = excerpt?.trim() || cleanContent.slice(0, 200) || title.trim();
+    const finalCategory = category?.trim() || "Technology";
 
     const article = await createArticle(
       {
         title,
         slug,
-        excerpt,
+        excerpt: finalExcerpt,
         content,
-        category,
+        category: finalCategory,
         tags,
         status,
         coverImage,

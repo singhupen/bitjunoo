@@ -103,7 +103,7 @@ const ArticleSchema = new Schema<IArticle>(
     slugHistory: [{ type: String, lowercase: true, trim: true }],
     excerpt: {
       type: String,
-      required: [true, "Excerpt is required"],
+      default: "",
       maxlength: [500, "Excerpt cannot exceed 500 characters"],
     },
     content: {

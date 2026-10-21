@@ -373,12 +373,21 @@ export default function ArticleEditor({ articleId }: ArticleEditorProps) {
     scheduledAt?: string,
     isAutosave: boolean = false
   ): Promise<void> => {
+    const cleanContent = (content || "")
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/!\[.*?\]\(.*?\)/g, "")
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+      .replace(/[#*`_~>]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const finalExcerpt = excerpt?.trim() || cleanContent.slice(0, 200) || title.trim();
+
     const payload: Record<string, unknown> = {
       title,
       slug,
-      excerpt,
+      excerpt: finalExcerpt,
       content,
-      category,
+      category: category || "Technology",
       tags,
       readTime: parseInt(readTime) || 5,
       level,
