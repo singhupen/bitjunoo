@@ -1,7 +1,42 @@
 import Link from "next/link";
 import { Clock, Calendar, ArrowRight, Sparkles } from "lucide-react";
 
-export default function FeaturedArticle() {
+interface FeaturedArticleProps {
+  article?: {
+    title: string;
+    slug: string;
+    excerpt: string;
+    category: string;
+    readTime?: number;
+    publishedAt?: string | Date;
+    author?: {
+      name?: string;
+      headline?: string;
+      avatar?: string;
+    };
+  } | null;
+}
+
+export default function FeaturedArticle({ article }: FeaturedArticleProps) {
+  const title =
+    article?.title ||
+    "Architecting High-Throughput .NET 9 Microservices with Next.js 16 Frontends: Lessons from 10M Daily Events";
+  const slug = article?.slug || "";
+  const excerpt =
+    article?.excerpt ||
+    "A comprehensive deep-dive into how we designed an event-driven system using C# and .NET 9, Kafka message streaming, and Next.js 16 Server Components to achieve deterministic sub-40ms query latencies under sustained peak load.";
+  const category = article?.category || "Featured Architecture Breakdown";
+  const readTime = article?.readTime ? `${article.readTime} min read` : "8 min read";
+  const dateStr = article?.publishedAt
+    ? new Date(article.publishedAt).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    : "Published Sep 2026";
+  const authorName = article?.author?.name || "BitJunoo Core Architecture Pod";
+  const authorHeadline = article?.author?.headline || "Principal Systems Architects";
+  const readUrl = slug ? `/blog/${slug}` : "/blog";
+
   return (
     <section className="py-6 sm:py-8 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 relative overflow-hidden transition-colors duration-300">
       {/* Background illumination */}
@@ -19,40 +54,42 @@ export default function FeaturedArticle() {
             <div className="flex flex-wrap items-center gap-2.5 mb-3">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-blue/15 border border-cyan-blue/30 text-cyan-blue text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5" />
-                Featured Architecture Breakdown
+                {category}
               </span>
               <span className="text-xs text-slate-300 dark:text-slate-400 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" /> 8 min read
+                <Clock className="w-3.5 h-3.5" /> {readTime}
               </span>
               <span className="text-xs text-slate-300 dark:text-slate-400 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" /> Published Sep 2026
+                <Calendar className="w-3.5 h-3.5" /> {dateStr}
               </span>
             </div>
 
             {/* Title */}
             <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white mb-2.5 leading-snug">
-              Architecting High-Throughput .NET 9 Microservices with Next.js 16 Frontends: Lessons from 10M Daily Events
+              {title}
             </h2>
 
             {/* Summary */}
             <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 leading-relaxed mb-5">
-              A comprehensive deep-dive into how we designed an event-driven system using C# and .NET 9, Kafka message streaming, and Next.js 16 Server Components to achieve deterministic sub-40ms query latencies under sustained peak load.
+              {excerpt}
             </p>
 
             {/* Author and Action */}
             <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-700/80 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-royal-blue to-brand-azure flex items-center justify-center font-bold text-white text-xs border border-white/20">
-                  BJ
+                  {authorName.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
-                  <div className="text-xs sm:text-sm font-bold text-white">BitJunoo Core Architecture Pod</div>
-                  <div className="text-[11px] text-slate-300 dark:text-slate-400">Principal Systems Architects</div>
+                  <div className="text-xs sm:text-sm font-bold text-white">{authorName}</div>
+                  <div className="text-[11px] text-slate-300 dark:text-slate-400">
+                    {authorHeadline}
+                  </div>
                 </div>
               </div>
 
               <Link
-                href="/contact"
+                href={readUrl}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white text-xs sm:text-sm font-bold shadow-md shadow-royal-blue/20 hover:shadow-royal-blue/40 hover:-translate-y-0.5 transition-all"
               >
                 <span>Read Full Technical Paper</span>

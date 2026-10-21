@@ -20,7 +20,17 @@ import {
   ChevronRight,
   PanelLeftClose,
   PanelLeftOpen,
+  Users as UsersIcon,
+  FileCheck,
 } from "lucide-react";
+
+interface SidebarNavItem {
+  label: string;
+  href: string;
+  icon: any;
+  badge?: string;
+  count?: number;
+}
 
 interface DashboardSidebarProps {
   mobileOpen: boolean;
@@ -28,16 +38,6 @@ interface DashboardSidebarProps {
   collapsed?: boolean;
   onToggleCollapse?: () => void;
 }
-
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Articles", href: "/articles", icon: FileText, count: 48 },
-  { label: "Add Article", href: "/add-articles", icon: PlusCircle, badge: "Create" },
-  { label: "Analytics", href: "/analytics", icon: BarChart3 },
-  { label: "Categories", href: "/categories", icon: Tags, count: 6 },
-  { label: "Profile", href: "/profile", icon: User },
-  { label: "Settings", href: "/settings", icon: Settings },
-];
 
 export default function DashboardSidebar({
   mobileOpen,
@@ -47,6 +47,7 @@ export default function DashboardSidebar({
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [rootUrl, setRootUrl] = useState("/");
+  const [userRole, setUserRole] = useState<string>("author");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -58,7 +59,36 @@ export default function DashboardSidebar({
         setRootUrl("/");
       }
     }
+
+    async function checkRole() {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data?.role) setUserRole(json.data.role);
+        }
+      } catch {
+        // ignore
+      }
+    }
+    checkRole();
   }, []);
+
+  const navItems: SidebarNavItem[] = [
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Articles", href: "/articles", icon: FileText },
+    { label: "Add Article", href: "/add-articles", icon: PlusCircle, badge: "Create" },
+    ...(userRole === "admin"
+      ? [
+          { label: "Review Queue", href: "/review", icon: FileCheck },
+          { label: "Authors & Access", href: "/users", icon: UsersIcon },
+        ]
+      : []),
+    { label: "Categories", href: "/categories", icon: Tags },
+    { label: "Analytics", href: "/analytics", icon: BarChart3 },
+    { label: "Profile", href: "/profile", icon: User },
+    { label: "Settings", href: "/settings", icon: Settings },
+  ];
 
   const handleLogout = async () => {
     try {

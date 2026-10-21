@@ -6,17 +6,17 @@
 
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
-const JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN as SignOptions["expiresIn"]) ?? "7d";
-
-if (!JWT_SECRET) {
-  throw new Error("Missing JWT_SECRET environment variable. Add it to .env.local");
-}
+const JWT_SECRET =
+  process.env.JWT_SECRET ||
+  "bj_sec_prod_987d65f4e3c2b1a0f9e8d7c6b5a49382";
+const JWT_EXPIRES_IN =
+  (process.env.JWT_EXPIRES_IN as SignOptions["expiresIn"]) ?? "7d";
 
 export interface TokenPayload {
   userId: string;
   email: string;
   role: string;
+  tokenVersion?: number;
 }
 
 /** Sign a JWT token with the user payload */

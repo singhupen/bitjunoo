@@ -13,63 +13,86 @@ import {
   Layers,
   Tags,
   Globe,
+  FileCheck,
+  Users,
+  TrendingUp,
 } from "lucide-react";
+import Article from "@/models/Article";
+import "@/models/User";
+import "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Editorial Command Center | BitJunoo Console",
   description: "High-level overview of readership metrics, active drafts, and publishing pipelines.",
 };
 
-import { getArticles } from "@/services/article.service";
-import { Users, TrendingUp } from "lucide-react";
+export const revalidate = 30; // 30s revalidation for dashboard metrics
 
 export default async function DashboardPage() {
-  const result = await getArticles({ limit: 5 });
-  const recentArticles = result.articles.map((article: any) => ({
-    id: article._id.toString(),
-    title: article.title,
-    category: article.category,
-    status: article.status ? article.status.charAt(0).toUpperCase() + article.status.slice(1) : "Draft",
-    views: article.views?.toLocaleString() || "0",
-    readTime: `${article.readTime || 5} min`,
-  }));
+  // Query real dashboard metrics
+  const [
+    publishedCount,
+    inReviewCount,
+    draftsCount,
+    viewsAggregation,
+    readTimeAggregation,
+    recentArticlesDocs,
+  ] = await Promise.all([
+    Article.countDocuments({ status: "published" }),
+    Article.countDocuments({ status: "in_review" }),
+    Article.countDocuments({ status: "draft" }),
+    Article.aggregate([
+      { $match: { status: "published" } },
+      { $group: { _id: null, totalViews: { $sum: "$views" } } },
+    ]),
+    Article.aggregate([
+      { $match: { status: "published" } },
+      { $group: { _id: null, avgReadTime: { $avg: "$readTime" } } },
+    ]),
+    Article.find({ status: "published" })
+      .populate("author", "name avatar")
+      .sort({ publishedAt: -1, createdAt: -1 })
+      .limit(5)
+      .lean(),
+  ]);
 
-  const totalViews = result.articles.reduce((acc: number, curr: any) => acc + (curr.views || 0), 0);
+  const totalViews = viewsAggregation[0]?.totalViews ?? 0;
+  const avgReadTimeMinutes = Math.round(readTimeAggregation[0]?.avgReadTime ?? 5);
 
   const dynamicStats = [
     {
-      title: "Published Articles",
-      value: result.total.toString(),
-      change: "Lifetime total",
+      title: "Live Published Articles",
+      value: publishedCount.toLocaleString(),
+      change: `${draftsCount} working drafts`,
       trend: "up",
       icon: FileText,
       accent: "text-royal-blue bg-blue-50 dark:bg-royal-blue/10 border-blue-100 dark:border-royal-blue/20",
       glow: "group-hover:border-royal-blue/30",
     },
     {
-      title: "Total Readers",
+      title: "In Review Queue",
+      value: inReviewCount.toString(),
+      change: inReviewCount > 0 ? "Awaiting approval" : "Queue clear",
+      trend: "up",
+      icon: FileCheck,
+      accent: "text-purple-600 bg-purple-50 dark:bg-purple-950/40 border-purple-100 dark:border-purple-800/40",
+      glow: "group-hover:border-purple-300",
+    },
+    {
+      title: "Total Readers Reached",
       value: totalViews.toLocaleString(),
-      change: "Lifetime views",
+      change: "Lifetime technical views",
       trend: "up",
       icon: Users,
       accent: "text-brand-azure bg-blue-50 dark:bg-brand-azure/10 border-blue-100 dark:border-brand-azure/20",
       glow: "group-hover:border-brand-azure/30",
     },
     {
-      title: "Average Read Duration",
-      value: "4m 32s",
-      change: "Estimated",
+      title: "Avg Read Duration",
+      value: `${avgReadTimeMinutes} min`,
+      change: "Benchmark metric",
       trend: "up",
       icon: Clock,
-      accent: "text-royal-blue dark:text-cyan-blue bg-cyan-50 dark:bg-cyan-blue/10 border-cyan-100 dark:border-cyan-blue/20",
-      glow: "group-hover:border-cyan-blue/30",
-    },
-    {
-      title: "System Status",
-      value: "Online",
-      change: "All services running",
-      trend: "up",
-      icon: TrendingUp,
       accent: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-100 dark:border-emerald-800/40",
       glow: "group-hover:border-emerald-300",
     },
@@ -88,7 +111,7 @@ export default async function DashboardPage() {
 
             <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              CLUSTER: US-EAST ACTIVE
+              DATABASE SYNC: ONLINE
             </span>
           </div>
 
@@ -124,7 +147,7 @@ export default async function DashboardPage() {
       {/* 4 Stat Overview Cards */}
       <DashboardStats stats={dynamicStats} />
 
-      {/* Middle Row: Recent Publications Snapshot & Audience Snapshot */}
+      {/* Middle Row: Recent Publications Snapshot & Quick Shortcuts */}
       <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         {/* Left: Recent Publications Card */}
         <div className="lg:col-span-7 bg-white dark:bg-slate-900/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
@@ -133,9 +156,11 @@ export default async function DashboardPage() {
               <div>
                 <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
                   <FileText className="w-4 h-4 text-royal-blue" />
-                  <span>Recent Publications</span>
+                  <span>Recent Live Publications</span>
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Latest live technical dispatches</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Latest engineering dispatches currently active on the public blog
+                </p>
               </div>
 
               <Link
@@ -148,32 +173,38 @@ export default async function DashboardPage() {
             </div>
 
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {recentArticles.length > 0 ? recentArticles.map((item) => (
-                <div key={item.id} className="py-3 flex items-center justify-between gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                      {item.category}
-                    </span>
-                    <h4 className="font-heading font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-1 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors">
-                      {item.title}
-                    </h4>
-                  </div>
+              {recentArticlesDocs.length > 0 ? (
+                recentArticlesDocs.map((item: any) => (
+                  <div key={item._id.toString()} className="py-3 flex items-center justify-between gap-3">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                        {item.category}
+                      </span>
+                      <h4 className="font-heading font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-1 hover:text-royal-blue dark:hover:text-cyan-blue transition-colors">
+                        <Link href={`/blog/${item.slug}`} target="_blank">
+                          {item.title}
+                        </Link>
+                      </h4>
+                    </div>
 
-                  <div className="text-right whitespace-nowrap text-xs">
-                    <div className="font-mono font-bold text-slate-900 dark:text-white">{item.views}</div>
-                    <div className="text-[10px] text-slate-400">{item.readTime}</div>
+                    <div className="text-right whitespace-nowrap text-xs">
+                      <div className="font-mono font-bold text-slate-900 dark:text-white">
+                        {(item.views || 0).toLocaleString()} views
+                      </div>
+                      <div className="text-[10px] text-slate-400">{item.readTime || 5} min</div>
+                    </div>
                   </div>
-                </div>
-              )) : (
+                ))
+              ) : (
                 <div className="py-8 text-center text-sm text-slate-500 dark:text-slate-400">
-                  No articles published yet.
+                  No articles published live yet. Create and publish your first article!
                 </div>
               )}
             </div>
           </div>
 
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-3 flex items-center justify-between text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Need to manage drafts or review queues?</span>
+            <span className="text-slate-500 dark:text-slate-400">Want to inspect drafts or scheduled posts?</span>
             <Link
               href="/articles"
               className="font-bold text-royal-blue dark:text-cyan-blue hover:underline"
@@ -183,108 +214,44 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Right: Quick Analytics & Traffic Channels Snapshot */}
-        <div className="lg:col-span-5 bg-white dark:bg-slate-900/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-brand-azure" />
-                  <span>Audience Channels</span>
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Where engineers discover content</p>
-              </div>
-
-              <Link
-                href="/analytics"
-                className="inline-flex items-center gap-1 text-xs font-bold text-brand-azure dark:text-cyan-blue hover:underline"
-              >
-                <span>Deep Analytics</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
+        {/* Right: Editorial Quick Jump Portals */}
+        <div className="lg:col-span-5 space-y-4">
+          <Link
+            href="/review"
+            className="block p-5 rounded-2xl bg-gradient-to-br from-purple-500/10 via-brand-azure/5 to-transparent border border-purple-200 dark:border-purple-900/60 shadow-2xs hover:border-purple-400 transition-all group"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+                Editorial Queue
+              </span>
+              <ArrowRight className="w-4 h-4 text-purple-600 group-hover:translate-x-1 transition-transform" />
             </div>
+            <h4 className="font-heading font-bold text-sm text-slate-900 dark:text-white">
+              Peer Review Submissions ({inReviewCount})
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Inspect articles submitted by authors, approve for live release, or provide feedback.
+            </p>
+          </Link>
 
-            <div className="space-y-3">
-              {[
-                { label: "Organic Search", pct: 48, color: "bg-royal-blue" },
-                { label: "Direct Bookmarks", pct: 24, color: "bg-brand-azure" },
-                { label: "Developer Communities", pct: 16, color: "bg-brand-cyan" },
-                { label: "Engineering Socials", pct: 12, color: "bg-emerald-500" },
-              ].map((c) => (
-                <div key={c.label}>
-                  <div className="flex justify-between text-xs font-semibold mb-1">
-                    <span className="text-slate-600 dark:text-slate-400">{c.label}</span>
-                    <span className="font-mono text-slate-900 dark:text-white">{c.pct}%</span>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                    <div className={`h-full rounded-full ${c.color}`} style={{ width: `${c.pct}%` }} />
-                  </div>
-                </div>
-              ))}
+          <Link
+            href="/users"
+            className="block p-5 rounded-2xl bg-gradient-to-br from-royal-blue/10 via-brand-azure/5 to-transparent border border-royal-blue/20 dark:border-royal-blue/30 shadow-2xs hover:border-royal-blue/40 transition-all group"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-royal-blue uppercase tracking-wider">
+                Access Control
+              </span>
+              <ArrowRight className="w-4 h-4 text-royal-blue group-hover:translate-x-1 transition-transform" />
             </div>
-          </div>
-
-          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs">
-            <span className="text-slate-500 dark:text-slate-400">Full reader demographics available</span>
-            <Link
-              href="/analytics"
-              className="font-bold text-brand-azure dark:text-cyan-blue hover:underline"
-            >
-              View Full Report &rarr;
-            </Link>
-          </div>
+            <h4 className="font-heading font-bold text-sm text-slate-900 dark:text-white">
+              Manage Author Permissions
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Approve pending accounts, toggle publishing rights, and grant category permissions.
+            </p>
+          </Link>
         </div>
-      </div>
-
-      {/* Bottom Quick Jump Cards */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <Link
-          href="/add-articles"
-          className="p-4 rounded-2xl bg-gradient-to-br from-royal-blue/10 to-royal-blue/5 dark:from-royal-blue/20 dark:to-royal-blue/5 border border-royal-blue/20 hover:border-royal-blue/40 shadow-sm transition-all group"
-        >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-royal-blue uppercase tracking-wider">Composer</span>
-            <ArrowRight className="w-4 h-4 text-royal-blue group-hover:translate-x-1 transition-transform" />
-          </div>
-          <h4 className="font-heading font-bold text-sm text-slate-900 dark:text-white">
-            Write New Technical Deep Dive
-          </h4>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Markdown editor with live preview and code snippet formatting.
-          </p>
-        </Link>
-
-        <Link
-          href="/categories"
-          className="p-4 rounded-2xl bg-gradient-to-br from-brand-azure/10 to-brand-azure/5 dark:from-brand-azure/20 dark:to-brand-azure/5 border border-brand-azure/20 hover:border-brand-azure/40 shadow-sm transition-all group"
-        >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-brand-azure uppercase tracking-wider">Taxonomy</span>
-            <ArrowRight className="w-4 h-4 text-brand-azure group-hover:translate-x-1 transition-transform" />
-          </div>
-          <h4 className="font-heading font-bold text-sm text-slate-900 dark:text-white">
-            Manage Domains & Tags
-          </h4>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Structure your knowledge base across 6 core technical domains.
-          </p>
-        </Link>
-
-        <Link
-          href="/settings"
-          className="p-4 rounded-2xl bg-gradient-to-br from-brand-cyan/10 to-brand-cyan/5 dark:from-brand-cyan/20 dark:to-brand-cyan/5 border border-brand-cyan/20 hover:border-brand-cyan/40 shadow-sm transition-all group"
-        >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-royal-blue dark:text-cyan-blue uppercase tracking-wider">Settings</span>
-            <ArrowRight className="w-4 h-4 text-royal-blue dark:text-cyan-blue group-hover:translate-x-1 transition-transform" />
-          </div>
-          <h4 className="font-heading font-bold text-sm text-slate-900 dark:text-white">
-            Configure Editorial Rules
-          </h4>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Set up peer reviews, RSS syndication, and SEO parameters.
-          </p>
-        </Link>
       </div>
     </div>
   );

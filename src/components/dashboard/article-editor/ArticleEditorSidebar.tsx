@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Send,
   Save,
@@ -16,7 +16,10 @@ import {
   List,
   AlertCircle,
   TrendingUp,
+  User,
+  ShieldAlert,
 } from "lucide-react";
+import { authFetch } from "@/lib/api/apiClient";
 
 interface ArticleEditorSidebarProps {
   title: string;
@@ -31,11 +34,16 @@ interface ArticleEditorSidebarProps {
   level: string;
   setLevel: (lvl: string) => void;
   author: string;
-  setAuthor: (author: string) => void;
+  setAuthor?: (author: string) => void;
   tags: string[];
   setTags: (tags: string[]) => void;
-  onPublish: (status: "Published" | "Draft" | "Scheduled", scheduledAt?: string) => void;
+  onPublish: (status: "Published" | "Draft" | "Scheduled" | "In_Review", scheduledAt?: string) => void;
   isSaving: boolean;
+  canPublish?: boolean;
+  isAdmin?: boolean;
+  articleStatus?: string;
+  reviewNote?: string;
+  categoriesList?: string[];
   className?: string;
 }
 
@@ -66,17 +74,54 @@ export default function ArticleEditorSidebar({
   level,
   setLevel,
   author,
-  setAuthor,
   tags,
   setTags,
   onPublish,
   isSaving,
-  className,
+  canPublish = false,
+  isAdmin = false,
+  articleStatus = "draft",
+  reviewNote,
+  categoriesList: propCategories,
+  className = "",
 }: ArticleEditorSidebarProps) {
   const [newTag, setNewTag] = useState("");
   const [publishStatus, setPublishStatus] = useState<"Published" | "Draft" | "Scheduled">("Published");
   const [scheduleDate, setScheduleDate] = useState("");
   const [seoTab, setSeoTab] = useState<"google" | "social">("google");
+  const [categories, setCategories] = useState<string[]>(
+    propCategories && propCategories.length > 0
+      ? propCategories
+      : [
+          "Backend & Systems",
+          "Frontend Architecture",
+          "AI & Agents",
+          "Cloud & DevOps",
+          "Mobile Systems",
+          "Security & SRE",
+        ]
+  );
+
+  // Fetch real categories from backend taxonomy
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const res = await authFetch("/api/categories");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+            setCategories(json.data.map((c: any) => c.name));
+            if (!category || category === "Uncategorized") {
+              setCategory(json.data[0].name);
+            }
+          }
+        }
+      } catch {
+        // use default fallback
+      }
+    }
+    loadCategories();
+  }, []);
 
   // Word count & reading time calculation
   const stats = useMemo(() => {
@@ -98,168 +143,178 @@ export default function ArticleEditorSidebar({
       { id: "headline", label: "Headline defined (> 10 chars)", met: title.trim().length >= 10 },
       { id: "cover", label: "Featured cover image attached", met: !!coverUrl.trim() },
       { id: "excerpt", label: "SEO summary & excerpt written", met: excerpt.trim().length >= 25 },
-      { id: "content", label: "Substantial content (> 80 words)", met: stats.wordCount >= 80 },
-      { id: "category", label: "Category assigned", met: !!category },
-      { id: "tags", label: "At least 2 topic tags added", met: tags.length >= 2 },
+      { id: "content", label: "Substantive technical content (> 150 words)", met: stats.wordCount >= 150 },
+      { id: "tags", label: "At least 2 topic tags tagged", met: tags.length >= 2 },
+      { id: "category", label: "Domain category selected", met: !!category && category !== "Uncategorized" },
     ];
-    const metCount = items.filter((i) => i.met).length;
-    const score = Math.round((metCount / items.length) * 100);
-    return { items, score, metCount, total: items.length };
-  }, [title, coverUrl, excerpt, stats.wordCount, category, tags]);
+    const completedCount = items.filter((i) => i.met).length;
+    const score = Math.round((completedCount / items.length) * 100);
+    return { items, completedCount, score };
+  }, [title, coverUrl, excerpt, stats.wordCount, tags, category]);
 
-  // Dynamic Table of Contents (parsed from headings in content)
-  const headings = useMemo(() => {
-    const lines = content.split("\n");
-    const list: { level: number; text: string }[] = [];
-    lines.forEach((l) => {
-      const match = l.match(/^(#{1,3})\s+(.*)$/);
-      if (match) {
-        list.push({
-          level: match[1].length,
-          text: match[2].replace(/[*_`]/g, ""),
-        });
-      }
-    });
-    return list;
-  }, [content]);
-
-  const handleAddTag = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && newTag.trim()) {
-      e.preventDefault();
-      const clean = newTag.trim();
-      if (!tags.includes(clean)) {
-        setTags([...tags, clean]);
-      }
-      setNewTag("");
+  const handleAddTag = (tagToAdd: string) => {
+    const clean = tagToAdd.trim().replace(/^#/, "");
+    if (clean && !tags.includes(clean)) {
+      setTags([...tags, clean]);
     }
-  };
-
-  const handleQuickAddTag = (tagToAdd: string) => {
-    if (!tags.includes(tagToAdd)) {
-      setTags([...tags, tagToAdd]);
-    }
+    setNewTag("");
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter((t) => t !== tagToRemove));
   };
 
+  const isLive = articleStatus === "published";
+  const isInReview = articleStatus === "in_review";
+
   return (
-    <aside className={`space-y-2.5 ${className || ""}`}>
-      {/* 1. Publishing Action Card */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs space-y-3">
+    <div className={`space-y-4 ${className}`}>
+      {/* Editorial Rejection Notice (if author has feedback to address) */}
+      {reviewNote && (
+        <div className="bg-rose-50 dark:bg-rose-950/40 p-4 rounded-2xl border border-rose-200 dark:border-rose-900/60 shadow-xs">
+          <div className="flex items-center gap-2 text-rose-800 dark:text-rose-300 font-bold text-xs mb-1">
+            <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />
+            <span>Editorial Feedback Note</span>
+          </div>
+          <p className="text-xs text-rose-700 dark:text-rose-300/90 leading-relaxed">
+            {reviewNote}
+          </p>
+        </div>
+      )}
+
+      {/* 1. Publication Lifecycle Card */}
+      <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-bold text-sm text-slate-900 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-royal-blue" />
-            <span>Publishing Hub</span>
+          <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-royal-blue dark:text-cyan-blue" />
+            <span>Publication Action</span>
           </h3>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-semibold">
-            {stats.readingMinutes}
+
+          <span
+            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+              isLive
+                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400"
+                : isInReview
+                ? "bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-400"
+                : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+            }`}
+          >
+            {articleStatus}
           </span>
         </div>
 
-        {/* Publication Status Selector */}
-        <div>
-          <label className="block text-[10px] font-semibold text-slate-600 mb-1">
-            Publication Intent
-          </label>
-          <div className="grid grid-cols-3 gap-1 p-1 rounded-xl bg-slate-100 border border-slate-200/80 text-xs font-semibold">
-            {(["Published", "Draft", "Scheduled"] as const).map((status) => (
-              <button
-                key={status}
-                type="button"
-                onClick={() => setPublishStatus(status)}
-                className={`py-1 rounded-lg transition-all text-center cursor-pointer text-xs ${
-                  publishStatus === status
-                    ? "bg-white text-royal-blue shadow-2xs font-bold"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                {status}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Scheduled date if selected */}
+        {/* Schedule date picker if scheduled */}
         {publishStatus === "Scheduled" && (
-          <div className="animate-in fade-in duration-200">
-            <label className="block text-[10px] font-semibold text-slate-600 mb-1">
-              Select Schedule Date & Time
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              Target Release Timestamp
             </label>
             <input
               type="datetime-local"
               value={scheduleDate}
               onChange={(e) => setScheduleDate(e.target.value)}
-              className="w-full px-2.5 py-1 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-800"
+              className="w-full px-2.5 py-1 text-xs rounded-xl border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950"
             />
           </div>
         )}
 
         {/* Primary Action Buttons */}
         <div className="space-y-1.5 pt-0.5">
-          <button
-            type="button"
-            disabled={isSaving}
-            onClick={() => onPublish(publishStatus, publishStatus === "Scheduled" ? scheduleDate : undefined)}
-            className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span>
-              {isSaving
-                ? "Processing..."
-                : publishStatus === "Published"
-                ? "Publish to Live Blog"
-                : publishStatus === "Scheduled"
-                ? "Schedule Publication"
-                : "Save as Draft"}
-            </span>
-          </button>
+          {/* Main Action based on user permissions & article status */}
+          {!canPublish && !isAdmin ? (
+            // Author without direct publish rights -> Submit for Review
+            <button
+              type="button"
+              disabled={isSaving}
+              onClick={() => onPublish("In_Review")}
+              className="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>
+                {isSaving
+                  ? "Submitting..."
+                  : isInReview
+                  ? "Update In-Review Submission"
+                  : "Submit for Editorial Review"}
+              </span>
+            </button>
+          ) : isLive ? (
+            // Live article update
+            <button
+              type="button"
+              disabled={isSaving}
+              onClick={() => onPublish("Published")}
+              className="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-emerald-600/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
+            >
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>{isSaving ? "Updating Live..." : "Update Live Article"}</span>
+            </button>
+          ) : (
+            // Direct Publish for Admin or authorized publishers
+            <button
+              type="button"
+              disabled={isSaving}
+              onClick={() => onPublish(publishStatus, publishStatus === "Scheduled" ? scheduleDate : undefined)}
+              className="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan hover:opacity-95 text-white font-bold text-xs shadow-sm shadow-royal-blue/25 hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>
+                {isSaving
+                  ? "Publishing..."
+                  : publishStatus === "Scheduled"
+                  ? "Schedule Publication"
+                  : "Publish to Live Blog"}
+              </span>
+            </button>
+          )}
 
+          {/* Working Copy Draft Button (Never changes published status to draft) */}
           <button
             type="button"
             disabled={isSaving}
             onClick={() => onPublish("Draft", undefined)}
-            className="w-full py-1.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            className="w-full py-1.5 px-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Save className="w-3 h-3 text-slate-400" />
-            <span>Save Working Copy</span>
+            <span>Save Working Draft</span>
           </button>
         </div>
 
         {/* Real-time Document Stats */}
-        <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-center text-xs">
-          <div className="p-1.5 rounded-lg bg-slate-50">
-            <span className="block font-bold text-slate-900 text-xs">{stats.wordCount}</span>
+        <div className="pt-2 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-1.5 text-center text-xs">
+          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800">
+            <span className="block font-bold text-slate-900 dark:text-white text-xs">{stats.wordCount}</span>
             <span className="text-[9px] text-slate-500 uppercase tracking-wider">Words</span>
           </div>
-          <div className="p-1.5 rounded-lg bg-slate-50">
-            <span className="block font-bold text-slate-900 text-xs">{stats.charCount}</span>
+          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800">
+            <span className="block font-bold text-slate-900 dark:text-white text-xs">{stats.charCount}</span>
             <span className="text-[9px] text-slate-500 uppercase tracking-wider">Chars</span>
           </div>
         </div>
       </div>
 
       {/* 2. Article Readiness Checklist & Meter */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2.5">
+      <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-2.5">
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-bold text-sm text-slate-900 flex items-center gap-1.5">
+          <h3 className="font-heading font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
             <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
             <span>Publication Readiness</span>
           </h3>
-          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-            checklist.score === 100
-              ? "bg-emerald-100 text-emerald-800"
-              : checklist.score >= 60
-              ? "bg-amber-100 text-amber-800"
-              : "bg-slate-100 text-slate-700"
-          }`}>
+          <span
+            className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+              checklist.score === 100
+                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400"
+                : checklist.score >= 60
+                ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-400"
+                : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+            }`}
+          >
             {checklist.score}% Ready
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
             className={`h-full transition-all duration-500 ${
               checklist.score === 100
@@ -276,16 +331,24 @@ export default function ArticleEditorSidebar({
         <div className="space-y-1.5 pt-0.5">
           {checklist.items.map((item) => (
             <div key={item.id} className="flex items-center gap-2 text-xs">
-              <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                item.met ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300"
-              }`}>
+              <span
+                className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  item.met
+                    ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
+                    : "bg-slate-100 text-slate-300 dark:bg-slate-800 dark:text-slate-600"
+                }`}
+              >
                 {item.met ? (
                   <CheckCircle2 className="w-3 h-3" />
                 ) : (
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
                 )}
               </span>
-              <span className={`text-[11px] ${item.met ? "text-slate-800 font-medium" : "text-slate-400"}`}>
+              <span
+                className={`text-[11px] ${
+                  item.met ? "text-slate-800 dark:text-slate-200 font-medium" : "text-slate-400"
+                }`}
+              >
                 {item.label}
               </span>
             </div>
@@ -300,51 +363,44 @@ export default function ArticleEditorSidebar({
           <span>Taxonomy & Meta</span>
         </h3>
 
-        {/* Category */}
+        {/* Category (Dynamic from DB) */}
         <div>
-          <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+          <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Primary Category
           </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-900 font-medium cursor-pointer"
+            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 focus:bg-white text-slate-900 dark:text-slate-100 font-medium cursor-pointer"
           >
-            <option value="Backend & Systems">Backend & Systems</option>
-            <option value="Frontend Architecture">Frontend Architecture</option>
-            <option value="AI & Agents">AI & Agents</option>
-            <option value="Cloud & DevOps">Cloud & DevOps</option>
-            <option value="Mobile Systems">Mobile Systems</option>
-            <option value="Security & SRE">Security & SRE</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
 
-        {/* Author & Read Time */}
+        {/* Author Byline & Level */}
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Author
             </label>
-            <select
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="w-full px-2 py-1.5 text-xs rounded-xl border border-slate-200 text-slate-800 bg-slate-50/70 focus:bg-white"
-            >
-              <option value="Alex Vance">Alex Vance</option>
-              <option value="Elena Rostova">Elena Rostova</option>
-              <option value="Sarah Mitchell">Sarah Mitchell</option>
-              <option value="BitJunoo Team">BitJunoo Team</option>
-            </select>
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-medium">
+              <User className="w-3 h-3 text-royal-blue shrink-0" />
+              <span className="line-clamp-1">{author || "Current Account"}</span>
+            </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Target Level
             </label>
             <select
               value={level}
               onChange={(e) => setLevel(e.target.value)}
-              className="w-full px-2 py-1.5 text-xs rounded-xl border border-slate-200 text-slate-800 bg-slate-50/70 focus:bg-white"
+              className="w-full px-2 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 bg-slate-50/70 dark:bg-slate-950"
             >
               <option value="All Engineers">All Engineers</option>
               <option value="Senior / Architect">Senior / Architect</option>
@@ -354,10 +410,10 @@ export default function ArticleEditorSidebar({
           </div>
         </div>
 
-        {/* Tags */}
+        {/* Topic Tags */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-[11px] font-semibold text-slate-700">
+            <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
               Topic Tags ({tags.length})
             </label>
             <span className="text-[9px] text-slate-400">Press Enter</span>
@@ -367,7 +423,7 @@ export default function ArticleEditorSidebar({
             {tags.map((t) => (
               <span
                 key={t}
-                className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-royal-blue/10 text-royal-blue border border-royal-blue/20"
+                className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-royal-blue/10 text-royal-blue dark:text-cyan-400 border border-royal-blue/20"
               >
                 <span>{t}</span>
                 <button
@@ -385,15 +441,20 @@ export default function ArticleEditorSidebar({
             type="text"
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
-            onKeyDown={handleAddTag}
-            placeholder="Type tag name and hit Enter..."
-            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-royal-blue/20 text-slate-900"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleAddTag(newTag);
+              }
+            }}
+            placeholder="Add custom keyword..."
+            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 focus:bg-white text-slate-800 dark:text-slate-200"
           />
 
           {/* Quick Suggestions */}
-          <div className="mt-2">
-            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-              Popular Tags
+          <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              Suggested Keywords
             </span>
             <div className="flex flex-wrap gap-1">
               {POPULAR_TAGS.filter((pt) => !tags.includes(pt))
@@ -402,8 +463,8 @@ export default function ArticleEditorSidebar({
                   <button
                     key={pt}
                     type="button"
-                    onClick={() => handleQuickAddTag(pt)}
-                    className="text-[9px] px-1.5 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+                    onClick={() => handleAddTag(pt)}
+                    className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-royal-blue/10 hover:text-royal-blue transition-colors cursor-pointer"
                   >
                     + {pt}
                   </button>
@@ -412,99 +473,6 @@ export default function ArticleEditorSidebar({
           </div>
         </div>
       </div>
-
-      {/* 4. SEO & Social Snippet Preview */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2.5">
-        <div className="flex items-center justify-between">
-          <h3 className="font-heading font-bold text-sm text-slate-900 flex items-center gap-1.5">
-            <Search className="w-3.5 h-3.5 text-cyan-blue" />
-            <span>Search & Social</span>
-          </h3>
-
-          <div className="flex p-0.5 rounded-lg bg-slate-100 text-[9px] font-semibold">
-            <button
-              type="button"
-              onClick={() => setSeoTab("google")}
-              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                seoTab === "google" ? "bg-white text-royal-blue shadow-2xs font-bold" : "text-slate-500"
-              }`}
-            >
-              Google
-            </button>
-            <button
-              type="button"
-              onClick={() => setSeoTab("social")}
-              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                seoTab === "social" ? "bg-white text-royal-blue shadow-2xs font-bold" : "text-slate-500"
-              }`}
-            >
-              Social
-            </button>
-          </div>
-        </div>
-
-        {seoTab === "google" ? (
-          <div className="p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-1">
-            <div className="flex items-center gap-1 text-[10px] text-slate-500">
-              <span className="font-medium text-slate-700">BitJunoo</span>
-              <span>›</span>
-              <span className="truncate">blog › {slug || "new-publication"}</span>
-            </div>
-            <h4 className="text-xs font-semibold text-blue-700 hover:underline cursor-pointer truncate leading-tight">
-              {title || "Architecting High-Throughput Distributed Microservices"}
-            </h4>
-            <p className="text-[10px] text-slate-600 line-clamp-2 leading-relaxed">
-              {excerpt || "Comprehensive architectural deep dive covering sub-second consensus, zero-downtime failover, and production benchmarks..."}
-            </p>
-          </div>
-        ) : (
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-slate-50/50">
-            {coverUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={coverUrl} alt="Social card" className="w-full h-24 object-cover" />
-            ) : (
-              <div className="w-full h-20 bg-gradient-to-r from-royal-blue to-brand-azure flex items-center justify-center text-white text-xs font-bold">
-                BitJunoo Editorial
-              </div>
-            )}
-            <div className="p-2.5 space-y-0.5">
-              <p className="text-[9px] uppercase font-bold text-slate-400">bitjunoo.com</p>
-              <p className="text-[11px] font-bold text-slate-900 truncate">
-                {title || "Article Headline"}
-              </p>
-              <p className="text-[9px] text-slate-500 line-clamp-1">
-                {excerpt || "Editorial article summary"}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 5. Document Outline / Table of Contents */}
-      {headings.length > 0 && (
-        <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2.5">
-          <h3 className="font-heading font-bold text-sm text-slate-900 flex items-center gap-1.5">
-            <List className="w-3.5 h-3.5 text-slate-600" />
-            <span>Document Outline ({headings.length})</span>
-          </h3>
-          <div className="space-y-1 text-xs max-h-40 overflow-y-auto pr-1">
-            {headings.map((h, i) => (
-              <div
-                key={i}
-                className={`truncate py-1 px-2 rounded-lg hover:bg-slate-50 transition-colors text-slate-700 ${
-                  h.level === 1
-                    ? "font-bold text-slate-900"
-                    : h.level === 2
-                    ? "pl-3.5 font-semibold text-slate-800"
-                    : "pl-6 text-slate-600 text-[10px]"
-                }`}
-              >
-                {h.text}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </aside>
+    </div>
   );
 }

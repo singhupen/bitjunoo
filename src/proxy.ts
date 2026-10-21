@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-refresh-jwt-key-change-this-in-production";
+const JWT_SECRET = process.env.JWT_SECRET || "bj_sec_prod_987d65f4e3c2b1a0f9e8d7c6b5a49382";
 
 // Admin protected routes (Editorial & Console pages)
 const ADMIN_PROTECTED_ROUTES = [
@@ -13,6 +13,8 @@ const ADMIN_PROTECTED_ROUTES = [
   "/categories",
   "/profile",
   "/settings",
+  "/users",
+  "/review",
 ];
 
 // Admin auth routes

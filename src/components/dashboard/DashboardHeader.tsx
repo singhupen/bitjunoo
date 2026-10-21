@@ -22,6 +22,8 @@ import {
   User,
   X,
   Command,
+  Users as UsersIcon,
+  FileCheck,
 } from "lucide-react";
 import ThemeSwitcher from "@/components/common/ThemeSwitcher";
 
@@ -35,6 +37,8 @@ const routeMetadata: Record<string, { section: string; title: string; icon: any 
   "/dashboard": { section: "Console", title: "Overview", icon: LayoutDashboard },
   "/articles": { section: "Editorial", title: "Articles", icon: FileText },
   "/add-articles": { section: "Editorial", title: "New Publication", icon: PlusCircle },
+  "/review": { section: "Editorial", title: "Review Queue", icon: FileCheck },
+  "/users": { section: "Access", title: "Authors & Access", icon: UsersIcon },
   "/analytics": { section: "Intelligence", title: "Analytics", icon: BarChart3 },
   "/categories": { section: "Taxonomy", title: "Categories & Tags", icon: Tags },
   "/settings": { section: "System", title: "Settings", icon: Settings },

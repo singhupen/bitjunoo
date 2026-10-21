@@ -1,7 +1,7 @@
 /**
  * controllers/auth.controller.ts
  * HTTP request/response handlers for authentication.
- * Delegates all business logic to auth.service.ts.
+ * Enforces role security (ignores body role) and manages cookies.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -11,7 +11,7 @@ import { registerUser, loginUser } from "@/services/auth.service";
 export async function handleRegister(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, password, role } = body;
+    const { name, email, password } = body;
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -27,12 +27,16 @@ export async function handleRegister(req: NextRequest) {
       );
     }
 
-    const result = await registerUser({ name, email, password, role });
+    // Notice: role from body is strictly omitted for security (C1 fix)
+    const result = await registerUser({ name, email, password });
 
     const response = NextResponse.json(
       {
         success: true,
-        message: "Account created successfully.",
+        message:
+          result.user.accountStatus === "pending"
+            ? "Account created! Waiting for administrator approval before publishing."
+            : "Account created successfully.",
         data: { user: result.user, token: result.token },
       },
       { status: 201 }
@@ -97,9 +101,10 @@ export async function handleLogin(req: NextRequest) {
     return response;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Login failed.";
+    const isForbidden = message.includes("suspended");
     return NextResponse.json(
       { success: false, message },
-      { status: 401 }
+      { status: isForbidden ? 403 : 401 }
     );
   }
 }

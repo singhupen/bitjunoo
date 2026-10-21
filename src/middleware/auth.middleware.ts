@@ -1,20 +1,24 @@
 /**
  * middleware/auth.middleware.ts
  * JWT-based route guard for protected API endpoints.
- * Usage: wrap your route handler with withAuth().
+ * Verifies active session, checks account suspension & token version,
+ * and sets granular role/permission headers.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, extractBearerToken } from "@/lib/auth/jwt";
+import User from "@/models/User";
+import "@/lib/db"; // Ensure DB connection is initialized
 
 type RouteHandler = (
   req: NextRequest,
-  context: { params: Promise<Record<string, string>> }
+  context?: any
 ) => Promise<NextResponse> | NextResponse;
 
 /**
  * Higher-order function: wraps a route handler with JWT authentication.
- * Attaches the decoded token payload to req.headers as x-user-id, x-user-email, x-user-role.
+ * Checks token validity, DB user status (rejects suspended accounts), and token version.
+ * Attaches user attributes to headers.
  */
 export function withAuth(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
@@ -34,11 +38,46 @@ export function withAuth(handler: RouteHandler): RouteHandler {
     try {
       const payload = verifyToken(token);
 
+      // Verify user in DB to enforce real-time status and revocations
+      const user = await User.findById(payload.userId).select(
+        "role accountStatus permissions tokenVersion email"
+      );
+
+      if (!user) {
+        return NextResponse.json(
+          { success: false, message: "Account not found. Please register or sign in again." },
+          { status: 401 }
+        );
+      }
+
+      if (user.accountStatus === "suspended") {
+        return NextResponse.json(
+          { success: false, message: "Your account has been suspended. Please contact the administrator." },
+          { status: 403 }
+        );
+      }
+
+      // If token payload has tokenVersion and doesn't match DB tokenVersion, invalidate
+      if (
+        payload.tokenVersion !== undefined &&
+        user.tokenVersion !== undefined &&
+        payload.tokenVersion < user.tokenVersion
+      ) {
+        return NextResponse.json(
+          { success: false, message: "Session expired or revoked. Please sign in again." },
+          { status: 401 }
+        );
+      }
+
       // Clone request headers and attach user info
       const requestHeaders = new Headers(req.headers);
-      requestHeaders.set("x-user-id", payload.userId);
-      requestHeaders.set("x-user-email", payload.email);
-      requestHeaders.set("x-user-role", payload.role);
+      requestHeaders.set("x-user-id", String(user._id));
+      requestHeaders.set("x-user-email", user.email);
+      requestHeaders.set("x-user-role", user.role);
+      requestHeaders.set("x-user-status", user.accountStatus);
+      requestHeaders.set("x-user-can-post", String(user.permissions?.canPost ?? false));
+      requestHeaders.set("x-user-can-publish", String(user.permissions?.canPublish ?? false));
+      requestHeaders.set("x-user-can-manage-categories", String(user.permissions?.canManageCategories ?? false));
 
       const augmentedReq = new NextRequest(req.url, {
         method: req.method,
@@ -49,7 +88,7 @@ export function withAuth(handler: RouteHandler): RouteHandler {
       return handler(augmentedReq, context);
     } catch {
       return NextResponse.json(
-        { success: false, message: "Invalid or expired token. Please sign in again." },
+        { success: false, message: "Invalid or expired session. Please sign in again." },
         { status: 401 }
       );
     }
@@ -57,17 +96,48 @@ export function withAuth(handler: RouteHandler): RouteHandler {
 }
 
 /**
- * Require a specific role. Must be used after withAuth.
+ * Require a specific role (e.g. "admin"). Must wrap after withAuth.
  */
 export function withRole(handler: RouteHandler, requiredRole: string): RouteHandler {
   return async (req, context) => {
     const role = req.headers.get("x-user-role");
     if (role !== requiredRole) {
       return NextResponse.json(
-        { success: false, message: "Insufficient permissions." },
+        { success: false, message: "Access forbidden. Administrator role required." },
         { status: 403 }
       );
     }
+    return handler(req, context);
+  };
+}
+
+/**
+ * Require specific permission (canPost, canPublish, canManageCategories).
+ * Admins always bypass permission checks.
+ */
+export function withPermission(
+  handler: RouteHandler,
+  permission: "canPost" | "canPublish" | "canManageCategories"
+): RouteHandler {
+  return async (req, context) => {
+    const role = req.headers.get("x-user-role");
+    if (role === "admin") {
+      return handler(req, context);
+    }
+
+    const headerKey = `x-user-${permission.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+    const hasPerm = req.headers.get(headerKey) === "true";
+
+    if (!hasPerm) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Permission denied. You do not have '${permission}' permission.`,
+        },
+        { status: 403 }
+      );
+    }
+
     return handler(req, context);
   };
 }

@@ -18,14 +18,6 @@
 
 import mongoose, { Mongoose } from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
-
-if (!MONGODB_URI) {
-  throw new Error(
-    "[DB] MONGODB_URI is not defined. Add it to .env.local before starting the server."
-  );
-}
-
 // ── Global cache (survives Next.js HMR module re-evaluation) ─────────────────
 interface MongooseCache {
   conn: Mongoose | null;
@@ -42,6 +34,13 @@ global._mongooseCache = cache;
 
 // ── Core connect function ─────────────────────────────────────────────────────
 export async function connectDB(): Promise<Mongoose> {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  if (!MONGODB_URI) {
+    throw new Error(
+      "[DB] MONGODB_URI is not defined. Add it to .env.local before starting the server."
+    );
+  }
+
   // Already connected — return immediately (no new TCP handshake)
   if (cache.conn) return cache.conn;
 
