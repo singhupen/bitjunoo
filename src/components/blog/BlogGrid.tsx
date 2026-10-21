@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Clock, ArrowRight, FileText, Search } from "lucide-react";
+import { Clock, ArrowRight, FileText, Search, X, Sparkles, Calendar } from "lucide-react";
 
 export interface BlogGridPost {
   _id?: string;
@@ -13,6 +13,10 @@ export interface BlogGridPost {
   readTime?: number;
   tags?: string[];
   publishedAt?: string | Date;
+  coverImage?: {
+    url: string;
+    alt?: string;
+  };
   author?: {
     name?: string;
     avatar?: string;
@@ -112,25 +116,25 @@ export default function BlogGrid({
   });
 
   return (
-    <section className="py-8 sm:py-10 bg-slate-50/70 dark:bg-slate-950 relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+    <section className="py-10 sm:py-14 bg-slate-50/70 dark:bg-slate-950 relative overflow-hidden border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       {/* Background glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-royal-blue/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1560px] mx-auto px-3 sm:px-5 lg:px-7 xl:px-8 relative z-10">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Search & Category Filter Toolbar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 sm:mb-8">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8">
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+          <div className="flex flex-wrap items-center gap-2 overflow-x-auto pb-1">
             {categories.map((cat) => {
               const isActive = activeCategory.toLowerCase() === cat.toLowerCase();
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap shadow-2xs ${
                     isActive
-                      ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/20 scale-105"
-                      : "bg-white dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs"
+                      ? "bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan text-white shadow-md shadow-royal-blue/25 scale-[1.02]"
+                      : "bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/30 dark:hover:border-slate-700"
                   }`}
                 >
                   {cat}
@@ -139,22 +143,30 @@ export default function BlogGrid({
             })}
           </div>
 
-          {/* Quick Search Input */}
-          <div className="relative w-full sm:w-64">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          {/* Search Input Box */}
+          <div className="relative w-full lg:w-72 shrink-0">
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search engineering papers..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-full bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-blue/30 shadow-xs"
+              placeholder="Search technical articles..."
+              className="w-full pl-10 pr-9 py-2 text-xs rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-blue/30 shadow-2xs"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
 
         {/* Empty State */}
         {filtered.length === 0 && (
-          <div className="text-center py-16 bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8">
+          <div className="text-center py-16 bg-white dark:bg-slate-900/60 rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 shadow-xs">
             <div className="w-12 h-12 rounded-2xl bg-royal-blue/10 flex items-center justify-center mx-auto mb-3">
               <FileText className="w-6 h-6 text-royal-blue" />
             </div>
@@ -169,7 +181,7 @@ export default function BlogGrid({
                 setActiveCategory("All Articles");
                 setSearchQuery("");
               }}
-              className="mt-4 px-4 py-2 rounded-xl bg-royal-blue text-white text-xs font-semibold hover:bg-royal-blue/90 transition-colors"
+              className="mt-4 px-4 py-2 rounded-xl bg-royal-blue text-white text-xs font-semibold hover:bg-royal-blue/90 transition-colors cursor-pointer"
             >
               Reset Filters
             </button>
@@ -177,66 +189,103 @@ export default function BlogGrid({
         )}
 
         {/* Posts Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((post) => {
-            const authorName = post.author?.name || "Senior Engineering Lead";
-            const readTimeText = post.readTime ? `${post.readTime} min read` : "6 min read";
+            const authorName = post.author?.name || "BitJunoo Engineering";
+            const readTimeText = post.readTime ? `${post.readTime} min read` : "5 min read";
             const articleUrl = post.slug ? `/blog/${post.slug}` : "/blog";
+            const coverUrl = post.coverImage?.url;
+            const dateStr = post.publishedAt
+              ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })
+              : undefined;
 
             return (
               <article
                 key={post.slug || post.title}
-                className="group bg-white dark:bg-slate-900/60 hover:bg-slate-50/60 dark:hover:bg-slate-900/90 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between backdrop-blur-sm"
+                className="group bg-white dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 hover:border-royal-blue/40 dark:hover:border-cyan-blue/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 <div>
-                  {/* Meta */}
-                  <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3">
-                    <span className="font-bold uppercase tracking-wider text-royal-blue dark:text-cyan-blue px-2 py-0.5 rounded-md bg-royal-blue/10 dark:bg-cyan-blue/10 border border-royal-blue/20 dark:border-cyan-blue/20 text-[10px]">
-                      {post.category || "Engineering"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-                        <Clock className="w-3 h-3 text-royal-blue/70 dark:text-cyan-blue/70" />
-                        {readTimeText}
+                  {/* Article Card Thumbnail */}
+                  {coverUrl ? (
+                    <Link href={articleUrl} className="block relative aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={coverUrl}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </Link>
+                  ) : (
+                    <div className="h-3 bg-gradient-to-r from-royal-blue via-brand-azure to-brand-cyan opacity-80 group-hover:opacity-100 transition-opacity" />
+                  )}
+
+                  <div className="p-6">
+                    {/* Category & Read Time Bar */}
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-3">
+                      <span className="font-bold uppercase tracking-wider text-royal-blue dark:text-cyan-blue px-2.5 py-0.5 rounded-full bg-royal-blue/10 dark:bg-cyan-blue/10 border border-royal-blue/20 dark:border-cyan-blue/20 text-[10px]">
+                        {post.category || "Engineering"}
                       </span>
+                      <div className="flex items-center gap-2 text-[11px] font-medium text-slate-400">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-royal-blue dark:text-cyan-blue" />
+                          {readTimeText}
+                        </span>
+                        {dateStr && (
+                          <span className="hidden sm:flex items-center gap-1">
+                            • {dateStr}
+                          </span>
+                        )}
+                      </div>
                     </div>
+
+                    {/* Headline */}
+                    <h3 className="font-heading text-lg font-bold text-slate-950 dark:text-white group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors mb-2.5 leading-snug line-clamp-2">
+                      <Link href={articleUrl}>{post.title}</Link>
+                    </h3>
+
+                    {/* Summary */}
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   </div>
-
-                  {/* Title */}
-                  <h3 className="font-heading text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-royal-blue dark:group-hover:text-cyan-blue transition-colors mb-2 leading-snug">
-                    <Link href={articleUrl}>{post.title}</Link>
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
                 </div>
 
-                <div>
-                  {/* Tags */}
+                <div className="px-6 pb-6 pt-0">
+                  {/* Topic Tags */}
                   {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-800 mb-3.5">
-                      {post.tags.slice(0, 4).map((t) => (
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-800 mb-4">
+                      {post.tags.slice(0, 3).map((t) => (
                         <span
                           key={t}
-                          className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                          className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400"
                         >
-                          {t}
+                          #{t}
                         </span>
                       ))}
                     </div>
                   )}
 
-                  {/* Read Action */}
-                  <div className="flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
-                    <span className="text-[11px]">By {authorName}</span>
+                  {/* Author & Read Link */}
+                  <div className="flex items-center justify-between text-xs font-semibold pt-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-royal-blue to-brand-azure text-white text-[10px] font-bold flex items-center justify-center">
+                        {authorName.slice(0, 2).toUpperCase()}
+                      </div>
+                      <span className="text-slate-700 dark:text-slate-300 text-xs truncate max-w-[120px]">
+                        {authorName}
+                      </span>
+                    </div>
+
                     <Link
                       href={articleUrl}
-                      className="inline-flex items-center gap-1 text-royal-blue dark:text-cyan-blue group-hover:text-brand-azure dark:group-hover:text-white font-bold transition-colors text-xs"
+                      className="inline-flex items-center gap-1 text-royal-blue dark:text-cyan-blue font-bold text-xs group-hover:translate-x-0.5 transition-transform"
                     >
                       <span>Read Article</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>

@@ -6,7 +6,7 @@ import BlogNewsletter from "@/components/blog/BlogNewsletter";
 import Article from "@/models/Article";
 import Category from "@/models/Category";
 import "@/models/User";
-import "@/lib/db";
+import { connectDB } from "@/lib/db/mongoose";
 
 export const metadata: Metadata = {
   title: "Engineering Blog & Tech Insights | BitJunoo",
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 export const revalidate = 60; // On-demand and time-based revalidation (60s)
 
 export default async function BlogPage() {
+  await connectDB();
   // Query featured article (or latest published article)
   const featuredDoc = await Article.findOne({
     status: "published",
@@ -55,6 +56,7 @@ export default async function BlogPage() {
     readTime: doc.readTime || 5,
     tags: doc.tags || [],
     publishedAt: doc.publishedAt || doc.createdAt,
+    coverImage: doc.coverImage ? { url: doc.coverImage.url, alt: doc.coverImage.alt } : undefined,
     author: {
       name: doc.author?.name || "BitJunoo Engineering",
       avatar: doc.author?.avatar,
@@ -70,6 +72,7 @@ export default async function BlogPage() {
         category: activeFeatured.category,
         readTime: activeFeatured.readTime || 8,
         publishedAt: activeFeatured.publishedAt || activeFeatured.createdAt,
+        coverImage: activeFeatured.coverImage ? { url: activeFeatured.coverImage.url, alt: activeFeatured.coverImage.alt } : undefined,
         author: {
           name: activeFeatured.author?.name || "BitJunoo Core Architecture Pod",
           headline: activeFeatured.author?.headline || "Principal Systems Architects",
@@ -81,7 +84,7 @@ export default async function BlogPage() {
   return (
     <>
       <PageHeader
-        badge="ENGINEERING DISPATCH & INSIGHTS"
+        badge="ENGINEERING DISPATCH &amp; INSIGHTS"
         title="Field Notes on"
         titleHighlight="High-Scale Software"
         description="In-depth technical guides, microservices case studies, and performance optimizations directly from our engineering frontlines."
