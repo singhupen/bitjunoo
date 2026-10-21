@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import DashboardSidebar from "./DashboardSidebar";
 import DashboardHeader from "./DashboardHeader";
 import { Clock, ShieldAlert } from "lucide-react";
+import { getClientSession } from "@/lib/auth/clientSession";
 
 export default function BlogDashboardShell({
   children,
@@ -17,12 +18,9 @@ export default function BlogDashboardShell({
   useEffect(() => {
     async function checkAccount() {
       try {
-        const res = await fetch("/api/auth/me");
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data?.accountStatus === "pending") {
-            setIsPending(true);
-          }
+        const user = await getClientSession();
+        if (user?.accountStatus === "pending") {
+          setIsPending(true);
         }
       } catch {
         // ignore

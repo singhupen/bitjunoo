@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { authFetch } from "@/lib/api/apiClient";
+import { getClientSession } from "@/lib/auth/clientSession";
 import {
   CheckCircle2,
   AlertCircle,
@@ -89,10 +90,8 @@ export default function ArticleEditor({ articleId }: ArticleEditorProps) {
   useEffect(() => {
     async function fetchMe() {
       try {
-        const res = await authFetch("/api/auth/me");
-        if (res.ok) {
-          const json = await res.json();
-          const u = json.data;
+        const u = await getClientSession();
+        if (u) {
           setCurrentUser(u);
           setIsAdmin(u.role === "admin");
           setCanPublish(u.role === "admin" || Boolean(u.permissions?.canPublish));

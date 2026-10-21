@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getClientSession, clearClientSession } from "@/lib/auth/clientSession";
 import {
   LayoutDashboard,
   FileText,
@@ -62,11 +63,8 @@ export default function DashboardSidebar({
 
     async function checkRole() {
       try {
-        const res = await fetch("/api/auth/me");
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data?.role) setUserRole(json.data.role);
-        }
+        const user = await getClientSession();
+        if (user?.role) setUserRole(user.role);
       } catch {
         // ignore
       }
@@ -96,6 +94,7 @@ export default function DashboardSidebar({
     } catch {
       // ignore
     }
+    clearClientSession();
     if (typeof window !== "undefined") {
       localStorage.removeItem("bj_token");
       document.cookie = "bj_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
