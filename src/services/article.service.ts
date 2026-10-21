@@ -216,7 +216,8 @@ export async function updateArticle(
   id: string,
   payload: UpdateArticlePayload,
   requestingUserId: string,
-  requestingUserRole: string = "author"
+  requestingUserRole: string = "author",
+  canPublish: boolean = false
 ): Promise<IArticle | null> {
   await connectDB();
   const article = await Article.findById(id);
@@ -265,6 +266,9 @@ export async function updateArticle(
     }
   }
 
+  const oldCategory = article.category;
+  const oldStatus = article.status;
+
   // Update allowed content fields
   if (payload.title !== undefined) article.title = payload.title.trim();
   if (payload.excerpt !== undefined) article.excerpt = payload.excerpt.trim();
@@ -278,6 +282,76 @@ export async function updateArticle(
 
   if (isAdmin && payload.featured !== undefined) {
     article.featured = payload.featured;
+  }
+
+  // Lifecycle status transition (only for explicit user actions, not silent autosaves)
+  if (!payload.isAutosave && payload.status !== undefined) {
+    const targetStatus = payload.status.toLowerCase();
+    if (targetStatus === "published") {
+      if (isAdmin || canPublish) {
+        article.status = "published";
+        if (!article.publishedAt) {
+          article.publishedAt = new Date();
+        }
+        article.scheduledAt = undefined;
+        article.reviewNote = undefined;
+      } else {
+        // Author without direct publish rights -> submit for review
+        article.status = "in_review";
+        article.submittedAt = new Date();
+        article.reviewNote = undefined;
+      }
+    } else if (targetStatus === "scheduled") {
+      if (isAdmin || canPublish) {
+        article.status = "scheduled";
+        if (payload.scheduledAt) {
+          article.scheduledAt = new Date(payload.scheduledAt);
+        }
+        article.reviewNote = undefined;
+      } else {
+        article.status = "in_review";
+        article.submittedAt = new Date();
+        article.reviewNote = undefined;
+      }
+    } else if (targetStatus === "in_review") {
+      article.status = "in_review";
+      article.submittedAt = new Date();
+      article.reviewNote = undefined;
+    } else if (targetStatus === "draft") {
+      // If already published and user saves a working draft, keep live status intact
+      if (oldStatus !== "published") {
+        article.status = "draft";
+      }
+    }
+  }
+
+  // Maintain category article counts
+  const newStatus = article.status;
+  const newCategory = article.category;
+
+  if (oldStatus !== "published" && newStatus === "published") {
+    await Category.findOneAndUpdate(
+      { name: newCategory },
+      { $inc: { articleCount: 1 } },
+      { upsert: false }
+    );
+  } else if (oldStatus === "published" && newStatus !== "published") {
+    await Category.findOneAndUpdate(
+      { name: oldCategory, articleCount: { $gt: 0 } },
+      { $inc: { articleCount: -1 } }
+    );
+  } else if (oldStatus === "published" && newStatus === "published" && oldCategory !== newCategory) {
+    await Promise.all([
+      Category.findOneAndUpdate(
+        { name: oldCategory, articleCount: { $gt: 0 } },
+        { $inc: { articleCount: -1 } }
+      ),
+      Category.findOneAndUpdate(
+        { name: newCategory },
+        { $inc: { articleCount: 1 } },
+        { upsert: false }
+      ),
+    ]);
   }
 
   article.lastEditedBy = requestingUserId as any;
@@ -398,13 +472,24 @@ export async function publishArticle(
     article.draftBuffer = undefined;
   }
 
+  const wasPublished = article.status === "published";
   article.status = "published";
   if (!article.publishedAt) {
     article.publishedAt = new Date();
   }
   article.scheduledAt = undefined;
+  article.reviewNote = undefined;
 
   await article.save();
+
+  if (!wasPublished) {
+    await Category.findOneAndUpdate(
+      { name: article.category },
+      { $inc: { articleCount: 1 } },
+      { upsert: false }
+    );
+  }
+
   return article;
 }
 

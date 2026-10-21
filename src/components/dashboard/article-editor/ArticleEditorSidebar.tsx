@@ -203,6 +203,34 @@ export default function ArticleEditorSidebar({
           </span>
         </div>
 
+        {/* Release mode toggle (Direct Publish vs Scheduled Release) */}
+        {(canPublish || isAdmin) && !isLive && (
+          <div className="grid grid-cols-2 gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs font-semibold">
+            <button
+              type="button"
+              onClick={() => setPublishStatus("Published")}
+              className={`py-1 rounded-lg transition-colors cursor-pointer ${
+                publishStatus === "Published"
+                  ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs font-bold"
+                  : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              Publish Now
+            </button>
+            <button
+              type="button"
+              onClick={() => setPublishStatus("Scheduled")}
+              className={`py-1 rounded-lg transition-colors cursor-pointer ${
+                publishStatus === "Scheduled"
+                  ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs font-bold"
+                  : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              Schedule
+            </button>
+          </div>
+        )}
+
         {/* Schedule date picker if scheduled */}
         {publishStatus === "Scheduled" && (
           <div className="space-y-1">

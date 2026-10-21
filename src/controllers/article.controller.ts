@@ -188,13 +188,14 @@ export async function handleUpdateArticle(
   try {
     const userId = req.headers.get("x-user-id");
     const userRole = req.headers.get("x-user-role") ?? "author";
+    const canPublish = req.headers.get("x-user-can-publish") === "true" || userRole === "admin";
 
     if (!userId) {
       return NextResponse.json({ success: false, message: "Authentication required." }, { status: 401 });
     }
 
     const body = await req.json();
-    const article = await updateArticle(params.id, body, userId, userRole);
+    const article = await updateArticle(params.id, body, userId, userRole, canPublish);
 
     if (!article) {
       return NextResponse.json(
@@ -317,7 +318,7 @@ export async function handlePublishArticle(
   try {
     const userId = req.headers.get("x-user-id")!;
     const userRole = req.headers.get("x-user-role") ?? "author";
-    const canPublish = req.headers.get("x-user-can-publish") === "true";
+    const canPublish = req.headers.get("x-user-can-publish") === "true" || userRole === "admin";
 
     const article = await publishArticle(params.id, userId, userRole, canPublish);
     return NextResponse.json(
