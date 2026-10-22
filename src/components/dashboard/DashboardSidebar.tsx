@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getClientSession, clearClientSession } from "@/lib/auth/clientSession";
 import {
   LayoutDashboard,
   FileText,
@@ -19,7 +21,17 @@ import {
   ChevronRight,
   PanelLeftClose,
   PanelLeftOpen,
+  Users as UsersIcon,
+  FileCheck,
 } from "lucide-react";
+
+interface SidebarNavItem {
+  label: string;
+  href: string;
+  icon: any;
+  badge?: string;
+  count?: number;
+}
 
 interface DashboardSidebarProps {
   mobileOpen: boolean;
@@ -28,16 +40,6 @@ interface DashboardSidebarProps {
   onToggleCollapse?: () => void;
 }
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Articles", href: "/articles", icon: FileText, count: 48 },
-  { label: "Add Article", href: "/add-articles", icon: PlusCircle, badge: "Create" },
-  { label: "Analytics", href: "/analytics", icon: BarChart3 },
-  { label: "Categories", href: "/categories", icon: Tags, count: 6 },
-  { label: "Profile", href: "/profile", icon: User },
-  { label: "Settings", href: "/settings", icon: Settings },
-];
-
 export default function DashboardSidebar({
   mobileOpen,
   onClose,
@@ -45,6 +47,60 @@ export default function DashboardSidebar({
   onToggleCollapse,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const [rootUrl, setRootUrl] = useState("/");
+  const [userRole, setUserRole] = useState<string>("author");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.host;
+      const proto = window.location.protocol;
+      if (host.startsWith("admin.")) {
+        setRootUrl(`${proto}//${host.slice(6)}`);
+      } else {
+        setRootUrl("/");
+      }
+    }
+
+    async function checkRole() {
+      try {
+        const user = await getClientSession();
+        if (user?.role) setUserRole(user.role);
+      } catch {
+        // ignore
+      }
+    }
+    checkRole();
+  }, []);
+
+  const navItems: SidebarNavItem[] = [
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Articles", href: "/articles", icon: FileText },
+    { label: "Add Article", href: "/add-articles", icon: PlusCircle, badge: "Create" },
+    ...(userRole === "admin"
+      ? [
+          { label: "Review Queue", href: "/review", icon: FileCheck },
+          { label: "Authors & Access", href: "/users", icon: UsersIcon },
+        ]
+      : []),
+    { label: "Categories", href: "/categories", icon: Tags },
+    { label: "Analytics", href: "/analytics", icon: BarChart3 },
+    { label: "Profile", href: "/profile", icon: User },
+    { label: "Settings", href: "/settings", icon: Settings },
+  ];
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // ignore
+    }
+    clearClientSession();
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("bj_token");
+      document.cookie = "bj_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      window.location.href = "/login";
+    }
+  };
 
   const renderContent = (isCollapsedMode: boolean) => (
     <div className="flex flex-col h-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-slate-700 dark:text-slate-200 border-r border-slate-200/90 dark:border-slate-800 select-none transition-colors duration-300">
@@ -181,9 +237,10 @@ export default function DashboardSidebar({
           )}
           <ul className="space-y-1">
             <li>
-              <Link
-                href="/blog"
+              <a
+                href={rootUrl === "/" ? "/blog" : `${rootUrl}/blog`}
                 target="_blank"
+                rel="noopener noreferrer"
                 title={isCollapsedMode ? "Live Blog" : undefined}
                 className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors group relative ${
                   isCollapsedMode
@@ -203,12 +260,13 @@ export default function DashboardSidebar({
                     Live Blog
                   </span>
                 )}
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                href="/"
+              <a
+                href={rootUrl}
                 target="_blank"
+                rel="noopener noreferrer"
                 title={isCollapsedMode ? "Main Website" : undefined}
                 className={`flex items-center rounded-xl text-xs sm:text-sm text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors group relative ${
                   isCollapsedMode
@@ -228,7 +286,7 @@ export default function DashboardSidebar({
                     Main Website
                   </span>
                 )}
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -280,13 +338,13 @@ export default function DashboardSidebar({
         </Link>
 
         {!isCollapsedMode && (
-          <Link
-            href="/login"
+          <button
+            onClick={handleLogout}
             title="Sign Out"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
-          </Link>
+          </button>
         )}
       </div>
     </div>

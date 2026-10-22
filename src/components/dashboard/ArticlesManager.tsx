@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { authFetch } from "@/lib/api/apiClient";
 import Link from "next/link";
 import {
@@ -23,7 +23,7 @@ interface ArticleItem {
   title: string;
   slug: string;
   category: string;
-  status: "published" | "draft" | "scheduled" | "archived";
+  status: "published" | "draft" | "in_review" | "scheduled" | "archived";
   views: number;
   readTime: number;
   updatedAt: string;
@@ -33,6 +33,7 @@ interface ArticleItem {
 const STATUS_TABS = [
   { key: "all", label: "All" },
   { key: "published", label: "Published" },
+  { key: "in_review", label: "In Review" },
   { key: "draft", label: "Drafts" },
   { key: "scheduled", label: "Scheduled" },
 ];
@@ -44,6 +45,13 @@ function StatusBadge({ status }: { status: ArticleItem["status"] }) {
         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <CheckCircle2 className="w-3 h-3 text-emerald-600" />
           Published
+        </span>
+      );
+    case "in_review":
+      return (
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
+          <Clock className="w-3 h-3 text-purple-600" />
+          In Review
         </span>
       );
     case "draft":
@@ -77,7 +85,22 @@ export default function ArticlesManager() {
   const [search, setSearch] = useState("");
   const [activeStatus, setActiveStatus] = useState("all");
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [stats, setStats] = useState({ drafts: 0, published: 0, scheduled: 0, total: 0 });
+  const [stats, setStats] = useState({ drafts: 0, inReview: 0, published: 0, scheduled: 0, total: 0 });
+  const [rootUrl, setRootUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.host;
+      const proto = window.location.protocol;
+      if (host.startsWith("admin.")) {
+        setRootUrl(`${proto}//${host.slice(6)}`);
+      } else {
+        setRootUrl("");
+      }
+    }
+  }, []);
+
+  const getPublicArticleUrl = (slug: string) => `${rootUrl}/blog/${slug}`;
 
   const fetchArticles = useCallback(async () => {
     setIsLoading(true);
@@ -111,7 +134,11 @@ export default function ArticlesManager() {
     }
   }, [activeStatus, search]);
 
+  const isFetchingStatsRef = useRef(false);
+
   const fetchStats = useCallback(async () => {
+    if (isFetchingStatsRef.current) return;
+    isFetchingStatsRef.current = true;
     try {
       const res = await authFetch("/api/articles/stats");
       if (res.ok) {
@@ -120,6 +147,8 @@ export default function ArticlesManager() {
       }
     } catch {
       // Non-critical
+    } finally {
+      isFetchingStatsRef.current = false;
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -129,7 +158,7 @@ export default function ArticlesManager() {
 
   useEffect(() => {
     fetchStats();
-  }, [fetchStats, articles]); // Refresh stats when articles change
+  }, [fetchStats]);
 
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Delete article "${title}"? This cannot be undone.`)) return;
@@ -324,14 +353,15 @@ export default function ArticlesManager() {
                     <td className="py-3.5 px-5 text-right whitespace-nowrap">
                       <div className="inline-flex items-center gap-1.5">
                         {item.status === "published" && (
-                          <Link
-                            href={`/blog/${item.slug}`}
+                          <a
+                            href={getPublicArticleUrl(item.slug)}
                             target="_blank"
+                            rel="noopener noreferrer"
                             title="View Live"
                             className="p-1.5 rounded-lg text-slate-400 hover:text-royal-blue hover:bg-royal-blue/10 transition-colors"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
-                          </Link>
+                          </a>
                         )}
                         <Link
                           href={`/add-articles?edit=${item.id}`}
@@ -380,14 +410,15 @@ export default function ArticlesManager() {
 
                 <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
                   {item.status === "published" && (
-                    <Link
-                      href={`/blog/${item.slug}`}
+                    <a
+                      href={getPublicArticleUrl(item.slug)}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-xs text-royal-blue font-semibold hover:underline"
                     >
                       <span>Preview</span>
                       <ExternalLink className="w-3 h-3" />
-                    </Link>
+                    </a>
                   )}
                   <Link
                     href={`/add-articles?edit=${item.id}`}

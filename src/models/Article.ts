@@ -1,14 +1,36 @@
 /**
  * models/Article.ts
  * Mongoose Article model — represents blog/editorial publications.
- * Supports draft, published, archived, and scheduled statuses.
+ * Supports draft, in_review, published, archived, and scheduled statuses.
+ * Includes review notes, featured flag, draft buffer, slug history, and SEO meta.
  */
 
 import mongoose, { Document, Model, Schema, Types } from "mongoose";
 
+export interface IDraftBuffer {
+  title?: string;
+  excerpt?: string;
+  content?: string;
+  category?: string;
+  tags?: string[];
+  coverImage?: {
+    url: string;
+    publicId: string;
+    alt?: string;
+  };
+  updatedAt?: Date;
+}
+
+export interface IArticleSEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
+}
+
 export interface IArticle extends Document {
   title: string;
   slug: string;
+  slugHistory: string[];
   excerpt: string;
   content: string;
   coverImage?: {
@@ -17,16 +39,51 @@ export interface IArticle extends Document {
     alt?: string;
   };
   author: Types.ObjectId;
+  lastEditedBy?: Types.ObjectId;
   category: string;
   tags: string[];
-  status: "draft" | "published" | "archived" | "scheduled";
+  status: "draft" | "in_review" | "published" | "archived" | "scheduled";
+  featured: boolean;
+  level?: string;
   readTime?: number; // estimated minutes
   views: number;
+  reviewNote?: string;
+  reviewedBy?: Types.ObjectId;
+  reviewedAt?: Date;
+  submittedAt?: Date;
   publishedAt?: Date;
-  scheduledAt?: Date;  // when status is "scheduled"
+  scheduledAt?: Date;
+  draftBuffer?: IDraftBuffer;
+  seo?: IArticleSEO;
   createdAt: Date;
   updatedAt: Date;
 }
+
+const DraftBufferSchema = new Schema<IDraftBuffer>(
+  {
+    title: { type: String },
+    excerpt: { type: String },
+    content: { type: String },
+    category: { type: String },
+    tags: [{ type: String }],
+    coverImage: {
+      url: { type: String },
+      publicId: { type: String },
+      alt: { type: String },
+    },
+    updatedAt: { type: Date, default: Date.now },
+  },
+  { _id: false }
+);
+
+const SEOSchema = new Schema<IArticleSEO>(
+  {
+    metaTitle: { type: String, maxlength: 120 },
+    metaDescription: { type: String, maxlength: 300 },
+    ogImage: { type: String },
+  },
+  { _id: false }
+);
 
 const ArticleSchema = new Schema<IArticle>(
   {
@@ -43,9 +100,10 @@ const ArticleSchema = new Schema<IArticle>(
       lowercase: true,
       trim: true,
     },
+    slugHistory: [{ type: String, lowercase: true, trim: true }],
     excerpt: {
       type: String,
-      required: [true, "Excerpt is required"],
+      default: "",
       maxlength: [500, "Excerpt cannot exceed 500 characters"],
     },
     content: {
@@ -62,6 +120,10 @@ const ArticleSchema = new Schema<IArticle>(
       ref: "User",
       required: true,
     },
+    lastEditedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     category: {
       type: String,
       required: [true, "Category is required"],
@@ -70,13 +132,30 @@ const ArticleSchema = new Schema<IArticle>(
     tags: [{ type: String, trim: true }],
     status: {
       type: String,
-      enum: ["draft", "published", "archived", "scheduled"],
+      enum: ["draft", "in_review", "published", "archived", "scheduled"],
       default: "draft",
     },
-    readTime: { type: Number },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    level: {
+      type: String,
+      default: "All Engineers",
+    },
+    readTime: { type: Number, default: 5 },
     views: { type: Number, default: 0 },
+    reviewNote: { type: String },
+    reviewedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    reviewedAt: { type: Date },
+    submittedAt: { type: Date },
     publishedAt: { type: Date },
     scheduledAt: { type: Date },
+    draftBuffer: { type: DraftBufferSchema },
+    seo: { type: SEOSchema },
   },
   { timestamps: true }
 );
@@ -96,8 +175,11 @@ ArticleSchema.pre<IArticle>("save", function () {
 });
 
 // ── Indexes ──────────────────────────────────────────────────────────────────
+ArticleSchema.index({ status: 1, publishedAt: -1 });
+ArticleSchema.index({ category: 1, status: 1, publishedAt: -1 });
 ArticleSchema.index({ author: 1, status: 1 });
-ArticleSchema.index({ status: 1, createdAt: -1 });
+ArticleSchema.index({ featured: 1, status: 1, publishedAt: -1 });
+ArticleSchema.index({ slugHistory: 1 });
 
 const Article: Model<IArticle> =
   mongoose.models.Article ?? mongoose.model<IArticle>("Article", ArticleSchema);

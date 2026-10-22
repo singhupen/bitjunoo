@@ -4,13 +4,27 @@
  */
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
+export interface UserPermissions {
+  canPost: boolean;
+  canPublish: boolean;
+  canManageCategories: boolean;
+}
+
 export interface AuthUser {
   _id: string;
   name: string;
   email: string;
   role: "admin" | "author" | "viewer";
+  accountStatus: "pending" | "active" | "suspended";
+  permissions: UserPermissions;
+  approvedBy?: string;
+  approvedAt?: string;
+  tokenVersion?: number;
+  lastLoginAt?: string;
   avatar?: string;
   bio?: string;
+  headline?: string;
+  location?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -25,24 +39,51 @@ export interface AuthResponse {
 }
 
 // ── Article ───────────────────────────────────────────────────────────────────
+export interface ArticleAuthor {
+  _id: string;
+  name: string;
+  email?: string;
+  avatar?: string;
+  bio?: string;
+  headline?: string;
+}
+
+export interface ArticleCoverImage {
+  url: string;
+  publicId: string;
+  alt?: string;
+}
+
+export interface ArticleSEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
+}
+
 export interface Article {
   _id: string;
   title: string;
   slug: string;
+  slugHistory?: string[];
   excerpt: string;
   content: string;
-  coverImage?: {
-    url: string;
-    publicId: string;
-    alt?: string;
-  };
-  author: Pick<AuthUser, "_id" | "name" | "email" | "avatar">;
+  coverImage?: ArticleCoverImage;
+  author: ArticleAuthor;
+  lastEditedBy?: string;
   category: string;
   tags: string[];
-  status: "draft" | "published" | "archived";
+  status: "draft" | "in_review" | "published" | "archived" | "scheduled";
+  featured?: boolean;
+  level?: string;
   readTime?: number;
   views: number;
+  reviewNote?: string;
+  reviewedBy?: string;
+  reviewedAt?: string;
+  submittedAt?: string;
   publishedAt?: string;
+  scheduledAt?: string;
+  seo?: ArticleSEO;
   createdAt: string;
   updatedAt: string;
 }

@@ -1,10 +1,12 @@
 /**
  * services/auth.service.ts
  * Business logic for authentication — register, login, profile lookup & update.
+ * Secure against privilege escalation (C1 fix) and manages account status & permissions.
  */
 
-import User, { IUser, ISocialLinks } from "@/models/User";
+import User, { IUser, ISocialLinks, IUserPermissions } from "@/models/User";
 import { signToken, TokenPayload } from "@/lib/auth/jwt";
+import { connectDB } from "@/lib/db/mongoose";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -12,7 +14,6 @@ export interface RegisterPayload {
   name: string;
   email: string;
   password: string;
-  role?: "admin" | "author" | "viewer";
 }
 
 export interface LoginPayload {
@@ -42,25 +43,44 @@ export interface UpdateProfilePayload {
 
 /**
  * Register a new user.
- * Throws if the email is already in use.
+ * SECURE: The role passed in request body is completely ignored.
+ * If this is the first user ever registered or matches ADMIN_EMAIL, bootstrap as admin.
+ * Otherwise, default to author with "pending" approval status and no post permissions.
  */
 export async function registerUser(payload: RegisterPayload): Promise<AuthResult> {
-  const existing = await User.findOne({ email: payload.email.toLowerCase() });
+  await connectDB();
+  const normalizedEmail = payload.email.toLowerCase().trim();
+  const existing = await User.findOne({ email: normalizedEmail });
   if (existing) {
     throw new Error("An account with this email already exists.");
   }
 
+  const userCount = await User.countDocuments();
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@bitjunoo.com").toLowerCase().trim();
+  const isFirstOrAdminEmail = userCount === 0 || normalizedEmail === adminEmail;
+
+  const role = isFirstOrAdminEmail ? "admin" : "author";
+  const accountStatus = isFirstOrAdminEmail ? "active" : "pending";
+  const permissions: IUserPermissions = isFirstOrAdminEmail
+    ? { canPost: true, canPublish: true, canManageCategories: true }
+    : { canPost: false, canPublish: false, canManageCategories: false };
+
   const user = await User.create({
     name: payload.name.trim(),
-    email: payload.email.toLowerCase().trim(),
+    email: normalizedEmail,
     password: payload.password,
-    role: payload.role ?? "author",
+    role,
+    accountStatus,
+    permissions,
+    tokenVersion: 0,
+    lastLoginAt: new Date(),
   });
 
   const tokenPayload: TokenPayload = {
     userId: String(user._id),
     email: user.email,
     role: user.role,
+    tokenVersion: user.tokenVersion,
   };
 
   const token = signToken(tokenPayload);
@@ -70,13 +90,14 @@ export async function registerUser(payload: RegisterPayload): Promise<AuthResult
 
 /**
  * Authenticate an existing user.
- * Throws with a generic message on bad credentials (avoids info leaking).
+ * Enforces account status checks (blocks suspended accounts).
  */
 export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
-  // Explicitly select password field for comparison (it is hidden by default)
-  const user = await User.findOne({ email: payload.email.toLowerCase() }).select(
-    "+password"
-  );
+  await connectDB();
+  const normalizedEmail = payload.email.toLowerCase().trim();
+
+  // Explicitly select password field for comparison (hidden by default)
+  const user = await User.findOne({ email: normalizedEmail }).select("+password");
 
   if (!user) {
     throw new Error("Invalid email or password.");
@@ -87,15 +108,23 @@ export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
     throw new Error("Invalid email or password.");
   }
 
+  if (user.accountStatus === "suspended") {
+    throw new Error("This account has been suspended. Please contact the administrator.");
+  }
+
+  // Update last login timestamp
+  user.lastLoginAt = new Date();
+  await user.save();
+
   const tokenPayload: TokenPayload = {
     userId: String(user._id),
     email: user.email,
     role: user.role,
+    tokenVersion: user.tokenVersion ?? 0,
   };
 
   const token = signToken(tokenPayload);
 
-  // Password is excluded by the toJSON transform defined on the schema
   return { user: user.toJSON() as Omit<IUser, "password">, token };
 }
 
@@ -103,6 +132,7 @@ export async function loginUser(payload: LoginPayload): Promise<AuthResult> {
  * Get a user profile by ID (password never returned).
  */
 export async function getUserById(userId: string): Promise<IUser | null> {
+  await connectDB();
   return User.findById(userId);
 }
 
@@ -113,6 +143,7 @@ export async function updateUserProfile(
   userId: string,
   updates: UpdateProfilePayload
 ): Promise<IUser | null> {
+  await connectDB();
   const updateDoc: Record<string, unknown> = {};
 
   if (updates.name !== undefined) updateDoc.name = updates.name;
@@ -125,7 +156,6 @@ export async function updateUserProfile(
   if (updates.emailDigest !== undefined) updateDoc.emailDigest = updates.emailDigest;
   if (updates.articleFeedback !== undefined) updateDoc.articleFeedback = updates.articleFeedback;
 
-  // Merge social links individually to allow partial updates
   if (updates.socialLinks) {
     for (const [key, val] of Object.entries(updates.socialLinks)) {
       updateDoc[`socialLinks.${key}`] = val;
@@ -141,12 +171,14 @@ export async function updateUserProfile(
 
 /**
  * Change user password — verifies current password before updating.
+ * Increments tokenVersion to invalidate existing tokens.
  */
 export async function changeUserPassword(
   userId: string,
   currentPassword: string,
   newPassword: string
 ): Promise<void> {
+  await connectDB();
   const user = await User.findById(userId).select("+password");
   if (!user) throw new Error("User not found.");
 
@@ -154,5 +186,6 @@ export async function changeUserPassword(
   if (!isMatch) throw new Error("Current password is incorrect.");
 
   user.password = newPassword;
+  user.tokenVersion = (user.tokenVersion ?? 0) + 1;
   await user.save();
 }

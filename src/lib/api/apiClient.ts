@@ -9,7 +9,14 @@ const TOKEN_KEY = "bj_token";
 /** Retrieve the stored JWT from localStorage (client-side only). */
 export function getStoredToken(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(TOKEN_KEY);
+  const local = localStorage.getItem(TOKEN_KEY);
+  if (local) return local;
+
+  if (typeof document !== "undefined") {
+    const match = document.cookie.match(new RegExp(`(?:^|; )${TOKEN_KEY}=([^;]*)`));
+    if (match) return decodeURIComponent(match[1]);
+  }
+  return null;
 }
 
 /** Build headers for an authenticated JSON request. */

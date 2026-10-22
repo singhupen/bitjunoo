@@ -22,6 +22,8 @@ import {
   User,
   X,
   Command,
+  Users as UsersIcon,
+  FileCheck,
 } from "lucide-react";
 import ThemeSwitcher from "@/components/common/ThemeSwitcher";
 
@@ -35,6 +37,8 @@ const routeMetadata: Record<string, { section: string; title: string; icon: any 
   "/dashboard": { section: "Console", title: "Overview", icon: LayoutDashboard },
   "/articles": { section: "Editorial", title: "Articles", icon: FileText },
   "/add-articles": { section: "Editorial", title: "New Publication", icon: PlusCircle },
+  "/review": { section: "Editorial", title: "Review Queue", icon: FileCheck },
+  "/users": { section: "Access", title: "Authors & Access", icon: UsersIcon },
   "/analytics": { section: "Intelligence", title: "Analytics", icon: BarChart3 },
   "/categories": { section: "Taxonomy", title: "Categories & Tags", icon: Tags },
   "/settings": { section: "System", title: "Settings", icon: Settings },
@@ -50,6 +54,19 @@ export default function DashboardHeader({
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [liveBlogUrl, setLiveBlogUrl] = useState("/blog");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.host;
+      const proto = window.location.protocol;
+      if (host.startsWith("admin.")) {
+        setLiveBlogUrl(`${proto}//${host.slice(6)}/blog`);
+      } else {
+        setLiveBlogUrl("/blog");
+      }
+    }
+  }, []);
 
   // Keyboard shortcut listener for Ctrl+K / Cmd+K
   useEffect(() => {
@@ -149,15 +166,16 @@ export default function DashboardHeader({
         </button>
 
         {/* Live Blog Public Link */}
-        <Link
-          href="/blog"
+        <a
+          href={liveBlogUrl}
           target="_blank"
+          rel="noopener noreferrer"
           className="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-royal-blue dark:hover:text-cyan-blue hover:border-royal-blue/30 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors h-7.5"
           title="Open live public publication hub"
         >
           <span>Live Blog</span>
           <ExternalLink className="w-3 h-3 text-slate-400" />
-        </Link>
+        </a>
 
         {/* Reusable ThemeSwitcher Component */}
         <ThemeSwitcher />

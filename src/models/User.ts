@@ -1,10 +1,10 @@
 /**
  * models/User.ts
  * Mongoose User model — handles admin / author accounts.
- * Extended with social profile fields and developer links.
+ * Extended with account status, granular permissions, and approval audit.
  */
 
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 
 export interface ISocialLinks {
@@ -17,11 +17,23 @@ export interface ISocialLinks {
   hashnode?: string;
 }
 
+export interface IUserPermissions {
+  canPost: boolean;
+  canPublish: boolean;
+  canManageCategories: boolean;
+}
+
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
   role: "admin" | "author" | "viewer";
+  accountStatus: "pending" | "active" | "suspended";
+  permissions: IUserPermissions;
+  approvedBy?: Types.ObjectId;
+  approvedAt?: Date;
+  tokenVersion: number;
+  lastLoginAt?: Date;
   avatar?: string;
   bio?: string;
   headline?: string;       // Professional headline/title
@@ -45,6 +57,15 @@ const SocialLinksSchema = new Schema<ISocialLinks>(
     youtube: { type: String, trim: true },
     devto: { type: String, trim: true },
     hashnode: { type: String, trim: true },
+  },
+  { _id: false }
+);
+
+const UserPermissionsSchema = new Schema<IUserPermissions>(
+  {
+    canPost: { type: Boolean, default: false },
+    canPublish: { type: Boolean, default: false },
+    canManageCategories: { type: Boolean, default: false },
   },
   { _id: false }
 );
@@ -76,6 +97,23 @@ const UserSchema = new Schema<IUser>(
       enum: ["admin", "author", "viewer"],
       default: "author",
     },
+    accountStatus: {
+      type: String,
+      enum: ["pending", "active", "suspended"],
+      default: "pending",
+    },
+    permissions: {
+      type: UserPermissionsSchema,
+      default: () => ({
+        canPost: false,
+        canPublish: false,
+        canManageCategories: false,
+      }),
+    },
+    approvedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    approvedAt: { type: Date },
+    tokenVersion: { type: Number, default: 0 },
+    lastLoginAt: { type: Date },
     avatar: { type: String },
     bio: { type: String, maxlength: [500, "Bio cannot exceed 500 characters"] },
     headline: { type: String, maxlength: [200, "Headline cannot exceed 200 characters"], trim: true },
@@ -97,6 +135,9 @@ const UserSchema = new Schema<IUser>(
     },
   }
 );
+
+// ── Indexes ──────────────────────────────────────────────────────────────────
+UserSchema.index({ accountStatus: 1, role: 1 });
 
 // ── Pre-save: hash password ──────────────────────────────────────────────────
 UserSchema.pre("save", async function () {

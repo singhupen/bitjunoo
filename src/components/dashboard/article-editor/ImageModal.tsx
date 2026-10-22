@@ -68,9 +68,23 @@ export default function ImageModal({
     setIsUploading(true);
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const dataUrl = e.target?.result as string;
-      setImageUrl(dataUrl);
+      try {
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ source: dataUrl }),
+        });
+        const json = await res.json();
+        if (json.success && json.data?.url) {
+          setImageUrl(json.data.url);
+        } else {
+          setImageUrl(dataUrl);
+        }
+      } catch {
+        setImageUrl(dataUrl);
+      }
       if (!altText) setAltText(file.name.replace(/\.[^/.]+$/, ""));
       setIsUploading(false);
     };
