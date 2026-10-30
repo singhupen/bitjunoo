@@ -3,7 +3,7 @@ import { Sparkles, Zap, Users, ShieldCheck } from "lucide-react";
 
 export default function ContactHero() {
   const highlights = [
-    { icon: Zap, title: "Quick Response", desc: "Within 2 business hours" },
+    { icon: Zap, title: "Quick Response", desc: "Within 2 working days" },
     { icon: Users, title: "Talk to Senior Engineers", desc: "No sales representatives" },
     { icon: ShieldCheck, title: "Confidential & Secure", desc: "Your data is 100% safe" },
   ];

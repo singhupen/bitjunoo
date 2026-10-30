@@ -49,7 +49,7 @@ export default function CTASection({
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-brand-cyan" />
-                <span>2-Hour Average Response SLA</span>
+                <span>2 Working Days Response SLA</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-brand-mint" />

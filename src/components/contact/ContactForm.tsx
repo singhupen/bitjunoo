@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Phone, Code, FileText, FileSignature, ArrowRight, ChevronDown, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Code, FileText, FileSignature, ArrowRight, ChevronDown, AlertCircle } from "lucide-react";
+import CountryPhoneInput from "@/components/contact/CountryPhoneInput";
 
 const services = [
   "Web Application (Next.js/React)",
@@ -90,7 +91,7 @@ export default function ContactForm() {
             Request Technical Discovery
           </h2>
           <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium">
-            Tell us about your project. We respond within 2 business hours.
+            Tell us about your project. We respond within 2 working days.
           </p>
         </div>
       </div>
@@ -104,7 +105,7 @@ export default function ContactForm() {
             Inquiry Received!
           </h3>
           <p className="text-[14px] text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-            Thank you, <strong className="text-slate-900 dark:text-white">{formData.name}</strong>. A Principal Engineer will review your specs and contact you at <strong className="text-blue-600 dark:text-cyan-blue">{formData.email}</strong> within 2 hours.
+            Thank you, <strong className="text-slate-900 dark:text-white">{formData.name}</strong>. A Principal Engineer will review your specs and contact you at <strong className="text-blue-600 dark:text-cyan-blue">{formData.email}</strong> within 2 working days.
           </p>
           <button
             onClick={() => {
@@ -131,7 +132,8 @@ export default function ContactForm() {
             <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60 text-rose-700 dark:text-rose-300 text-xs sm:text-sm font-medium flex items-start gap-3 animate-in fade-in duration-200">
               <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
               <div className="flex-1 leading-relaxed">
-                <span className="font-semibold">Unable to send inquiry:</span> {errorMessage}
+                <p className="font-semibold mb-0.5">Unable to Submit Inquiry</p>
+                <p>{errorMessage}</p>
               </div>
             </div>
           )}
@@ -198,18 +200,10 @@ export default function ContactForm() {
               <label className="block text-[12px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 Phone / WhatsApp (Optional)
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                  <Phone className="w-4 h-4 stroke-[2]" />
-                </div>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-[13px] font-medium transition-all"
-                />
-              </div>
+              <CountryPhoneInput
+                value={formData.phone}
+                onChange={(phone) => setFormData({ ...formData, phone })}
+              />
             </div>
           </div>
 
@@ -305,7 +299,7 @@ export default function ContactForm() {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-blue-500" />
-                2-Hour SLA Response
+                2 Working Days SLA Response
               </span>
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
