@@ -394,3 +394,60 @@
   animation: fadeUp 0.7s ease-out both;
 }
 
+
+/* ==========================================================================
+   International Phone Input Component Styles
+   ========================================================================== */
+.react-international-phone-country-selector-dropdown {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  z-index: 50 !important;
+  scrollbar-width: thin;
+}
+
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item {
+  color: #0f172a !important;
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+  transition: background-color 0.15s ease;
+}
+
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown__list-item {
+  color: #e2e8f0 !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item:hover,
+.react-international-phone-country-selector-dropdown__list-item--focused {
+  background-color: #eff6ff !important;
+}
+
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown__list-item:hover,
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown__list-item--focused {
+  background-color: #1e293b !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item--selected {
+  background-color: #dbeafe !important;
+  font-weight: 600 !important;
+}
+
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown__list-item--selected {
+  background-color: rgba(0, 100, 218, 0.25) !important;
+  color: #38c2fc !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item-dial-code {
+  color: #64748b !important;
+}
+
+:where(.dark, [data-theme="dark"]) .react-international-phone-country-selector-dropdown__list-item-dial-code {
+  color: #94a3b8 !important;
+}

@@ -79,7 +79,7 @@ export default function CTABanner() {
                     <Clock className="w-4 h-4 text-[#0869E8] dark:text-[#38bdf8]" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">2-Hour Average</div>
+                    <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">2 Working Days</div>
                     <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">Response SLA</div>
                   </div>
                 </div>

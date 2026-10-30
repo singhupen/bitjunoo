@@ -6,7 +6,7 @@ import ContactFAQ from "@/components/contact/ContactFAQ";
 
 export const metadata: Metadata = {
   title: "Contact Us & Architecture Consultation | BitJunoo",
-  description: "Schedule a confidential technical discovery session with BitJunoo's lead software architects. 2-hour response SLA and strict mutual NDA protection.",
+  description: "Schedule a confidential technical discovery session with BitJunoo's lead software architects. 2 Working Days response SLA and strict mutual NDA protection.",
 };
 
 export default function ContactPage() {

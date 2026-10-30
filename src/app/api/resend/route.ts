@@ -24,7 +24,7 @@ export async function GET() {
       configured: isConfigured,
       message: isConfigured
         ? "Resend service is configured and ready."
-        : "RESEND_API_KEY is not set in environment variables.",
+        : "Resend service is not configured.",
       fromEmail: RESEND_CONFIG.fromEmail,
       toEmail: RESEND_CONFIG.toEmail,
     },
@@ -87,13 +87,16 @@ export async function POST(req: NextRequest) {
 
     // Verify environment variable setup
     if (!process.env.RESEND_API_KEY) {
+      console.error(
+        "[RESEND_CONFIG_ERROR] RESEND_API_KEY is not configured on the server."
+      );
       return NextResponse.json(
         {
           success: false,
           message:
-            "Resend is not configured on the server. Please set RESEND_API_KEY in .env.local",
+            "Our inquiry service is temporarily unavailable. Please reach us directly at hello@bitjunoo.com or try again shortly.",
         },
-        { status: 500 }
+        { status: 503 }
       );
     }
 
@@ -116,15 +119,13 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    const errorMessage =
-      error instanceof Error ? error.message : "An unexpected error occurred while sending email.";
-    
     console.error("[RESEND_API_ERROR]", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: errorMessage,
+        message:
+          "Unable to send your inquiry at this moment. Please try again shortly or reach us directly at hello@bitjunoo.com.",
       },
       { status: 500 }
     );

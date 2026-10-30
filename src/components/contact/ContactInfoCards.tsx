@@ -102,7 +102,7 @@ export default function ContactInfoCards() {
               <Mail className="w-4 h-4 text-blue-500" />
               <span className="text-[13px] font-medium">Inquiry Acknowledgment</span>
             </div>
-            <strong className="text-[13px] text-blue-600 dark:text-cyan-blue">&lt; 2 Hours</strong>
+            <strong className="text-[13px] text-blue-600 dark:text-cyan-blue">&lt; 2 Working Days</strong>
           </li>
           <li className="flex items-center justify-between p-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
             <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">

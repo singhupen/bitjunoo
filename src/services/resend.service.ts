@@ -4,6 +4,7 @@
  */
 
 import { getResendClient, RESEND_CONFIG } from "@/lib/resend/config";
+import { guessCountryByPartialPhoneNumber } from "react-international-phone";
 
 export interface ContactSubmission {
   name: string;
@@ -15,10 +16,46 @@ export interface ContactSubmission {
 }
 
 /**
+ * Formats phone number into international dial-code format e.g. +91-9175425157
+ */
+export function formatPhoneNumber(phone?: string): string {
+  if (!phone || typeof phone !== "string") return "Not provided";
+  const trimmed = phone.trim();
+  if (!trimmed || trimmed === "+" || /^\+\d{1,4}\s*$/.test(trimmed)) {
+    return "Not provided";
+  }
+
+  const guessed = guessCountryByPartialPhoneNumber({ phone: trimmed });
+  if (guessed && guessed.country && guessed.country.dialCode) {
+    const dialCode = guessed.country.dialCode;
+    let remaining = trimmed.replace(/^\+/, "");
+    if (remaining.startsWith(dialCode)) {
+      remaining = remaining.slice(dialCode.length);
+    }
+    const cleanDigits = remaining.replace(/[\s-]/g, "");
+    if (!cleanDigits) return "Not provided";
+    return `+${dialCode}-${cleanDigits}`;
+  }
+
+  // Fallback: match general +<dialCode> <nationalNumber>
+  const genericMatch = trimmed.match(/^(\+\d{1,4})[\s-]*(.+)$/);
+  if (genericMatch) {
+    const dialCode = genericMatch[1];
+    const nationalNumber = genericMatch[2].replace(/[\s-]+/g, "");
+    if (nationalNumber) {
+      return `${dialCode}-${nationalNumber}`;
+    }
+  }
+
+  return trimmed;
+}
+
+/**
  * Builds HTML template for the admin discovery request notification.
  */
 function buildAdminEmailHtml(data: ContactSubmission): string {
   const { name, email, company, phone, service, message } = data;
+  const formattedPhone = formatPhoneNumber(phone);
   const submissionDate = new Date().toLocaleString("en-US", {
     timeZone: "UTC",
     dateStyle: "full",
@@ -148,7 +185,7 @@ function buildAdminEmailHtml(data: ContactSubmission): string {
             </tr>
             <tr>
               <td class="label">Phone</td>
-              <td class="value">${phone || "Not provided"}</td>
+              <td class="value">${formattedPhone}</td>
             </tr>
             <tr>
               <td class="label">Service Required</td>
@@ -160,7 +197,7 @@ function buildAdminEmailHtml(data: ContactSubmission): string {
           <div class="message-box">${message}</div>
         </div>
         <div class="footer">
-          Received on ${submissionDate} UTC • SLA Target: 2 Business Hours
+          Received on ${submissionDate} UTC • SLA Target: 2 Working Days
         </div>
       </div>
     </body>
@@ -172,6 +209,7 @@ function buildAdminEmailHtml(data: ContactSubmission): string {
  * Builds plain-text fallback for the admin notification email.
  */
 function buildAdminEmailText(data: ContactSubmission): string {
+  const formattedPhone = formatPhoneNumber(data.phone);
   return `
 NEW TECHNICAL DISCOVERY REQUEST - BITJUNOO
 ==========================================
@@ -180,7 +218,7 @@ Client Details:
 - Name: ${data.name}
 - Email: ${data.email}
 - Company: ${data.company || "Not provided"}
-- Phone: ${data.phone || "Not provided"}
+- Phone: ${formattedPhone}
 - Service Need: ${data.service}
 
 Project Requirements:
@@ -188,7 +226,7 @@ ${data.message}
 
 --
 Received via BitJunoo Contact Form
-Response SLA: 2 Business Hours
+Response SLA: 2 Working Days
 `.trim();
 }
 
