@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, CheckCircle2, ShieldCheck, Clock, User, Mail, Building2, Code, FileText, FileSignature, ArrowRight, ChevronDown, AlertCircle } from "lucide-react";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
+import CountryPhoneInput from "@/components/contact/CountryPhoneInput";
 
 const services = [
   "Web Application (Next.js/React)",
@@ -201,24 +200,10 @@ export default function ContactForm() {
               <label className="block text-[12px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 Phone / WhatsApp (Optional)
               </label>
-              <div className="relative">
-                <PhoneInput
-                  defaultCountry="in"
-                  value={formData.phone}
-                  onChange={(phone) => setFormData({ ...formData, phone })}
-                  placeholder="91754 25157"
-                  className="w-full !flex !items-center !rounded-xl !border !border-slate-200 dark:!border-slate-800 !bg-[#F8FAFC] dark:!bg-slate-900/50 focus-within:!border-blue-500 focus-within:!ring-1 focus-within:!ring-blue-500 transition-all overflow-hidden"
-                  inputClassName="!w-full !h-12 !border-none !bg-transparent !text-slate-900 dark:!text-white placeholder:!text-slate-400 !text-[13px] !font-medium focus:!outline-none !px-3.5"
-                  countrySelectorStyleProps={{
-                    buttonClassName:
-                      "!h-12 !px-3.5 !bg-slate-100/70 dark:!bg-slate-800/60 !border-none !border-r !border-slate-200 dark:!border-slate-800 hover:!bg-slate-200/70 dark:hover:!bg-slate-700/60 !transition-colors !cursor-pointer",
-                    dropdownStyleProps: {
-                      className:
-                        "!bg-white dark:!bg-slate-900 !border !border-slate-200 dark:!border-slate-800 !rounded-xl !shadow-2xl !max-h-64 !z-50 !text-slate-800 dark:!text-slate-200 !text-[13px]",
-                    },
-                  }}
-                />
-              </div>
+              <CountryPhoneInput
+                value={formData.phone}
+                onChange={(phone) => setFormData({ ...formData, phone })}
+              />
             </div>
           </div>
 
